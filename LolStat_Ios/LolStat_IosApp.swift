@@ -1,4 +1,5 @@
 //
+//
 //  LolStat_IosApp.swift
 //  LolStat_Ios
 //
@@ -6,12 +7,18 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 @main
 struct LolStat_IosApp: App {
+    static let store = Store(initialState: UserStore.State()) {
+        UserStore()
+    }
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Main()
+            //User()
         }
     }
 }

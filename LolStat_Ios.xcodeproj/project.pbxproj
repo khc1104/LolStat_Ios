@@ -8,17 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		25B2480C2AFCD88A00C52952 /* LolStat_IosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B2480B2AFCD88A00C52952 /* LolStat_IosApp.swift */; };
-		25B2480E2AFCD88A00C52952 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B2480D2AFCD88A00C52952 /* ContentView.swift */; };
 		25B248102AFCD88B00C52952 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25B2480F2AFCD88B00C52952 /* Assets.xcassets */; };
 		25B248132AFCD88B00C52952 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25B248122AFCD88B00C52952 /* Preview Assets.xcassets */; };
+		25B2481A2AFCD95400C52952 /* Models in Resources */ = {isa = PBXBuildFile; fileRef = 25B248192AFCD95400C52952 /* Models */; };
+		25B248202AFCD99700C52952 /* Views in Resources */ = {isa = PBXBuildFile; fileRef = 25B2481D2AFCD99700C52952 /* Views */; };
+		25B248212AFCD99700C52952 /* Store in Resources */ = {isa = PBXBuildFile; fileRef = 25B2481E2AFCD99700C52952 /* Store */; };
+		25B248222AFCD99700C52952 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B2481F2AFCD99700C52952 /* Const.swift */; };
+		25B248252AFCDA6000C52952 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 25B248242AFCDA6000C52952 /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		25B248082AFCD88A00C52952 /* LolStat_Ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LolStat_Ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25B2480B2AFCD88A00C52952 /* LolStat_IosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LolStat_IosApp.swift; sourceTree = "<group>"; };
-		25B2480D2AFCD88A00C52952 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		25B2480F2AFCD88B00C52952 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		25B248122AFCD88B00C52952 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		25B248192AFCD95400C52952 /* Models */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Models; sourceTree = "<group>"; };
+		25B2481D2AFCD99700C52952 /* Views */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Views; sourceTree = "<group>"; };
+		25B2481E2AFCD99700C52952 /* Store */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Store; sourceTree = "<group>"; };
+		25B2481F2AFCD99700C52952 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Const.swift; path = LolStat_Ios/Const.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25B248252AFCDA6000C52952 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,8 +59,11 @@
 		25B2480A2AFCD88A00C52952 /* LolStat_Ios */ = {
 			isa = PBXGroup;
 			children = (
+				25B2481F2AFCD99700C52952 /* Const.swift */,
+				25B2481E2AFCD99700C52952 /* Store */,
+				25B2481D2AFCD99700C52952 /* Views */,
+				25B248192AFCD95400C52952 /* Models */,
 				25B2480B2AFCD88A00C52952 /* LolStat_IosApp.swift */,
-				25B2480D2AFCD88A00C52952 /* ContentView.swift */,
 				25B2480F2AFCD88B00C52952 /* Assets.xcassets */,
 				25B248112AFCD88B00C52952 /* Preview Content */,
 			);
@@ -83,6 +94,9 @@
 			dependencies = (
 			);
 			name = LolStat_Ios;
+			packageProductDependencies = (
+				25B248242AFCDA6000C52952 /* ComposableArchitecture */,
+			);
 			productName = LolStat_Ios;
 			productReference = 25B248082AFCD88A00C52952 /* LolStat_Ios.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +125,9 @@
 				Base,
 			);
 			mainGroup = 25B247FF2AFCD88A00C52952;
+			packageReferences = (
+				25B248232AFCDA6000C52952 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			productRefGroup = 25B248092AFCD88A00C52952 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -125,8 +142,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25B2481A2AFCD95400C52952 /* Models in Resources */,
 				25B248132AFCD88B00C52952 /* Preview Assets.xcassets in Resources */,
+				25B248212AFCD99700C52952 /* Store in Resources */,
 				25B248102AFCD88B00C52952 /* Assets.xcassets in Resources */,
+				25B248202AFCD99700C52952 /* Views in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,8 +157,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25B2480E2AFCD88A00C52952 /* ContentView.swift in Sources */,
 				25B2480C2AFCD88A00C52952 /* LolStat_IosApp.swift in Sources */,
+				25B248222AFCD99700C52952 /* Const.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,9 +290,12 @@
 				DEVELOPMENT_TEAM = 6PA7VULA6F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "롤스탯";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -299,9 +322,12 @@
 				DEVELOPMENT_TEAM = 6PA7VULA6F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "롤스탯";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -339,6 +365,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		25B248232AFCDA6000C52952 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		25B248242AFCDA6000C52952 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 25B248232AFCDA6000C52952 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 25B248002AFCD88A00C52952 /* Project object */;
 }
