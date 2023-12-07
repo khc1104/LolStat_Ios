@@ -1,13 +1,8 @@
 //
 //  Summoner.swift
-//  valorant_project
+//  LolStat_Ios
 //
-//  Created by 권희철 on 2023/11/02.
+//  Created by 권희철 on 2023/11/09.
 //
 
 import Foundation
-
-struct Summoner : Codable, Equatable {
-    let profile : Profile
-    let matches : [SimpleMatch]
-}
