@@ -15,9 +15,9 @@ struct Search: View{
     
     var body: some View{
             HStack{
-                SearchInput(store: valorant_projectApp.store)
+                SearchInput(store: LolStat_IosApp.store)
                 NavigationLink(destination: User()){
-                    SearchButton(store: valorant_projectApp.store)
+                    SearchButton(store: LolStat_IosApp.store)
                 }
                 
             }

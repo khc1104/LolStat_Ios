@@ -1,5 +1,5 @@
 //
-//  PerkIcon.swift
+//  ItemIcon.swift
 //  LolStat_Ios
 //
 //  Created by 권희철 on 12/7/23.
@@ -8,8 +8,8 @@
 import Foundation
 import SwiftUI
 
-struct PerkIcon: View{
-    let imageUrl : String = "https://image.lolstat.net/perk-images/Styles/Precision/FleetFootwork/FleetFootwork.png"
+struct ItemIcon: View{
+    let imageUrl : String = "https://image.lolstat.net/item/1056.png"
     let summonerLevel : Int64 = 99
     var body : some View{
             AsyncImage(url: URL(string:imageUrl)){ image in
@@ -17,10 +17,4 @@ struct PerkIcon: View{
             }
                 .frame(width: 24, height: 24)
         }
-}
-
-struct dontentView_Previews: PreviewProvider {
-  static var previews: some View {
-    Record()
-  }
 }

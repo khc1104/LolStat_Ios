@@ -7,10 +7,26 @@
 
 import SwiftUI
 
-struct UnderTabBar: View {
+struct ContentView: View {
+    init(){
+        UITabBar.appearance().scrollEdgeAppearance = .init()
+        //UITabBar.appearance().backgroundColor = .black
+    }
+    
     var body: some View {
         TabView{
-            
+            Main(store: LolStat_IosApp.store)
+                .tabItem{
+                    Image(systemName: "1.square.fill")
+                    Text("Home")
+                }
+            Text("랭킹")
+                .tabItem {
+                    Image(systemName: "2.square.fill")
+                    Text("Ranking")
+                }
         }
+        .accentColor(.green)
+        .font(.headline)
     }
 }

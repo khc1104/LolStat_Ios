@@ -11,12 +11,10 @@ import SwiftUI
 struct SummonerInfo : View{
     
     var body : some View{
-        GroupBox(){
             HStack{
                 SummonerIcon()
                 SummonerName()
                 SummonerTier()
             }
         }
-    }
 }

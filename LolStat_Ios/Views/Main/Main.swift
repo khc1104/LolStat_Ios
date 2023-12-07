@@ -7,20 +7,19 @@
 
 import Foundation
 import SwiftUI
+import ComposableArchitecture
 
 
 struct Main: View {
+    
+    let store: StoreOf<UserStore>
+    
     var body: some View{
-        VStack{
-            NavigationView{
+        NavigationStack {
+            WithViewStore(self.store, observe: {$0}) { viewStore in
                 Search()
+                
             }
         }
-    }
-}
-
-struct Main_Preview: PreviewProvider{
-    static var previews: some View{
-        Main()
     }
 }

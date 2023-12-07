@@ -1,5 +1,5 @@
 //
-//  PerkIcon.swift
+//  SpellIcon.swift
 //  LolStat_Ios
 //
 //  Created by 권희철 on 12/7/23.
@@ -8,8 +8,8 @@
 import Foundation
 import SwiftUI
 
-struct PerkIcon: View{
-    let imageUrl : String = "https://image.lolstat.net/perk-images/Styles/Precision/FleetFootwork/FleetFootwork.png"
+struct SpellIcon: View{
+    let imageUrl : String = "https://image.lolstat.net/spell/SummonerFlash.png"
     let summonerLevel : Int64 = 99
     var body : some View{
             AsyncImage(url: URL(string:imageUrl)){ image in
@@ -19,8 +19,3 @@ struct PerkIcon: View{
         }
 }
 
-struct dontentView_Previews: PreviewProvider {
-  static var previews: some View {
-    Record()
-  }
-}

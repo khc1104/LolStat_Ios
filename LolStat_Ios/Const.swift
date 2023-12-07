@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 struct Const{
     struct Server{
-        static let ADDRESS : String = "http://api.lolstat.net"
+        static let ADDRESS : String = "https://api.lolstat.net"
     }
     
     struct Screen{
