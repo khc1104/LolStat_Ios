@@ -27,7 +27,4 @@ struct SearchButton :View{
             .background(Color(uiColor: .secondarySystemBackground))
         }
     }
-    private func onTap(){
-        
-    }
 }

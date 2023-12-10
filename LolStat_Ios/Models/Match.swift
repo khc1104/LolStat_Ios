@@ -6,8 +6,11 @@
 //
 
 
-struct SimpleMatch : Codable, Equatable {
-    let matchId : String
+
+struct SimpleMatch : Codable, Equatable, Identifiable {
+    var matchId : String
+    
+    var id : String { matchId }
     enum gameMode : String{
         case CLASSIC = "소환사의 협곡"
         case ODIN = "몰?루Odin"

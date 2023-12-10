@@ -15,7 +15,7 @@ struct ContentView: View {
     
     var body: some View {
         TabView{
-            Main(store: LolStat_IosApp.store)
+            Main()
                 .tabItem{
                     Image(systemName: "1.square.fill")
                     Text("Home")

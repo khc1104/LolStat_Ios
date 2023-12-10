@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SummonerInfo : View{
     
+    let summonerInfo :Summoner
     var body : some View{
             HStack{
                 SummonerIcon()

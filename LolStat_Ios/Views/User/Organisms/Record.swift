@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 struct Record : View{
-    
+    let match : SimpleMatch
     var body: some View{
         HStack{
             VStack{
@@ -26,9 +26,3 @@ struct Record : View{
     }
 }
 
-
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    Record()
-  }
-}

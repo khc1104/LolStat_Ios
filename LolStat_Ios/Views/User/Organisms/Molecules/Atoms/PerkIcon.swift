@@ -18,9 +18,3 @@ struct PerkIcon: View{
                 .frame(width: 24, height: 24)
         }
 }
-
-struct dontentView_Previews: PreviewProvider {
-  static var previews: some View {
-    Record()
-  }
-}

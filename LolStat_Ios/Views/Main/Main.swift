@@ -12,14 +12,7 @@ import ComposableArchitecture
 
 struct Main: View {
     
-    let store: StoreOf<UserStore>
-    
     var body: some View{
-        NavigationStack {
-            WithViewStore(self.store, observe: {$0}) { viewStore in
                 Search()
-                
-            }
-        }
     }
 }

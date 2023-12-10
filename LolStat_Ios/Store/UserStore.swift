@@ -18,17 +18,17 @@ struct UserStore : Reducer{
         var summonerInfo : Summoner?
         var isLoading = false
         
+
     }
     
     /*
      액션
      */
-    enum Action: Equatable, BindableAction{
+    enum Action: BindableAction{
         case binding(BindingAction<State>)
         case searchUserInfo
         case userInfoResponse(Summoner)
         case movePage(String)
-        
     }
     
     /*
@@ -37,7 +37,6 @@ struct UserStore : Reducer{
     var body: some Reducer<State, Action> {
         BindingReducer()
         Reduce(self.core)
-        
     }
     
     func core(into state : inout State, action: Action) -> Effect<Action>{
@@ -72,34 +71,16 @@ struct UserStore : Reducer{
             return .none
             
             
-        case let .movePage(view):
-            //TODO : Handle action
+        case .movePage(_):
+            //페이지 이동
+            
             return .none
+
+            
+            
             //바인딩 상태들에 관한 액션
         case .binding:
             return .none
         }
-        
     }
-    /*
-    func getSummonerInfo(summonerName: String) async{
-        if let url  = URL(string: "\(Const.Server.ADDRESS)/summoner/\(summonerName)"){
-            do{
-                let (data, response) = try await URLSession.shared.data(from: url)
-                
-                if let httpResponse = response as? HTTPURLResponse{
-                    print("error \(httpResponse.statusCode)")
-                }
-                
-                let summonerInfo = try JSONDecoder().decode(Summoner.self, from: data)
-                
-            }catch{
-                print("GET Request Failed: ", error)
-            }
-        }
-    }
-    */
-    
-    
-    
 }

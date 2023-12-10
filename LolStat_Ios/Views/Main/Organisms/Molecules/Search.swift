@@ -14,12 +14,11 @@ struct Search: View{
     
     
     var body: some View{
-            HStack{
-                SearchInput(store: LolStat_IosApp.store)
-                NavigationLink(destination: User()){
-                    SearchButton(store: LolStat_IosApp.store)
-                }
-                
+        HStack{
+            SearchInput(store: LolStat_IosApp.store)
+            NavigationLink(destination: User(store: LolStat_IosApp.store)){
+                SearchButton(store: LolStat_IosApp.store)
             }
         }
+    }
 }
