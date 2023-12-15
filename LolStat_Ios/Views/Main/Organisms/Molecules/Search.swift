@@ -11,14 +11,44 @@ import SwiftUI
 
 
 struct Search: View{
-    
+    let store : StoreOf<UserStore>
     
     var body: some View{
-        HStack{
-            SearchInput(store: LolStat_IosApp.store)
-            NavigationLink(destination: User(store: LolStat_IosApp.store)){
-                SearchButton(store: LolStat_IosApp.store)
+        WithViewStore(self.store, observe: {$0}){ viewStore in
+            VStack{
+                Spacer()
+                Form{
+
+                    HStack{
+                        TextField("소환사 명", text: viewStore.$summonerName)
+                            .padding()
+                        Button("search"){
+                            viewStore.send(.searchUserInfo)
+                        }
+                            .padding()
+                            .disabled(viewStore.summonerName == "" ? true : false)
+                            .background(Color(uiColor: .secondarySystemBackground))
+                            .clipShape(
+                                RoundedRectangle(
+                                    cornerRadius: 8
+                                )
+                            )
+                    }
+                }
             }
         }
+    }
+}
+
+struct Preview_Search: PreviewProvider{
+    static var previews: some View{
+        Search(
+            store: .init(
+                initialState: .init(),
+                reducer:{
+                    UserStore()
+                        ._printChanges()
+                })
+        )
     }
 }

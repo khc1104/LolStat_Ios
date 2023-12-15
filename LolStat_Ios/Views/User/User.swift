@@ -25,7 +25,6 @@ struct User : View{
                         }
                     }
                 }
-                
             }else{
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: .blue))

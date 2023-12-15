@@ -17,8 +17,6 @@ struct UserStore : Reducer{
         @BindingState var summonerName : String = ""
         var summonerInfo : Summoner?
         var isLoading = false
-        
-
     }
     
     /*
@@ -27,20 +25,25 @@ struct UserStore : Reducer{
     enum Action: BindableAction{
         case binding(BindingAction<State>)
         case searchUserInfo
+        case searchButtonTapped
         case userInfoResponse(Summoner)
-        case movePage(String)
     }
     
     /*
      리듀서
      */
+    @Dependency (\.dismiss) var dismiss
     var body: some Reducer<State, Action> {
         BindingReducer()
+        
         Reduce(self.core)
     }
     
     func core(into state : inout State, action: Action) -> Effect<Action>{
         switch action{
+            //바인딩 상태들에 관한 액션
+        case .binding:
+            return .none
             // 유저 정보 검색
         case .searchUserInfo:
             state.summonerInfo = nil
@@ -59,6 +62,7 @@ struct UserStore : Reducer{
                     }
                     let summonerInfo = try JSONDecoder().decode(Summoner.self, from: data)
                     await send(.userInfoResponse(summonerInfo))
+                    await self.dismiss()
                 }
                 
             }
@@ -67,20 +71,15 @@ struct UserStore : Reducer{
         case let .userInfoResponse(summonerInfo):
             state.summonerInfo = summonerInfo
             state.isLoading = false
-            print(state.summonerInfo?.matches ?? "error")
+            //print(state.summonerInfo ?? "error")
             return .none
             
+        
+        case .searchButtonTapped:
             
-        case .movePage(_):
-            //페이지 이동
-            
-            return .none
-
-            
-            
-            //바인딩 상태들에 관한 액션
-        case .binding:
             return .none
         }
     }
+    
 }
+

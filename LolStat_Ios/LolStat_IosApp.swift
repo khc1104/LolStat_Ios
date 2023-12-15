@@ -11,15 +11,18 @@ import ComposableArchitecture
 
 @main
 struct LolStat_IosApp: App {
-    static let store = Store(initialState: UserStore.State()) {
+    static let mainStore = Store(initialState: MainStore.State()) {
+        MainStore()
+            ._printChanges()
+    }
+    static let userStore = Store(initialState: UserStore.State()){
         UserStore()
+            ._printChanges()
     }
     
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
-                ContentView()
-            }
+            ContentView()
         }
     }
 }

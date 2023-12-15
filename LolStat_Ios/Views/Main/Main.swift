@@ -13,6 +13,8 @@ import ComposableArchitecture
 struct Main: View {
     
     var body: some View{
-                Search()
+        NavigationStack{
+            Search(store: LolStat_IosApp.userStore)
+        }.navigationTitle("main")
     }
 }
