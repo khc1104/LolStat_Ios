@@ -10,16 +10,16 @@ import SwiftUI
 
 struct ChampionIcon: View{
     let imageUrl : String = "https://image.lolstat.net/champion/Akali.png"
-    let summonerLevel : Int64 = 99
+    let championLevel : Int64 = 99
     var body : some View{
         ZStack{
             AsyncImage(url: URL(string:imageUrl)){ image in
                 image.image?.resizable()
             }
-                .frame(width: 50, height: 50)
+            .frame(width: 50, height: 50)
             
                 
-            Text("\(summonerLevel)")
+            Text("\(championLevel)")
                 .foregroundColor(Color.white)
                 .background(Color.black)
                 .offset(x:15, y:15)

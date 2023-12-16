@@ -15,12 +15,16 @@ struct User : View{
     var body : some View{
         WithViewStore(self.store, observe: {$0}){ viewStore in
             if viewStore.isLoading == false{ //로딩이 끝나면
-                VStack(){
-                    SummonerInfo(summonerInfo: viewStore.summonerInfo!)
+                if(viewStore.summonerInfo == nil){
+                    Text("존재하지 않는 소환사입니다")
+                    //TODO: 존재하지 않는 소환사 페이지
+                }
+                ScrollView(){
+                    SummonerInfo(profile: viewStore.summonerInfo!.profile)
                         .padding()
                     
                     VStack(){
-                        ForEach(viewStore.summonerInfo!.matches){match in
+                        ForEach( viewStore.summonerInfo!.matches){match in
                             Record(match: match)
                         }
                     }
@@ -35,4 +39,15 @@ struct User : View{
     
 }
 
-
+struct Preview_User: PreviewProvider{
+    static var previews: some View{
+        User(store: .init(
+            initialState: .init(),
+            reducer:{
+                UserStore()
+                    ._printChanges()
+            }
+            )
+        )
+    }
+}

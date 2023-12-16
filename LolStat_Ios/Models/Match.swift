@@ -8,47 +8,128 @@
 
 
 struct SimpleMatch : Codable, Equatable, Identifiable {
-    var matchId : String
-    
     var id : String { matchId }
-    enum gameMode : String{
-        case CLASSIC = "소환사의 협곡"
-        case ODIN = "몰?루Odin"
-        case ARAM = "칼바람 나락"
-        case TUTORIAL = "튜토리얼"
-        case URF = "우르프"
-        case DOOMBOTSTEEMO = "초토화 봇 모드"
-        case ONEFORALL = "단일 챔피언"
-        case ASCENSION = "초월 모드"
-        case FIRSTBLOOD = "헥사킬"
-        case KINGPORO = "전설의 포로 왕"
-        case SIEGE = "넥서스 공성전"
-        case ASSASSINATE = "몰?루Assasinate"
-        case ARSR = "무작위 총력전"
-        case DARKSTAR = "암흑의 별"
-        case STARGUARDIAN = "clarhd ahem"
-        case PROJECT = "프로젝트 : 과충전 모드"
-        case GAMEMODEX = "몰?루gamemodex"
-        case ODYSSEY = "오디세이: 구출"
-        case NEXUSBLITZ = "돌격! 넥서스"
-        case ULTBOOK = "궁극기 주문서"
-    }
-    enum gameType : String{
-        case CUSTOM_GAME = "사용자 설정 게임"
-        case TUTORIAL_GAME = "튜토리얼"
-        case MATCHED_GAME = "매칭"
-    }
-    enum queueId : String{
-        case CUSTOM_GAME = "사용자 설정 게임"
-        case URF_GAME = "우르프 모드"
-        case DRAFT_GAME = "교차선택"
-        case DYNAMIC_RANK_GAME, FLEX_RANK_GAME  = "자유 랭크"
-        case SOLO_RANK_GAME = "솔로/듀오 랭크"
-        case NORMAL_GAME = "일반 게임"
-        case OTHER_GAME = "기타"
-    }
+    
+    let matchId : String
+    let gameMode : GameMode
+    let gameType : GameType
+    let queueId : QueueId
     let participants : [SimpleParticipant]
     
+}
+
+enum GameMode : String, Codable{
+    case CLASSIC = "CLASSIC"
+    case ODIN = "ODIN"
+    case ARAM = "ARAM"
+    case TUTORIAL = "TUTORIAL"
+    case URF = "URF"
+    case DOOMBOTSTEEMO = "DOOMBOTSTEEMO"
+    case ONEFORALL = "ONEFORALL"
+    case ASCENSION = "ASCENSION"
+    case FIRSTBLOOD = "FIRSTBLOOD"
+    case KINGPORO = "KINGPORO"
+    case SIEGE = "SIEGE"
+    case ASSASSINATE = "ASSASSINATE"
+    case ARSR = "ARSR"
+    case DARKSTAR = "DARKSTAR"
+    case STARGUARDIAN = "STARGUARDIAN"
+    case PROJECT = "PROJECT"
+    case GAMEMODEX = "GAMEMODEX"
+    case ODYSSEY = "ODYSSEY"
+    case NEXUSBLITZ = "NEXUSBLITZ"
+    case ULTBOOK = "ULTBOOK"
+    
+    func description() -> String{
+        switch self{
+        case .CLASSIC:
+            return "소환사의 협곡"
+        case .ODIN:
+            return "ODIN"
+        case .ARAM:
+            return "칼바람 나락"
+        case .TUTORIAL:
+            return "튜토리얼"
+        case .URF:
+            return "우르프"
+        case .DOOMBOTSTEEMO:
+            return "초토화 봇"
+        case .ONEFORALL:
+            return "단일 챔피언"
+        case .ASCENSION:
+            return "초월"
+        case .FIRSTBLOOD:
+            return "헥사킬"
+        case .KINGPORO:
+            return "포로왕"
+        case .SIEGE:
+            return "넥서스 공성전"
+        case .ASSASSINATE:
+            return "ASSASSINATE"
+        case .ARSR:
+            return "무작위 총력전"
+        case .DARKSTAR:
+            return "암흑의 별"
+        case .STARGUARDIAN:
+            return "별수호자"
+        case .PROJECT:
+            return "프로젝트: 과충전 모드"
+        case .GAMEMODEX:
+            return "GAMEMODEX"
+        case .ODYSSEY:
+            return "오디세이: 구출"
+        case .NEXUSBLITZ:
+            return "돌격! 넥서스"
+        case .ULTBOOK:
+            return "궁극기 주문서"
+        
+        }
+    }
+}
+enum GameType : String, Codable{
+    case CUSTOM_GAME = "CUSTOM_GAME"
+    case TUTORIAL_GAME = "TUTORIAL_GAME"
+    case MATCHED_GAME = "MATCHED_GAME"
+    
+    func description() -> String{
+        switch self{
+        case .CUSTOM_GAME:
+            return "사용자 설정 게임"
+        case .TUTORIAL_GAME:
+            return "튜토리얼"
+        case .MATCHED_GAME:
+            return "매칭"
+        }
+    }
+}
+enum QueueId : String, Codable{
+    case CUSTOM_GAME = "CUSTOM_GAME"
+    case URF_GAME = "URF_GAME"
+    case DRAFT_GAME = "DRAFT_GAME"
+    case DYNAMIC_RANK_GAME = "DYNAMIC_RANK_GAME"
+    case FLEX_RANK_GAME  = "FLEX_RANK_GAME"
+    case SOLO_RANK_GAME = "SOLO_RANK_GAME"
+    case NORMAL_GAME = "NORMAL_GAME"
+    case OTHER_GAME = "OTHER_GAME"
+    
+    func description() -> String{
+        switch self{
+        case .CUSTOM_GAME:
+            return "사용자 설정 게임"
+        case .URF_GAME:
+            return "우르프"
+        case .DRAFT_GAME:
+            return "교차선택"
+        case .DYNAMIC_RANK_GAME, .FLEX_RANK_GAME:
+            return "자유 랭크"
+        case .SOLO_RANK_GAME:
+            return "솔로/듀오 랭크"
+        case .NORMAL_GAME:
+            return "일반 게임"
+        case .OTHER_GAME:
+            return "기타"
+        }
+    }
 }
 
 struct SimpleParticipant : Codable, Equatable {

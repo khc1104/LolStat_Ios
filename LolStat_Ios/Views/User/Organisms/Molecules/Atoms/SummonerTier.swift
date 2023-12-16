@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 
 struct SummonerTier : View{
-    let queueType : String = "Solo Ranked"
-    let tier : String = "Gold"
+    var queueType : String = "Solo Ranked"
+    var tier : String = "Gold"
     
     var body : some View{
         ZStack{
@@ -23,3 +23,4 @@ struct SummonerTier : View{
         }
     }
 }
+

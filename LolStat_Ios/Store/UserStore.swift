@@ -62,7 +62,7 @@ struct UserStore : Reducer{
                     }
                     let summonerInfo = try JSONDecoder().decode(Summoner.self, from: data)
                     await send(.userInfoResponse(summonerInfo))
-                    await self.dismiss()
+                   // await self.dismiss()
                 }
                 
             }
