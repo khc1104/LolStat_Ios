@@ -12,12 +12,16 @@ struct SummonerInfo : View{
     
     let profile :Profile
     var body : some View{
+        VStack{
             HStack{
                 SummonerIcon(profileIcon: profile.profileIcon)
                 SummonerName(summonerName: profile.summonerName)
-                SummonerTier(queueType: profile.soloLeagueEntry.queueType.description())
-                SummonerTier(queueType: profile.flexLeagueEntry.queueType.description())
-                
+            }
+            HStack{
+                SummonerTier()
+                SummonerTier()
             }
         }
+        
+    }
 }

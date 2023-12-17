@@ -14,25 +14,26 @@ struct User : View{
     
     var body : some View{
         WithViewStore(self.store, observe: {$0}){ viewStore in
-            if viewStore.isLoading == false{ //로딩이 끝나면
-                if(viewStore.summonerInfo == nil){
-                    Text("존재하지 않는 소환사입니다")
-                    //TODO: 존재하지 않는 소환사 페이지
-                }
-                ScrollView(){
-                    SummonerInfo(profile: viewStore.summonerInfo!.profile)
-                        .padding()
-                    
-                    VStack(){
-                        ForEach( viewStore.summonerInfo!.matches){match in
-                            Record(match: match)
+            if viewStore.isLoading == true{
+                ProgressView()
+            }else{
+                if let summonerInfo = viewStore.summonerInfo{
+                    ScrollView(){
+                        SummonerInfo(profile: summonerInfo.profile)
+                            .padding()
+                        
+                        VStack(){
+                            ForEach(summonerInfo.matches){match in
+                                Record(match: match)
+                            }
                         }
                     }
+                }else{
+                    Text("존재하지 않는 소환사명입니다.")
+                    //TODO: 존재하지 않는 소환사 안내
                 }
-            }else{
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: .blue))
-                    .padding()
+                
+                
             }
         }
     }
