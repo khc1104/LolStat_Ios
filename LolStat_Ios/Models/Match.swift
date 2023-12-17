@@ -39,6 +39,7 @@ enum GameMode : String, Codable{
     case ODYSSEY = "ODYSSEY"
     case NEXUSBLITZ = "NEXUSBLITZ"
     case ULTBOOK = "ULTBOOK"
+    case UNKNOWN = "UNKNOWN"
     
     func description() -> String{
         switch self{
@@ -82,8 +83,13 @@ enum GameMode : String, Codable{
             return "돌격! 넥서스"
         case .ULTBOOK:
             return "궁극기 주문서"
-        
+        case .UNKNOWN:
+            return "기타"
         }
+    }
+    
+    init(from decoder: Decoder) throws{
+        self = try GameMode(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .UNKNOWN
     }
 }
 enum GameType : String, Codable{
