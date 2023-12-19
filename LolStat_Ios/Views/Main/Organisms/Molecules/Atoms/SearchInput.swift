@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct SearchInput: View{
-    let store: StoreOf<UserStore>
+    let store: StoreOf<MainStore>
     
     var body: some View{
         WithViewStore(self.store, observe: { $0 }){ viewStore in

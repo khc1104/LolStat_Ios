@@ -27,14 +27,14 @@ struct UserStore : Reducer{
         case binding(BindingAction<State>)
         case searchUserInfo
         case searchButtonTapped
-        case userInfoResponse(Summoner)
+        case userInfoResponse(Summoner?)
         case path(StackAction<UserStore.State, UserStore.Action>)
     }
     
     /*
      리듀서
      */
-    @Dependency (\.dismiss) var dismiss
+    //@Dependency (\.dismiss) var dismiss
     var body: some Reducer<State, Action> {
         BindingReducer()
         
@@ -44,6 +44,7 @@ struct UserStore : Reducer{
             }
     }
     
+    @Dependency(\.lolStatAPIClient) var lolStatAPI
     func core(into state : inout State, action: Action) -> Effect<Action>{
         switch action{
             //바인딩 상태들에 관한 액션
@@ -53,6 +54,7 @@ struct UserStore : Reducer{
         case .searchUserInfo:
             //state.summonerInfo = nil
             state.isLoading = true
+            /*
             let successRange = 200..<300
             
             return .run { [summonerName = state.summonerName] send in
@@ -69,17 +71,21 @@ struct UserStore : Reducer{
                     await send(.userInfoResponse(summonerInfo))
                     // await self.dismiss()
                 }
-                
             }
+            */
             
+            
+            return .run { [summonerName = state.summonerName] send in
+                let summonerInfo = try await lolStatAPI.requestSummonerInfoAPI(summonerName: summonerName)
+                await send (.userInfoResponse(summonerInfo))
+            }
+             
             // 유저 정보 리스폰스 받음
         case let .userInfoResponse(summonerInfo):
             state.summonerInfo = summonerInfo
             state.isLoading = false
-            state.summonerName = ""
             //print(state.summonerInfo ?? "error")
             return .none
-            
             
         case .searchButtonTapped:
             return .none

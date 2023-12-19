@@ -11,26 +11,25 @@ import SwiftUI
 
 
 struct Search: View{
-    let store : StoreOf<UserStore>
+    let store : StoreOf<MainStore>
     
     var body: some View{
-        NavigationStackStore(self.store.scope(state: \.path, action: UserStore.Action.path)){
+        NavigationStackStore(self.store.scope(state: \.path, action: MainStore.Action.path)){
             WithViewStore(self.store, observe: {$0}){ viewStore in
                 VStack{
                     Spacer()
                     Form{
                         
                         HStack{
-                            TextField("소환사 명", text: viewStore.$summonerName)
-                                .padding()
+                            TextField("소환사 이름", text: viewStore.$summonerName)
                             ZStack{
-                                NavigationLink(state: UserStore.State()){
+                                NavigationLink(state: UserStore.State(summonerName: viewStore.summonerName)){
                                      EmptyView()
                                 }
-                                .opacity(0)
-                                HStack{
+                                .opacity(1)
+                                /*HStack{
                                     Button("search"){
-                                        viewStore.send(.searchUserInfo)
+                                        viewStore.send(.searchButtonTapped)
                                      }
                                      .padding()
                                      .disabled(viewStore.summonerName == "" ? true : false)
@@ -40,7 +39,9 @@ struct Search: View{
                                             cornerRadius: 8
                                         )
                                      )
+                                     
                                 }
+                                 */
                             }
                         }
                     }
@@ -58,9 +59,10 @@ struct Preview_Search: PreviewProvider{
             store: .init(
                 initialState: .init(),
                 reducer:{
-                    UserStore()
+                    MainStore()
                         ._printChanges()
                 })
         )
     }
 }
+

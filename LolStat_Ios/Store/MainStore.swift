@@ -18,8 +18,8 @@ struct MainStore : Reducer{
      */
     struct State : Equatable{
         @BindingState var summonerName: String = ""
-        @PresentationState var userStore : UserStore.State?
-        
+        var path = StackState<UserStore.State>()
+        //@PresentationState var userStore = UserStore.State()
     }
     
     /*
@@ -28,17 +28,16 @@ struct MainStore : Reducer{
     enum Action: BindableAction{
         case binding(BindingAction<State>)
         case searchButtonTapped
-        case userStore(PresentationAction<UserStore.Action>)
-        
+        case path(StackAction<UserStore.State, UserStore.Action>)
+        //case userStore(PresentationAction<UserStore.Action>)
     }
     
     /*
      리듀서
      */
-    //@Dependency (\.dismiss) var dismiss
+    //@Dependency (\.lolStatAPIClient) var lolStatAPI
     var body: some ReducerOf<Self>{
         BindingReducer()
-
         
         Reduce { state, action in
             switch action{
@@ -46,17 +45,13 @@ struct MainStore : Reducer{
                 return .none
             case .searchButtonTapped:
                 return .none
-            //case .userStore(.presented(.searchUserInfo(summonerName: state.summonerName))):
-              //  guard let summonerInfo = state.userStore?.summonerInfo
-                //else { return .none}
-                
-                //return .none
-            case .userStore:
+            case .path:
                 return .none
             }
         }
-        .ifLet(\.$userStore, action: /Action.userStore){
+        .forEach(\.path, action: /Action.path){
             UserStore()
         }
+
     }
 }

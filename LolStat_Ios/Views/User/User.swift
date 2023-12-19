@@ -14,26 +14,18 @@ struct User : View{
     
     var body : some View{
         WithViewStore(self.store, observe: {$0}){ viewStore in
-            if viewStore.isLoading == true{
+            if viewStore.isLoading{
                 ProgressView()
-            }else{
-                if let summonerInfo = viewStore.summonerInfo{
-                    ScrollView(){
-                        SummonerInfo(profile: summonerInfo.profile)
-                            .padding()
-                        
-                        VStack(){
-                            ForEach(summonerInfo.matches){match in
-                                Record(match: match)
-                            }
-                        }
+                    .onAppear{
+                        viewStore.send(.searchUserInfo)
                     }
+            }
+            else{
+                if let summonerInfo = viewStore.summonerInfo{
+                    SummonerInfoPage(summonerInfo: summonerInfo)
                 }else{
-                    Text("존재하지 않는 소환사명입니다.")
-                    //TODO: 존재하지 않는 소환사 안내
+                    Text("존재하지 않는 소환사 입니다.")
                 }
-                
-                
             }
         }
     }
