@@ -9,13 +9,20 @@ import Foundation
 import SwiftUI
 
 struct SpellIcon: View{
-    let imageUrl : String = "https://image.lolstat.net/spell/SummonerFlash.png"
+    let spell : Spell
     let summonerLevel : Int64 = 99
     var body : some View{
-            AsyncImage(url: URL(string:imageUrl)){ image in
-                image.image?.resizable()
-            }
+        if spell.image == ""{
+            Rectangle()
+                .background(.white)
                 .frame(width: 24, height: 24)
         }
+        else{
+            AsyncImage(url: URL(string:spell.image)){ image in
+                image.image?.resizable()
+            }
+            .frame(width: 24, height: 24)
+        }
+    }
 }
 

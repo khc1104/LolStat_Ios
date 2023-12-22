@@ -9,11 +9,11 @@ import Foundation
 import SwiftUI
 
 struct ChampionIcon: View{
-    let imageUrl : String = "https://image.lolstat.net/champion/Akali.png"
-    let championLevel : Int64 = 99
+    let champion : Champion
+    let championLevel: Int32
     var body : some View{
         ZStack{
-            AsyncImage(url: URL(string:imageUrl)){ image in
+            AsyncImage(url: URL(string:champion.image)){ image in
                 image.image?.resizable()
             }
             .frame(width: 50, height: 50)

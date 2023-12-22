@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct SummonerTier : View{
-    //var rankInfo : LeagueEntry
+    var rankInfo : LeagueEntry
     var queueType : String = "솔로 랭크"
     var tier : String = "골드"
     var imageUrl: String = "https://www.lolstat.net/gold.webp"
@@ -21,7 +21,7 @@ struct SummonerTier : View{
     var body : some View{
         VStack{
             ZStack{
-                Text(queueType)
+                Text(rankInfo.queueType.description())
                     .foregroundStyle(.white)
                     
             }
@@ -45,16 +45,25 @@ struct SummonerTier : View{
                     Circle()
                 )
                 //.frame(width: 70, height: 70)
-                Text(tier)
-                Text(rank)
-                Text("\(rankPoint)lp")
+                Text(rankInfo.tier.description())
+                Text(rankInfo.rank.description())
+                Text("\(rankInfo.leaguePoints)lp")
                 VStack{
-                    Text("\(wins)승\(losses)패")
-                    let percent = wins/(wins+losses)*100
-                    Text("승률\(percent)%")
+                    Text("\(rankInfo.wins)승\(rankInfo.losses)패")
+                    
+                    Text("승률\(getPercent(wins:rankInfo.wins ,losses:rankInfo.losses))%")
                 }
                 .font(.custom("percent", fixedSize: 10))
             }
+        }
+    }
+    
+    func getPercent(wins:Int32, losses:Int32) -> Int{
+        if wins+losses > 0{
+            var percent = Float(wins)/Float(wins+losses) * 100
+            return Int(percent.rounded())
+        }else{
+            return 0
         }
     }
 }

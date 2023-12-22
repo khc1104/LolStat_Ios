@@ -9,9 +9,9 @@ import Foundation
 import SwiftUI
 
 struct KDA : View {
-    var kill : Int
-    var death : Int
-    var assist : Int
+    var kill : Int32
+    var death : Int32
+    var assist : Int32
     
     var body: some View {
         HStack(spacing: 2){

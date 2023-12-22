@@ -9,11 +9,12 @@ import Foundation
 import SwiftUI
 
 struct SpellGroup : View{
+    let spells: [Spell]
     
     var body : some View{
         VStack(spacing: 0){
-            ForEach(1..<3){ spell in
-                SpellIcon()
+            ForEach(0..<2){ i in
+                SpellIcon(spell: spells[i])
             }
         }
     }

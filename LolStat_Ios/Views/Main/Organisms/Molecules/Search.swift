@@ -52,7 +52,7 @@ struct Search: View{
         }
     }
 }
-
+/*
 struct Preview_Search: PreviewProvider{
     static var previews: some View{
         Search(
@@ -65,4 +65,4 @@ struct Preview_Search: PreviewProvider{
         )
     }
 }
-
+*/

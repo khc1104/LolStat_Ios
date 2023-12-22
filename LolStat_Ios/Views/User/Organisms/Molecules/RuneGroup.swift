@@ -8,11 +8,12 @@
 import Foundation
 import SwiftUI
 
-struct PerkGroup : View{
+struct RuneGroup : View{
+    let runes : [Rune]
     var body : some View{
         VStack(spacing: 0){
-            ForEach(1..<3){ spell in
-                PerkIcon()
+            ForEach(0..<2){ i in
+                RuneIcon(rune: runes[i])
             }
         }
     }

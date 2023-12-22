@@ -21,8 +21,10 @@ struct User : View{
                     }
             }
             else{
-                if let summonerInfo = viewStore.summonerInfo{
-                    SummonerInfoPage(summonerInfo: summonerInfo)
+                if let summonerInfo = viewStore.summonerInfo, let matches = viewStore.searchedSummonerMatches
+                {
+                    SummonerInfoPage(profile: summonerInfo.profile,
+                                     matches: matches)
                 }else{
                     Text("존재하지 않는 소환사 입니다.")
                 }
@@ -31,7 +33,7 @@ struct User : View{
     }
     
 }
-
+/*
 struct Preview_User: PreviewProvider{
     static var previews: some View{
         User(store: .init(
@@ -44,3 +46,4 @@ struct Preview_User: PreviewProvider{
         )
     }
 }
+*/

@@ -18,8 +18,8 @@ struct SummonerInfo : View{
                 SummonerName(summonerName: profile.summonerName)
             }
             HStack{
-                SummonerTier()
-                SummonerTier()
+                SummonerTier(rankInfo: profile.soloLeagueEntry)
+                SummonerTier(rankInfo: profile.flexLeagueEntry)
             }
         }
         

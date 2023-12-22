@@ -13,13 +13,14 @@
 		2506AB572B21E82D0029D95A /* SpellIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506AB562B21E82D0029D95A /* SpellIcon.swift */; };
 		2506AB592B21EAB80029D95A /* SpellGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506AB582B21EAB80029D95A /* SpellGroup.swift */; };
 		2506AB5B2B21ECB70029D95A /* ItemGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506AB5A2B21ECB70029D95A /* ItemGroup.swift */; };
-		2506AB5D2B21EDE50029D95A /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506AB5C2B21EDE50029D95A /* Record.swift */; };
-		255759D12B21F10500203F71 /* PerkIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255759D02B21F10500203F71 /* PerkIcon.swift */; };
-		255759D32B21F19300203F71 /* PerkGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255759D22B21F19300203F71 /* PerkGroup.swift */; };
+		2506AB5D2B21EDE50029D95A /* MatchInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506AB5C2B21EDE50029D95A /* MatchInfo.swift */; };
+		255759D12B21F10500203F71 /* RuneIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255759D02B21F10500203F71 /* RuneIcon.swift */; };
+		255759D32B21F19300203F71 /* RuneGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255759D22B21F19300203F71 /* RuneGroup.swift */; };
 		255759D52B21F28300203F71 /* KDA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255759D42B21F28300203F71 /* KDA.swift */; };
 		2563321F2B2C669C008A7F3D /* Pasing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2563321E2B2C669C008A7F3D /* Pasing.swift */; };
 		2568AC702B2F4ECD00DBAD3E /* LolStatAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568AC6F2B2F4ECD00DBAD3E /* LolStatAPI.swift */; };
 		2568AC722B3046BE00DBAD3E /* SummonerInfoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568AC712B3046BE00DBAD3E /* SummonerInfoPage.swift */; };
+		2568AC742B31864F00DBAD3E /* MatchChampionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2568AC732B31864F00DBAD3E /* MatchChampionInfo.swift */; };
 		2570B0942B288982006F6FB6 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570B0932B288982006F6FB6 /* AppStore.swift */; };
 		25A8BF392B25D9D500240D05 /* response1.json in Resources */ = {isa = PBXBuildFile; fileRef = 25A8BF382B25D9D500240D05 /* response1.json */; };
 		25A8BF3B2B26F4EC00240D05 /* MainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A8BF3A2B26F4EC00240D05 /* MainStore.swift */; };
@@ -52,13 +53,14 @@
 		2506AB562B21E82D0029D95A /* SpellIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellIcon.swift; sourceTree = "<group>"; };
 		2506AB582B21EAB80029D95A /* SpellGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellGroup.swift; sourceTree = "<group>"; };
 		2506AB5A2B21ECB70029D95A /* ItemGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemGroup.swift; sourceTree = "<group>"; };
-		2506AB5C2B21EDE50029D95A /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
-		255759D02B21F10500203F71 /* PerkIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerkIcon.swift; sourceTree = "<group>"; };
-		255759D22B21F19300203F71 /* PerkGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerkGroup.swift; sourceTree = "<group>"; };
+		2506AB5C2B21EDE50029D95A /* MatchInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchInfo.swift; sourceTree = "<group>"; };
+		255759D02B21F10500203F71 /* RuneIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuneIcon.swift; sourceTree = "<group>"; };
+		255759D22B21F19300203F71 /* RuneGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuneGroup.swift; sourceTree = "<group>"; };
 		255759D42B21F28300203F71 /* KDA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KDA.swift; sourceTree = "<group>"; };
 		2563321E2B2C669C008A7F3D /* Pasing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pasing.swift; sourceTree = "<group>"; };
 		2568AC6F2B2F4ECD00DBAD3E /* LolStatAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LolStatAPI.swift; sourceTree = "<group>"; };
 		2568AC712B3046BE00DBAD3E /* SummonerInfoPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummonerInfoPage.swift; sourceTree = "<group>"; };
+		2568AC732B31864F00DBAD3E /* MatchChampionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchChampionInfo.swift; sourceTree = "<group>"; };
 		2570B0932B288982006F6FB6 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		25A8BF382B25D9D500240D05 /* response1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response1.json; sourceTree = "<group>"; };
 		25A8BF3A2B26F4EC00240D05 /* MainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStore.swift; sourceTree = "<group>"; };
@@ -230,7 +232,6 @@
 			isa = PBXGroup;
 			children = (
 				25B2483E2AFCF17D00C52952 /* Molecules */,
-				2506AB5C2B21EDE50029D95A /* Record.swift */,
 				2568AC712B3046BE00DBAD3E /* SummonerInfoPage.swift */,
 			);
 			path = Organisms;
@@ -243,7 +244,9 @@
 				25B248432AFCF17D00C52952 /* SummonerInfo.swift */,
 				2506AB582B21EAB80029D95A /* SpellGroup.swift */,
 				2506AB5A2B21ECB70029D95A /* ItemGroup.swift */,
-				255759D22B21F19300203F71 /* PerkGroup.swift */,
+				255759D22B21F19300203F71 /* RuneGroup.swift */,
+				2568AC732B31864F00DBAD3E /* MatchChampionInfo.swift */,
+				2506AB5C2B21EDE50029D95A /* MatchInfo.swift */,
 			);
 			path = Molecules;
 			sourceTree = "<group>";
@@ -257,7 +260,7 @@
 				2506AB502B21D8920029D95A /* ChampionIcon.swift */,
 				2506AB542B21E2E00029D95A /* ItemIcon.swift */,
 				2506AB562B21E82D0029D95A /* SpellIcon.swift */,
-				255759D02B21F10500203F71 /* PerkIcon.swift */,
+				255759D02B21F10500203F71 /* RuneIcon.swift */,
 				255759D42B21F28300203F71 /* KDA.swift */,
 			);
 			path = Atoms;
@@ -379,11 +382,12 @@
 				25B248312AFCDD5F00C52952 /* Summoner.swift in Sources */,
 				25B248282AFCDD0200C52952 /* UserStore.swift in Sources */,
 				25B2482F2AFCDD5400C52952 /* Profile.swift in Sources */,
-				255759D12B21F10500203F71 /* PerkIcon.swift in Sources */,
+				255759D12B21F10500203F71 /* RuneIcon.swift in Sources */,
+				2568AC742B31864F00DBAD3E /* MatchChampionInfo.swift in Sources */,
 				2563321F2B2C669C008A7F3D /* Pasing.swift in Sources */,
 				2506AB592B21EAB80029D95A /* SpellGroup.swift in Sources */,
 				25B248562AFCF17D00C52952 /* Search.swift in Sources */,
-				255759D32B21F19300203F71 /* PerkGroup.swift in Sources */,
+				255759D32B21F19300203F71 /* RuneGroup.swift in Sources */,
 				25A8BF3D2B26F4FB00240D05 /* RankingStore.swift in Sources */,
 				25B2482B2AFCDD4600C52952 /* Account.swift in Sources */,
 				25B248542AFCF17D00C52952 /* SearchInput.swift in Sources */,
@@ -395,7 +399,7 @@
 				2568AC702B2F4ECD00DBAD3E /* LolStatAPI.swift in Sources */,
 				25B2480C2AFCD88A00C52952 /* LolStat_IosApp.swift in Sources */,
 				25B2482D2AFCDD4E00C52952 /* Match.swift in Sources */,
-				2506AB5D2B21EDE50029D95A /* Record.swift in Sources */,
+				2506AB5D2B21EDE50029D95A /* MatchInfo.swift in Sources */,
 				25B2484E2AFCF17D00C52952 /* SummonerTier.swift in Sources */,
 				25B248222AFCD99700C52952 /* Const.swift in Sources */,
 				2506AB512B21D8920029D95A /* ChampionIcon.swift in Sources */,

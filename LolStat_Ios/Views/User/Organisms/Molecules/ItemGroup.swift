@@ -9,21 +9,22 @@ import Foundation
 import SwiftUI
 
 struct ItemGroup : View{
+    let items: [Item]
     var body : some View{
         HStack(spacing : 1){
             VStack(spacing : 1){
                 HStack(spacing : 1){
-                    ForEach(1..<4){ i in
-                        ItemIcon()
+                    ForEach(0..<3){ i in
+                        ItemIcon(item:items[i])
                     }
                 }
                 HStack(spacing : 1){
-                    ForEach(4..<7){ i in
-                        ItemIcon()
+                    ForEach(3..<6){ i in
+                        ItemIcon(item:items[i])
                     }
                 }
             }
-            ItemIcon()
+            ItemIcon(item:items[6])
         }
     }
 }

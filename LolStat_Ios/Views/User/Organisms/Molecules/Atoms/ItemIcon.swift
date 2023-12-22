@@ -9,12 +9,17 @@ import Foundation
 import SwiftUI
 
 struct ItemIcon: View{
-    let imageUrl : String = "https://image.lolstat.net/item/1056.png"
-    let summonerLevel : Int64 = 99
+    let item: Item
     var body : some View{
-            AsyncImage(url: URL(string:imageUrl)){ image in
+        if item.image == ""{
+            Rectangle()
+                .frame(width: 24, height:24)
+                .background(.white)
+        }else{
+            AsyncImage(url: URL(string:item.image)){ image in
                 image.image?.resizable()
             }
-                .frame(width: 24, height: 24)
+            .frame(width: 24, height: 24)
         }
+    }
 }

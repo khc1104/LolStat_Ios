@@ -10,14 +10,17 @@ import SwiftUI
 import ComposableArchitecture
 
 struct SummonerInfoPage: View{
-    let summonerInfo : Summoner
+    let profile : Profile
+    let matches : [SimpleMatch]
+    
     var body: some View{
+        
         ScrollView(){
-            SummonerInfo(profile: summonerInfo.profile)
+            SummonerInfo(profile: profile)
                 .padding()
             VStack(){
-                ForEach(summonerInfo.matches){match in
-                    Record(match: match)
+                ForEach(matches){match in
+                    MatchInfo(match: match)
                 }
             }
         }

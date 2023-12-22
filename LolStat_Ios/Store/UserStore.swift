@@ -16,6 +16,7 @@ struct UserStore : Reducer{
     struct State : Equatable{
         @BindingState var summonerName : String = ""
         var summonerInfo : Summoner?
+        var searchedSummonerMatches: [SimpleMatch]?
         var isLoading = true
         var path = StackState<UserStore.State>()
     }
@@ -28,6 +29,7 @@ struct UserStore : Reducer{
         case searchUserInfo
         case searchButtonTapped
         case userInfoResponse(Summoner?)
+        case getSummonerMatch(Summoner?)
         case path(StackAction<UserStore.State, UserStore.Action>)
     }
     
@@ -52,42 +54,38 @@ struct UserStore : Reducer{
             return .none
             // 유저 정보 검색
         case .searchUserInfo:
-            //state.summonerInfo = nil
             state.isLoading = true
-            /*
-            let successRange = 200..<300
-            
-            return .run { [summonerName = state.summonerName] send in
-                let (data, response) = try await URLSession.shared
-                    .data(from:URL(string: "\(Const.Server.ADDRESS)/summoner/\(summonerName)")!)
-                
-                if let httpResponse = response as? HTTPURLResponse{
-                    guard successRange.contains(httpResponse.statusCode)else{
-                        print("error \(httpResponse.statusCode)")
-                        print(httpResponse.url!)
-                        return
-                    }
-                    let summonerInfo = try JSONDecoder().decode(Summoner.self, from: data)
-                    await send(.userInfoResponse(summonerInfo))
-                    // await self.dismiss()
-                }
-            }
-            */
-            
-            
             return .run { [summonerName = state.summonerName] send in
                 let summonerInfo = try await lolStatAPI.requestSummonerInfoAPI(summonerName: summonerName)
                 await send (.userInfoResponse(summonerInfo))
+                await send (.getSummonerMatch(summonerInfo))
             }
              
             // 유저 정보 리스폰스 받음
         case let .userInfoResponse(summonerInfo):
             state.summonerInfo = summonerInfo
             state.isLoading = false
-            //print(state.summonerInfo ?? "error")
             return .none
             
         case .searchButtonTapped:
+            return .none
+        case let .getSummonerMatch(summonerInfo):
+            if let summoner = summonerInfo{
+                let searchedMatches = summoner.matches.compactMap{match in
+                    SimpleMatch(matchId: match.matchId,
+                                gameMode: match.gameMode,
+                                gameType: match.gameType,
+                                queueId: match.queueId,
+                                participants:
+                    match.participants.filter{
+                        $0.summonerName == summoner.profile.summonerName
+                    })
+                }
+                
+                state.searchedSummonerMatches = searchedMatches
+            }else{
+                print("participant ERROR")
+            }
             return .none
         case .path:
             return .none

@@ -15,6 +15,7 @@ struct LolStat_IosApp: App {
         MainStore()
             ._printChanges()
     }
+    
     static let userStore = Store(initialState: UserStore.State()){
         UserStore()
             ._printChanges()

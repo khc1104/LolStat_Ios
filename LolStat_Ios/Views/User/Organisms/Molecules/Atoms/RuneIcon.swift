@@ -8,11 +8,17 @@
 import Foundation
 import SwiftUI
 
-struct PerkIcon: View{
-    let imageUrl : String = "https://image.lolstat.net/perk-images/Styles/Precision/FleetFootwork/FleetFootwork.png"
+struct RuneIcon: View{
+    let rune : Rune
     let summonerLevel : Int64 = 99
     var body : some View{
-            AsyncImage(url: URL(string:imageUrl)){ image in
+        if rune.image == ""{
+            Rectangle()
+                .background(.white)
+                .frame(width: 24, height: 24)
+        }
+        
+        AsyncImage(url: URL(string:rune.image)){ image in
                 image.image?.resizable()
             }
                 .frame(width: 24, height: 24)
