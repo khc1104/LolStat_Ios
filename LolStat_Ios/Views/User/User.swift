@@ -23,7 +23,7 @@ struct User : View{
             else{
                 if let summonerInfo = viewStore.summonerInfo, let matches = viewStore.searchedSummonerMatches
                 {
-                    SummonerInfoPage(profile: summonerInfo.profile,
+                    SummonerInfoPage(store: store, profile: summonerInfo.profile,
                                      matches: matches)
                 }else{
                     Text("존재하지 않는 소환사 입니다.")

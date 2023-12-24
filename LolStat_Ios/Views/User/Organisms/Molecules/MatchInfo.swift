@@ -12,7 +12,6 @@ import ComposableArchitecture
 
 struct MatchInfo : View{
     let match : SimpleMatch
-    
     var body: some View{
         HStack{
             VStack{
@@ -25,7 +24,6 @@ struct MatchInfo : View{
         .background(
             match.participants.first!.win ?
                 .mint : .pink
-            
         )
     }
 }

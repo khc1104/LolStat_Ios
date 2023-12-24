@@ -157,8 +157,8 @@ struct SimpleParticipant : Codable, Equatable {
 }
     
 struct Champion : Codable, Equatable {
-    let name : String
-    let description : String
+    let name : String?
+    let description : String?
     let image : String
 }
     

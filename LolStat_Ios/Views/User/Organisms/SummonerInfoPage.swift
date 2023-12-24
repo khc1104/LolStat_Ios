@@ -10,17 +10,26 @@ import SwiftUI
 import ComposableArchitecture
 
 struct SummonerInfoPage: View{
-    let profile : Profile
-    let matches : [SimpleMatch]
+    let store : StoreOf<UserStore>
+    let profile: Profile
+    let matches: [SimpleMatch]
     
     var body: some View{
-        
-        ScrollView(){
-            SummonerInfo(profile: profile)
-                .padding()
-            VStack(){
-                ForEach(matches){match in
-                    MatchInfo(match: match)
+        WithViewStore(self.store, observe: {$0}){ viewStore in
+            ScrollView(){
+                SummonerInfo(profile: profile)
+                    .padding()
+                VStack(){
+                    ForEach(matches){match in
+                        MatchInfo(match: match)
+                            .onTapGesture {
+                                viewStore.send(.matchInfoTapped(matchId: match.matchId))
+                            }
+                            .fullScreenCover(isPresented: viewStore.$enableSheet) {
+                                MatchDetail(store: store)
+                                    
+                            }
+                    }
                 }
             }
         }
