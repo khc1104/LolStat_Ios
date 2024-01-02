@@ -20,6 +20,10 @@ struct LolStat_IosApp: App {
         UserStore()
             ._printChanges()
     }
+    static let rankingStore = Store(initialState: RankingStore.State()){
+        RankingStore()
+            ._printChanges()
+    }
     
     var body: some Scene {
         WindowGroup {

@@ -84,6 +84,7 @@ struct UserStore : Reducer{
         case .dismissMatchDetail:
             state.enableSheet = !state.enableSheet
             
+            return .none
             //return .run{_ in await self.dismiss()}
             
         case let .getSummonerMatch(summonerInfo):

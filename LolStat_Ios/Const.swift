@@ -18,3 +18,8 @@ struct Const{
     }
     
 }
+
+enum LeaderBoard_QueueType: String{
+    case Solo = "solo_rank"
+    case Flex = "felx_rank"
+}

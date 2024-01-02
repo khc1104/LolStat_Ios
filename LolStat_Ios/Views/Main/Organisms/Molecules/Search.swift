@@ -21,7 +21,7 @@ struct Search: View{
                     Form{
                         
                         HStack{
-                            TextField("소환사 이름", text: viewStore.$summonerName)
+                            TextField("소환사이름 #KR1", text: viewStore.$summonerName)
                             ZStack{
                                 NavigationLink(state: UserStore.State(summonerName: viewStore.summonerName)){
                                      EmptyView()
