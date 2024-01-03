@@ -60,8 +60,17 @@ struct UserStore : Reducer{
             // 유저 정보 검색
         case .searchUserInfo:
             state.isLoading = true
-            return .run { [summonerName = state.summonerName] send in
-                let summonerInfo = try await lolStatAPI.requestSummonerInfoAPI(summonerName: summonerName)
+            let nameTag : String
+            if state.summonerName.contains(/\#/){
+                let splitName = state.summonerName.split(separator: "#")
+                nameTag = splitName[0] + "-" + splitName[1]
+            }else{
+                nameTag = state.summonerName+"-KR1"
+            }
+            
+            print(nameTag)
+            return .run { /*[summonerName = state.summonerName]*/ send in
+                let summonerInfo = try await lolStatAPI.requestSummonerInfoAPI(summonerName: nameTag)
                 await send (.userInfoResponse(summonerInfo))
                 await send (.getSummonerMatch(summonerInfo))
             }
