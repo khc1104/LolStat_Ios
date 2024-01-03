@@ -11,10 +11,15 @@ import SwiftUI
 struct MatchChampionInfo: View{
     var participant : SimpleParticipant
     var body: some View{
-        ChampionIcon(champion: participant.champion, championLevel: participant.championLevel)
-        SpellGroup(spells: participant.spells)
-        RuneGroup(runes: [participant.mainRune, participant.subRune])
-        KDA(kill: participant.kills, death: participant.deaths, assist: participant.assists)
-        ItemGroup(items:participant.items)
+        VStack(alignment: .leading){
+            HStack{
+                ChampionIcon(champion: participant.champion, championLevel: participant.championLevel)
+                SpellGroup(spells: participant.spells)
+                RuneGroup(runes: [participant.mainRune, participant.subRune])
+                KDA(kill: participant.kills, death: participant.deaths, assist: participant.assists)
+            }
+            ItemGroup(items:participant.items)
+                
+        }
     }
 }

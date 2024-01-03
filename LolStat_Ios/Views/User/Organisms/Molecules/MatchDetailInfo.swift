@@ -14,11 +14,19 @@ struct MatchDetailInfo : View {
     var body: some View {
         
         HStack{
-            Text(participant.summonerName)
-                .frame(width: 80)
-            MatchChampionInfo(participant: participant)
+            ChampionIcon(champion: participant.champion, championLevel: participant.championLevel)
+            SpellGroup(spells: participant.spells)
+            RuneGroup(runes: [participant.mainRune, participant.subRune])
+            VStack{
+                Text(participant.summonerName)
+                KDA(kill: participant.kills, death: participant.deaths, assist: participant.assists)
+                    
+            }
+            .frame(width: Const.Screen.WIDTH * 0.2)
+            .font(.custom("matchdetail_summonername", fixedSize: 12))
+            ItemGroup(items:participant.items, size: 24)
         }
         .background(participant.win == true ? .blue : .pink)
-        .frame(minWidth: Const.Screen.WIDTH)
+        .frame(width: Const.Screen.WIDTH)
     }
 }

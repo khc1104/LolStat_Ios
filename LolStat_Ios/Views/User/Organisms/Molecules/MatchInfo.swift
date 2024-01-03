@@ -14,11 +14,17 @@ struct MatchInfo : View{
     let match : SimpleMatch
     var body: some View{
         HStack{
+            MatchChampionInfo(participant: match.participants.first!)
+                .frame(width:Const.Screen.WIDTH * 0.7)
+            
             VStack{
                 Text(match.queueId.description())
                     .font(.custom("gamemode", size : 15))
-            }.padding()
-            MatchChampionInfo(participant: match.participants.first!)
+                    .frame(width: Const.Screen.WIDTH * 0.3)
+                    .padding()
+                Spacer()
+            }
+            
         }
         .frame(width: Const.Screen.WIDTH)
         .background(
