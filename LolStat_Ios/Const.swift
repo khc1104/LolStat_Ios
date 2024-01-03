@@ -10,6 +10,7 @@ import SwiftUI
 struct Const{
     struct Server{
         static let ADDRESS : String = "https://api.lolstat.net"
+        static let IMGAGE_ADDRESS: String = "https://lolstat.net"
     }
     
     struct Screen{

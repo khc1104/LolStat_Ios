@@ -78,6 +78,33 @@ enum Tier : String, Codable{
             return "UNRANKED"
         }
     }
+    
+    func imageUrl() -> String{
+        switch self{
+        case .CHALLENGER:
+            return "/challenger.webp"
+        case .GRANDMASTER:
+            return "/grandmaster.webp"
+        case .MASTER:
+            return "/master.webp"
+        case .DIAMOND:
+            return "/diamond.webp"
+        case .EMERALD:
+            return "/emerald.webp"
+        case .PLATINUM:
+            return "/platinum.webp"
+        case .GOLD:
+            return "/gold.webp"
+        case .SILVER:
+            return "/silver.webp"
+        case .BRONZE:
+            return "/bronze.webp"
+        case .IRON:
+            return "/iron.webp"
+        case .UNRANKED:
+            return "/unranked.webp"
+        }
+    }
 }
 enum Rank : String, Codable{
     case RANK_ONE = "RANK_ONE"
@@ -97,7 +124,7 @@ enum Rank : String, Codable{
         case .RANK_FOUR:
             return "IV"
         case .UNRANKED:
-            return "UNRANKED"
+            return ""
         }
     }
 }

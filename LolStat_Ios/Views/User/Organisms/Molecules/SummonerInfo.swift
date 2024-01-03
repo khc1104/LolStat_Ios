@@ -17,9 +17,11 @@ struct SummonerInfo : View{
                 SummonerIcon(profileIcon: profile.profileIcon)
                 SummonerName(summonerName: profile.summonerName)
             }
-            HStack{
-                SummonerTier(rankInfo: profile.soloLeagueEntry)
-                SummonerTier(rankInfo: profile.flexLeagueEntry)
+            ScrollView(.horizontal){
+                HStack{
+                    SummonerTier(rankInfo: profile.soloLeagueEntry)
+                    SummonerTier(rankInfo: profile.flexLeagueEntry)
+                }
             }
         }
         

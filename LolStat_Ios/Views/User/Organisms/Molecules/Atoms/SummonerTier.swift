@@ -10,13 +10,6 @@ import SwiftUI
 
 struct SummonerTier : View{
     var rankInfo : LeagueEntry
-    var queueType : String = "솔로 랭크"
-    var tier : String = "골드"
-    var imageUrl: String = "https://www.lolstat.net/gold.webp"
-    var rank: String = "4"
-    var rankPoint: Int = 69
-    var wins: Int = 3
-    var losses: Int = 2
     
     var body : some View{
         VStack{
@@ -25,7 +18,7 @@ struct SummonerTier : View{
                     .foregroundStyle(.white)
                     
             }
-            .frame(width: Const.Screen.WIDTH*0.48, height: 35)
+            .frame(width: Const.Screen.WIDTH*0.7, height: 35)
             .background(.black)
             .clipShape(
                 RoundedRectangle(
@@ -34,6 +27,8 @@ struct SummonerTier : View{
             )
             HStack{
                 ZStack{
+                    var imageUrl: String = Const.Server.IMGAGE_ADDRESS + rankInfo.tier.imageUrl()
+
                     AsyncImage(url: URL(string:imageUrl)){image in
                         image.image?.resizable()
                     }
@@ -44,16 +39,21 @@ struct SummonerTier : View{
                 .clipShape(
                     Circle()
                 )
-                //.frame(width: 70, height: 70)
+                .frame(width: 70, height: 70)
+                
                 Text(rankInfo.tier.description())
                 Text(rankInfo.rank.description())
-                Text("\(rankInfo.leaguePoints)lp")
-                VStack{
-                    Text("\(rankInfo.wins)승\(rankInfo.losses)패")
-                    
-                    Text("승률\(getPercent(wins:rankInfo.wins ,losses:rankInfo.losses))%")
+                if rankInfo.tier != .UNRANKED{
+                    Text("\(rankInfo.leaguePoints)lp")
+                    VStack{
+                        
+                        Text("\(rankInfo.wins)승\(rankInfo.losses)패")
+                        
+                        Text("승률\(getPercent(wins:rankInfo.wins ,losses:rankInfo.losses))%")
+                    }
+                    .font(.custom("percent", fixedSize: 10))
                 }
-                .font(.custom("percent", fixedSize: 10))
+                
             }
         }
     }
@@ -67,10 +67,3 @@ struct SummonerTier : View{
         }
     }
 }
-/*
-struct Preview_SummonerInfo: PreviewProvider{
-    static var previews: some View{
-        SummonerInfo()
-    }
-}
-*/
