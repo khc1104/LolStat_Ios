@@ -9,17 +9,18 @@ import Foundation
 import SwiftUI
 
 struct ItemIcon: View{
-    let item: Item
+    let item : Item
+    let size : CGFloat
     var body : some View{
-        if item.image == ""{
+        if item.imageUrl == ""{
             Rectangle()
-                .frame(width: 24, height:24)
+                .frame(width: size, height:size)
                 .background(.white)
         }else{
-            AsyncImage(url: URL(string:item.image)){ image in
+            AsyncImage(url: URL(string:item.imageUrl)){ image in
                 image.image?.resizable()
             }
-            .frame(width: 24, height: 24)
+            .frame(width: size, height: size)
         }
     }
 }

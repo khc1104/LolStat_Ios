@@ -10,8 +10,10 @@ import SwiftUI
 
 struct ItemGroup : View{
     let items: [Item]
+    var size: CGFloat = 30
     var body : some View{
         HStack(spacing : 1){
+            /*
             VStack(spacing : 1){
                 HStack(spacing : 1){
                     ForEach(0..<3){ i in
@@ -25,6 +27,10 @@ struct ItemGroup : View{
                 }
             }
             ItemIcon(item:items[6])
+             */
+            ForEach(0..<7){ i in
+                ItemIcon(item:items[i], size: size)
+            }
         }
     }
 }

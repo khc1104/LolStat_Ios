@@ -138,22 +138,27 @@ enum QueueId : String, Codable{
     }
 }
 
-struct SimpleParticipant : Codable, Equatable {
+struct SimpleParticipant : Codable, Equatable, Identifiable {
+    var id: String { summonerId }
+    
+    let summonerId: String
     let summonerName : String
     let summonerLevel : Int32
     let championLevel : Int32
     let kills : Int32
     let deaths : Int32
     let assists : Int32
-    let lane : String
-    let role : String
+    let goldEarned : Int32
+    let goldSpent : Int32
+    //let lane : String
+    //let role : String
     let teamId: Int32
     let items : [Item]
     let spells: [Spell]
     let champion : Champion
-    let win : Bool
     let mainRune : Rune
     let subRune : Rune
+    let win : Bool
 }
     
 struct Champion : Codable, Equatable {
@@ -165,7 +170,7 @@ struct Champion : Codable, Equatable {
 struct Item : Codable, Equatable{
     var name : String?
     let plaintext : String?
-    let image : String
+    let imageUrl : String
 }
     
 struct Rune : Codable, Equatable{
