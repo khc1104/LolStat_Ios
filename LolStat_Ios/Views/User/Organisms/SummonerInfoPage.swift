@@ -16,9 +16,10 @@ struct SummonerInfoPage: View{
     
     var body: some View{
         WithViewStore(self.store, observe: {$0}){ viewStore in
-            ScrollView(){
+            ScrollView{
                 SummonerInfo(profile: profile)
                     .padding()
+                RecentlyKDA(KDA: viewStore.recentlyKDA)
                 VStack(){
                     ForEach(matches){match in
                         MatchInfo(match: match)

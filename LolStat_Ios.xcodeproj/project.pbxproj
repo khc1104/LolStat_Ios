@@ -29,6 +29,7 @@
 		2570284A2B3DA43E00D3A919 /* Winrate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257028492B3DA43E00D3A919 /* Winrate.swift */; };
 		2570284C2B3DB95800D3A919 /* RankingColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570284B2B3DB95800D3A919 /* RankingColumn.swift */; };
 		2570284E2B3EAA6A00D3A919 /* RankingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570284D2B3EAA6A00D3A919 /* RankingList.swift */; };
+		257028522B45835600D3A919 /* RecentlyKDA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257028512B45835600D3A919 /* RecentlyKDA.swift */; };
 		2570B0942B288982006F6FB6 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570B0932B288982006F6FB6 /* AppStore.swift */; };
 		25A8BF392B25D9D500240D05 /* response1.json in Resources */ = {isa = PBXBuildFile; fileRef = 25A8BF382B25D9D500240D05 /* response1.json */; };
 		25A8BF3B2B26F4EC00240D05 /* MainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A8BF3A2B26F4EC00240D05 /* MainStore.swift */; };
@@ -77,6 +78,7 @@
 		257028492B3DA43E00D3A919 /* Winrate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Winrate.swift; sourceTree = "<group>"; };
 		2570284B2B3DB95800D3A919 /* RankingColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingColumn.swift; sourceTree = "<group>"; };
 		2570284D2B3EAA6A00D3A919 /* RankingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingList.swift; sourceTree = "<group>"; };
+		257028512B45835600D3A919 /* RecentlyKDA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyKDA.swift; sourceTree = "<group>"; };
 		2570B0932B288982006F6FB6 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
 		25A8BF382B25D9D500240D05 /* response1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response1.json; sourceTree = "<group>"; };
 		25A8BF3A2B26F4EC00240D05 /* MainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStore.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				2506AB562B21E82D0029D95A /* SpellIcon.swift */,
 				255759D02B21F10500203F71 /* RuneIcon.swift */,
 				255759D42B21F28300203F71 /* KDA.swift */,
+				257028512B45835600D3A919 /* RecentlyKDA.swift */,
 			);
 			path = Atoms;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				25B2482D2AFCDD4E00C52952 /* Match.swift in Sources */,
 				2506AB5D2B21EDE50029D95A /* MatchInfo.swift in Sources */,
 				257028462B3A8D6600D3A919 /* LeaderBoard.swift in Sources */,
+				257028522B45835600D3A919 /* RecentlyKDA.swift in Sources */,
 				25B2484E2AFCF17D00C52952 /* SummonerTier.swift in Sources */,
 				25B248222AFCD99700C52952 /* Const.swift in Sources */,
 				2506AB512B21D8920029D95A /* ChampionIcon.swift in Sources */,

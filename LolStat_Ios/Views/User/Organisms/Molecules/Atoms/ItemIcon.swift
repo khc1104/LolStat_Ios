@@ -12,12 +12,12 @@ struct ItemIcon: View{
     let item : Item
     let size : CGFloat
     var body : some View{
-        if item.imageUrl == ""{
+        if item.image == ""{
             Rectangle()
                 .frame(width: size, height:size)
                 .background(.white)
         }else{
-            AsyncImage(url: URL(string:item.imageUrl)){ image in
+            AsyncImage(url: URL(string:item.image)){ image in
                 image.image?.resizable()
             }
             .frame(width: size, height: size)

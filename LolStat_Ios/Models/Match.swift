@@ -170,7 +170,7 @@ struct Champion : Codable, Equatable {
 struct Item : Codable, Equatable{
     var name : String?
     let plaintext : String?
-    let imageUrl : String
+    let image : String
 }
     
 struct Rune : Codable, Equatable{

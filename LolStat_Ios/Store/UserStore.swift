@@ -20,6 +20,7 @@ struct UserStore : Reducer{
         var isLoading = true
         @BindingState var enableSheet : Bool = false
         var matchDetail : SimpleMatch?
+        var recentlyKDA : [Int32]=[0,0,0]
         
         var path = StackState<UserStore.State>()
     }
@@ -98,6 +99,7 @@ struct UserStore : Reducer{
             
         case let .getSummonerMatch(summonerInfo):
             if let summoner = summonerInfo{
+                var KDA : [Int32] = [0,0,0]
                 let searchedMatches = summoner.matches.compactMap{match in
                     SimpleMatch(matchId: match.matchId,
                                 gameMode: match.gameMode,
@@ -107,9 +109,19 @@ struct UserStore : Reducer{
                     match.participants.filter{
                         $0.summonerName == summoner.profile.summonerName
                     })
+                    
+                }
+                for match in searchedMatches {
+                    KDA[0] += match.participants[0].kills
+                    KDA[1] += match.participants[0].deaths
+                    KDA[2] += match.participants[0].assists
                 }
                 
+                KDA = KDA.map{
+                    $0/Int32(searchedMatches.count)
+                }
                 state.searchedSummonerMatches = searchedMatches
+                state.recentlyKDA = KDA
             }else{
                 print("participant ERROR")
             }
