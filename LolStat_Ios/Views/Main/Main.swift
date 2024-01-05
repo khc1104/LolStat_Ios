@@ -14,5 +14,6 @@ struct Main: View {
     
     var body: some View{
         Search(store: LolStat_IosApp.mainStore)
+        
     }
 }

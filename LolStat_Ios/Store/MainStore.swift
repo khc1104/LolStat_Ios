@@ -17,6 +17,7 @@ struct MainStore : Reducer{
      상태
      */
     struct State : Equatable{
+        @BindingState var isSearchTapped: Bool = false
         @BindingState var summonerName: String = ""
         var path = StackState<UserStore.State>()
         //@PresentationState var userStore = UserStore.State()
@@ -28,6 +29,7 @@ struct MainStore : Reducer{
     enum Action: BindableAction{
         case binding(BindingAction<State>)
         case searchButtonTapped
+        case cancleButtonTapped
         case path(StackAction<UserStore.State, UserStore.Action>)
         //case userStore(PresentationAction<UserStore.Action>)
     }
@@ -44,6 +46,10 @@ struct MainStore : Reducer{
             case .binding: //바인딩 상태들을 수정함
                 return .none
             case .searchButtonTapped:
+                state.isSearchTapped.toggle()
+                return .none
+            case .cancleButtonTapped:
+                state.summonerName = ""
                 return .none
             case .path:
                 return .none

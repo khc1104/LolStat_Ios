@@ -30,7 +30,10 @@
 		2570284C2B3DB95800D3A919 /* RankingColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570284B2B3DB95800D3A919 /* RankingColumn.swift */; };
 		2570284E2B3EAA6A00D3A919 /* RankingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570284D2B3EAA6A00D3A919 /* RankingList.swift */; };
 		257028522B45835600D3A919 /* RecentlyKDA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257028512B45835600D3A919 /* RecentlyKDA.swift */; };
+		257028592B47A6D200D3A919 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257028582B47A6D200D3A919 /* Font.swift */; };
 		2570B0942B288982006F6FB6 /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2570B0932B288982006F6FB6 /* AppStore.swift */; };
+		25718E4B2B47ED2900160FB2 /* KingSejongInstitute-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25718E492B47ED2900160FB2 /* KingSejongInstitute-Bold.ttf */; };
+		25718E4C2B47ED2900160FB2 /* KingSejongInstitute-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25718E4A2B47ED2900160FB2 /* KingSejongInstitute-Regular.ttf */; };
 		25A8BF392B25D9D500240D05 /* response1.json in Resources */ = {isa = PBXBuildFile; fileRef = 25A8BF382B25D9D500240D05 /* response1.json */; };
 		25A8BF3B2B26F4EC00240D05 /* MainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A8BF3A2B26F4EC00240D05 /* MainStore.swift */; };
 		25A8BF3D2B26F4FB00240D05 /* RankingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A8BF3C2B26F4FB00240D05 /* RankingStore.swift */; };
@@ -79,7 +82,10 @@
 		2570284B2B3DB95800D3A919 /* RankingColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingColumn.swift; sourceTree = "<group>"; };
 		2570284D2B3EAA6A00D3A919 /* RankingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingList.swift; sourceTree = "<group>"; };
 		257028512B45835600D3A919 /* RecentlyKDA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentlyKDA.swift; sourceTree = "<group>"; };
+		257028582B47A6D200D3A919 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		2570B0932B288982006F6FB6 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
+		25718E492B47ED2900160FB2 /* KingSejongInstitute-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KingSejongInstitute-Bold.ttf"; sourceTree = "<group>"; };
+		25718E4A2B47ED2900160FB2 /* KingSejongInstitute-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KingSejongInstitute-Regular.ttf"; sourceTree = "<group>"; };
 		25A8BF382B25D9D500240D05 /* response1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response1.json; sourceTree = "<group>"; };
 		25A8BF3A2B26F4EC00240D05 /* MainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStore.swift; sourceTree = "<group>"; };
 		25A8BF3C2B26F4FB00240D05 /* RankingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingStore.swift; sourceTree = "<group>"; };
@@ -169,6 +175,24 @@
 			path = Atoms;
 			sourceTree = "<group>";
 		};
+		257028552B47A6A300D3A919 /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				257028572B47A6C800D3A919 /* Font */,
+			);
+			path = Styles;
+			sourceTree = "<group>";
+		};
+		257028572B47A6C800D3A919 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				25718E492B47ED2900160FB2 /* KingSejongInstitute-Bold.ttf */,
+				25718E4A2B47ED2900160FB2 /* KingSejongInstitute-Regular.ttf */,
+				257028582B47A6D200D3A919 /* Font.swift */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
 		25B247FF2AFCD88A00C52952 = {
 			isa = PBXGroup;
 			children = (
@@ -188,6 +212,7 @@
 		25B2480A2AFCD88A00C52952 /* LolStat_Ios */ = {
 			isa = PBXGroup;
 			children = (
+				257028552B47A6A300D3A919 /* Styles */,
 				25B248362AFCF17D00C52952 /* Views */,
 				25B248292AFCDD3600C52952 /* Models */,
 				25B248262AFCDCDA00C52952 /* Store */,
@@ -393,7 +418,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				25A8BF392B25D9D500240D05 /* response1.json in Resources */,
+				25718E4C2B47ED2900160FB2 /* KingSejongInstitute-Regular.ttf in Resources */,
 				25B248132AFCD88B00C52952 /* Preview Assets.xcassets in Resources */,
+				25718E4B2B47ED2900160FB2 /* KingSejongInstitute-Bold.ttf in Resources */,
 				25B248102AFCD88B00C52952 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -440,6 +467,7 @@
 				25B248532AFCF17D00C52952 /* Main.swift in Sources */,
 				25B248512AFCF17D00C52952 /* SummonerInfo.swift in Sources */,
 				25A8BF3B2B26F4EC00240D05 /* MainStore.swift in Sources */,
+				257028592B47A6D200D3A919 /* Font.swift in Sources */,
 				2506AB552B21E2E00029D95A /* ItemIcon.swift in Sources */,
 				2506AB4F2B1F0CDC0029D95A /* ContentView.swift in Sources */,
 				2570B0942B288982006F6FB6 /* AppStore.swift in Sources */,

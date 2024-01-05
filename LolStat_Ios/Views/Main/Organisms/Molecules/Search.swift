@@ -10,59 +10,44 @@ import SwiftUI
 
 
 
+
 struct Search: View{
     let store : StoreOf<MainStore>
     
     var body: some View{
-        NavigationStackStore(self.store.scope(state: \.path, action: MainStore.Action.path)){
-            WithViewStore(self.store, observe: {$0}){ viewStore in
+        WithViewStore(self.store, observe: {$0}){ viewStore in
+            NavigationStackStore(self.store.scope(state: \.path, action: MainStore.Action.path)){
                 VStack{
-                    Spacer()
                     Form{
-                        
                         HStack{
-                            TextField("소환사이름 #KR1", text: viewStore.$summonerName)
-                            ZStack{
-                                NavigationLink(state: UserStore.State(summonerName: viewStore.summonerName)){
-                                     EmptyView()
-                                }
-                                .opacity(1)
-                                /*HStack{
-                                    Button("search"){
-                                        viewStore.send(.searchButtonTapped)
-                                     }
-                                     .padding()
-                                     .disabled(viewStore.summonerName == "" ? true : false)
-                                     .background(Color(uiColor: .secondarySystemBackground))
-                                     .clipShape(
-                                        RoundedRectangle(
-                                            cornerRadius: 8
-                                        )
-                                     )
-                                     
-                                }
-                                 */
+                            NavigationLink(state: UserStore.State(summonerName: viewStore.summonerName)){
+                                TextField("소환사이름 #KR1", text: viewStore.$summonerName)
+                                    .frame(width: viewStore.summonerName == "" ? Const.Screen.WIDTH : Const.Screen.WIDTH * 0.8)
+                                    .submitLabel(.search)
+                                
                             }
+                            .buttonStyle(PlainButtonStyle())
                         }
                     }
                 }
+            } destination: { store in
+                User(store: store)
             }
-        } destination: { store in
-            User(store: store)
         }
     }
 }
-/*
-struct Preview_Search: PreviewProvider{
-    static var previews: some View{
-        Search(
-            store: .init(
-                initialState: .init(),
-                reducer:{
-                    MainStore()
-                        ._printChanges()
-                })
-        )
-    }
-}
-*/
+/*HStack{
+ Button("search"){
+ viewStore.send(.searchButtonTapped)
+ }
+ .padding()
+ .disabled(viewStore.summonerName == "" ? true : false)
+ .background(Color(uiColor: .secondarySystemBackground))
+ .clipShape(
+ RoundedRectangle(
+ cornerRadius: 8
+ )
+ )
+ 
+ }
+ */

@@ -13,6 +13,5 @@ struct SummonerName : View{
     
     var body : some View {
         Text("\(summonerName)")
-            .font(.callout)
     }
 }

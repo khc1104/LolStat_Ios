@@ -19,7 +19,7 @@ struct MatchInfo : View{
             
             VStack{
                 Text(match.queueId.description())
-                    .font(.custom("gamemode", size : 15))
+                    .font(.kingSejong(.regular, size:15))
                     .frame(width: Const.Screen.WIDTH * 0.3)
                     .padding()
                 Spacer()

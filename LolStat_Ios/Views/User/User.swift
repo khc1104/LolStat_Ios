@@ -25,6 +25,7 @@ struct User : View{
                 {
                     SummonerInfoPage(store: store, profile: summonerInfo.profile,
                                      matches: matches)
+                    .font(.kingSejong(.bold, size: 17))
                 }else{
                     Text("존재하지 않는 소환사 입니다.")
                 }

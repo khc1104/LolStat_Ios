@@ -16,8 +16,9 @@ struct RecentlyKDA: View {
                 Text("최근 KDA")
                 HStack(spacing:0){
                     Text("\(KDA[0])/")
-                    Text("\(KDA[1])/")
+                    Text("\(KDA[1])")
                         .foregroundStyle(.red)
+                    Text("/")
                     Text("\(KDA[2])")
                 }
             }
@@ -27,5 +28,6 @@ struct RecentlyKDA: View {
         .clipShape(
             RoundedRectangle(cornerRadius: 8)
         )
+        //.font(.kingSejong(.regular))
     }
 }
