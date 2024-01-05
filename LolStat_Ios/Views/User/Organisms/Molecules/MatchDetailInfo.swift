@@ -23,10 +23,12 @@ struct MatchDetailInfo : View {
                     
             }
             .frame(width: Const.Screen.WIDTH * 0.2)
-            .font(.custom("matchdetail_summonername", fixedSize: 12))
+            .font(.kingSejong(.regular))
             ItemGroup(items:participant.items, size: 24)
+                
         }
-        .background(participant.win == true ? .blue : .pink)
+        .foregroundStyle(.white)
+        .background(participant.win == true ? .winBlue : .loseRed)
         .frame(width: Const.Screen.WIDTH)
     }
 }

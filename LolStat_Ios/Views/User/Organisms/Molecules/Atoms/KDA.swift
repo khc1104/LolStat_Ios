@@ -17,9 +17,11 @@ struct KDA : View {
         HStack(spacing: 2){
             Text(String(kill))
             Text("/")
+                .foregroundStyle(.secondary)
             Text(String(death))
                 .foregroundStyle(.red)
             Text("/")
+                .foregroundStyle(.secondary)
             Text(String(assist))
         }
     }

@@ -13,11 +13,21 @@ struct ChampionIcon: View{
     let championLevel: Int32
     var body : some View{
         ZStack{
-            AsyncImage(url: URL(string:champion.image)){ image in
-                image.image?.resizable()
+            if champion.image == ""{
+                ZStack{
+                    Rectangle()
+                        .frame(width: 50, height:50)
+                        .background(.white)
+                        .opacity(0.2)
+                    Text("이미지가 없습니다")
+                        .font(.kingSejong(.regular, size: 10))
+                }
+            }else{
+                AsyncImage(url: URL(string:champion.image)){ image in
+                    image.image?.resizable()
+                }
+                .frame(width: 50, height: 50)
             }
-            .frame(width: 50, height: 50)
-            
                 
             Text("\(championLevel)")
                 .foregroundColor(Color.white)

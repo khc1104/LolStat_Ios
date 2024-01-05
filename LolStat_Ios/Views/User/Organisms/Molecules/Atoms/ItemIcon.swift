@@ -16,6 +16,7 @@ struct ItemIcon: View{
             Rectangle()
                 .frame(width: size, height:size)
                 .background(.white)
+                .opacity(0.1)
         }else{
             AsyncImage(url: URL(string:item.image)){ image in
                 image.image?.resizable()

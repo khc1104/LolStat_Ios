@@ -27,9 +27,10 @@ struct MatchInfo : View{
             
         }
         .frame(width: Const.Screen.WIDTH)
+        .foregroundColor(.white)
         .background(
             match.participants.first!.win ?
-                .mint : .pink
+                .winBlue : .loseRed
         )
     }
 }
