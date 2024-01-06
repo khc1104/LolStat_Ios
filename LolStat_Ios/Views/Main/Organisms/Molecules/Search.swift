@@ -20,11 +20,11 @@ struct Search: View{
                 VStack{
                     Form{
                         HStack{
-                            NavigationLink(state: UserStore.State(summonerName: viewStore.summonerName)){
                                 TextField("소환사이름 #KR1", text: viewStore.$summonerName)
                                     .frame(width: viewStore.summonerName == "" ? Const.Screen.WIDTH : Const.Screen.WIDTH * 0.8)
                                     .submitLabel(.search)
-                                
+                            NavigationLink(state: UserStore.State(summonerName: viewStore.summonerName)){
+                                Text("search")
                             }
                             .buttonStyle(PlainButtonStyle())
                         }

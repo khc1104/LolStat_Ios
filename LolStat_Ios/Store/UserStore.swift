@@ -9,12 +9,13 @@ import Foundation
 import ComposableArchitecture
 
 struct UserStore : Reducer{
-
+    
     /*
      상태
      */
     struct State : Equatable{
         @BindingState var summonerName : String = ""
+        var summonerId : String = ""
         var summonerInfo : Summoner?
         var searchedSummonerMatches: [SimpleMatch]?
         var isLoading = true
@@ -30,7 +31,9 @@ struct UserStore : Reducer{
      */
     enum Action: BindableAction{
         case binding(BindingAction<State>)
-        case searchUserInfo
+        case requestUserInfoFromSummonerName
+        case requestUserInfoFromSummonerId
+        case onAppear
         case matchInfoTapped(matchId: String)
         case dismissMatchDetail
         case userInfoResponse(Summoner?)
@@ -58,9 +61,22 @@ struct UserStore : Reducer{
             //바인딩 상태들에 관한 액션
         case .binding:
             return .none
-            // 유저 정보 검색
-        case .searchUserInfo:
+            // 유저 정보 검색- 소환사 이름으로 검색
+            
+        case .onAppear:
             state.isLoading = true
+            if state.summonerName != ""{
+                return .run{ send in
+                    await send(.requestUserInfoFromSummonerName)
+                }
+            }else if state.summonerId != ""{
+                return .run{ send in
+                    await send(.requestUserInfoFromSummonerId)
+                }
+            }
+            return .none
+            
+        case .requestUserInfoFromSummonerName:
             let nameTag : String
             if state.summonerName.contains(/\#/){
                 let splitName = state.summonerName.split(separator: "#")
@@ -69,13 +85,19 @@ struct UserStore : Reducer{
                 nameTag = state.summonerName+"-KR1"
             }
             
-            print(nameTag)
-            return .run { /*[summonerName = state.summonerName]*/ send in
+            return .run { send in
                 let summonerInfo = try await lolStatAPI.requestSummonerInfoAPI(summonerName: nameTag)
                 await send (.userInfoResponse(summonerInfo))
                 await send (.getSummonerMatch(summonerInfo))
             }
-             
+            //유저 정보 검색 - 소환사 Id로 검색
+        case .requestUserInfoFromSummonerId:
+            return .run { [summonerId = state.summonerId] send in
+                let summonerInfo = try await lolStatAPI.requestSummonerInfoAPI(summonerId: summonerId)
+                await send (.userInfoResponse(summonerInfo))
+                await send (.getSummonerMatch(summonerInfo))
+            }
+            
             // 유저 정보 리스폰스 받음
         case let .userInfoResponse(summonerInfo):
             state.summonerInfo = summonerInfo
@@ -106,7 +128,7 @@ struct UserStore : Reducer{
                                 gameType: match.gameType,
                                 queueId: match.queueId,
                                 participants:
-                    match.participants.filter{
+                                    match.participants.filter{
                         $0.summonerName == summoner.profile.summonerName
                     })
                     

@@ -18,8 +18,8 @@ struct MatchDetail : View {
                 VStack{
                     if let matchDetail = viewStore.matchDetail{
                         ForEach(0..<10){ i in
-                            NavigationLink(state: UserStore.State(summonerName:
-                                    "\(matchDetail.participants[i].summonerName)-KR1")){ //TODO 태그 적용
+                            NavigationLink(state: UserStore.State(summonerId:
+                                    "\(matchDetail.participants[i].summonerId)")){ //TODO 태그 적용
                                 MatchDetailInfo(participant: matchDetail.participants[i])
                                     .foregroundStyle(.white)
                             }
