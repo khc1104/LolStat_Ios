@@ -22,6 +22,7 @@ struct UserStore : Reducer{
         @BindingState var enableSheet : Bool = false
         var matchDetail : SimpleMatch?
         var recentlyKDA : [Int32]=[0,0,0]
+        var matchPage : Int32 = 2
         
         var path = StackState<UserStore.State>()
     }
@@ -33,11 +34,15 @@ struct UserStore : Reducer{
         case binding(BindingAction<State>)
         case requestUserInfoFromSummonerName
         case requestUserInfoFromSummonerId
+        case responseUserInfo(Summoner?)
+        case getSummonerMatch
+        case requestMatches
+        case responseMatches([SimpleMatch]?)
         case onAppear
         case matchInfoTapped(matchId: String)
+        case matchMoreTapeped
         case dismissMatchDetail
-        case userInfoResponse(Summoner?)
-        case getSummonerMatch(Summoner?)
+        
         case path(StackAction<UserStore.State, UserStore.Action>)
     }
     
@@ -87,23 +92,38 @@ struct UserStore : Reducer{
             
             return .run { send in
                 let summonerInfo = try await lolStatAPI.requestSummonerInfoAPI(summonerName: nameTag)
-                await send (.userInfoResponse(summonerInfo))
-                await send (.getSummonerMatch(summonerInfo))
+                await send (.responseUserInfo(summonerInfo))
+                //await send (.getSummonerMatch(summonerInfo))
             }
             //유저 정보 검색 - 소환사 Id로 검색
         case .requestUserInfoFromSummonerId:
             return .run { [summonerId = state.summonerId] send in
                 let summonerInfo = try await lolStatAPI.requestSummonerInfoAPI(summonerId: summonerId)
-                await send (.userInfoResponse(summonerInfo))
-                await send (.getSummonerMatch(summonerInfo))
+                await send (.responseUserInfo(summonerInfo))
+                
+            }
+            //매치 정보 검색
+        case .requestMatches:
+            return .run{ [page = state.matchPage, puuid = state.summonerInfo!.profile.puuid] send in
+                let matches = try await lolStatAPI.requestMatchsAPI(puuid: puuid, page: page)
+                
+                await send(.responseMatches(matches))
             }
             
             // 유저 정보 리스폰스 받음
-        case let .userInfoResponse(summonerInfo):
+        case let .responseUserInfo(summonerInfo):
             state.summonerInfo = summonerInfo
             state.isLoading = false
-            return .none
-            
+            return .run{ send in
+                await send (.getSummonerMatch)
+            }
+            //매치 정보 리스폰스 받음
+        case let .responseMatches(matches):
+            state.summonerInfo?.matches += matches!
+            state.matchPage = state.matchPage+1
+            return .run { send in
+                await send(.getSummonerMatch)
+            }
             //매치정보 눌렀을 때 - 매치 상세 정보가 올라와야함
         case let .matchInfoTapped( matchId):
             state.enableSheet = !state.enableSheet
@@ -113,14 +133,21 @@ struct UserStore : Reducer{
                 return .none
             }
             return .none
+            //매치 더보기 탭 했을 때
+        case .matchMoreTapeped:
+            return .run{send in
+                await send(.requestMatches)
+            }
+            
         case .dismissMatchDetail:
             state.enableSheet = !state.enableSheet
             
             return .none
             //return .run{_ in await self.dismiss()}
             
-        case let .getSummonerMatch(summonerInfo):
-            if let summoner = summonerInfo{
+            //매치 정보들 검색한 소환사 정보만 모아 놓기
+        case .getSummonerMatch:
+            if let summoner = state.summonerInfo{
                 var KDA : [Int32] = [0,0,0]
                 let searchedMatches = summoner.matches.compactMap{match in
                     SimpleMatch(matchId: match.matchId,

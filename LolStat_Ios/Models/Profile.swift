@@ -7,7 +7,9 @@
 
 
 struct Profile : Codable, Equatable{
-        
+    let puuid : String
+    let gameName : String
+    let tagLine : String
     let summonerName : String
     let summonerLevel :Int64
     let profileIcon : String

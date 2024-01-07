@@ -16,11 +16,11 @@ struct SummonerInfoPage: View{
     
     var body: some View{
         WithViewStore(self.store, observe: {$0}){ viewStore in
-            ScrollView{
+            ScrollView(showsIndicators: false){
                 SummonerInfo(profile: profile)
                     .padding()
                 RecentlyKDA(KDA: viewStore.recentlyKDA)
-                VStack(){
+                LazyVStack(){
                     ForEach(matches){match in
                         MatchInfo(match: match)
                             .onTapGesture {
@@ -31,6 +31,14 @@ struct SummonerInfoPage: View{
                                     
                             }
                     }
+                    ZStack{
+                        Text("더보기")
+                    }
+                    .onTapGesture {
+                        viewStore.send(.matchMoreTapeped)
+                    }
+                    .frame(width: Const.Screen.WIDTH)
+                    .background(.blue)
                 }
             }
         }

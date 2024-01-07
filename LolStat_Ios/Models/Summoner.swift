@@ -8,5 +8,5 @@
 
 struct Summoner : Codable, Equatable {
     let profile : Profile
-    let matches : [SimpleMatch]
+    var matches : [SimpleMatch]
 }

@@ -80,7 +80,7 @@ class LolStatAPIClient: LolStatAPI{
     func requestMatchsAPI(puuid: String, page: Int32) async throws -> [SimpleMatch]? {
         let successRange = 200..<300
         let (data, response) = try await URLSession.shared
-            .data(from:URL(string: "\(Const.Server.ADDRESS)/matches/\(puuid)")!)
+            .data(from:URL(string: "\(Const.Server.ADDRESS)/matches/\(puuid)?page=\(page)")!)
         
         if let httpResponse = response as? HTTPURLResponse{
             guard successRange.contains(httpResponse.statusCode)else{
