@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct RecentlyKDA: View {
+struct RecentlyKdaCard: View {
     let KDA : [Int32]
     var body: some View {
         ZStack{

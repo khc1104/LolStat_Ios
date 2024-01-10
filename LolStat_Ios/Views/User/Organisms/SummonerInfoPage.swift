@@ -19,7 +19,14 @@ struct SummonerInfoPage: View{
             ScrollView(showsIndicators: false){
                 SummonerInfo(profile: profile)
                     .padding()
-                RecentlyKDA(KDA: viewStore.recentlyKDA)
+                ScrollView(.horizontal, showsIndicators: false){
+                    HStack{
+                        RecentlyKdaCard(KDA: viewStore.recentlyKDA)
+                        if let mostChampion = viewStore.mostChampion{
+                            MostChampionList(mostChampions: mostChampion)
+                        }
+                    }
+                }
                 LazyVStack(){
                     ForEach(matches){match in
                         MatchInfo(match: match)

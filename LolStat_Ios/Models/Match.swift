@@ -161,7 +161,7 @@ struct SimpleParticipant : Codable, Equatable, Identifiable {
     let win : Bool
 }
     
-struct Champion : Codable, Equatable {
+struct Champion : Codable, Equatable, Hashable {
     let name : String?
     let description : String?
     let image : String
@@ -185,3 +185,10 @@ struct Spell : Codable, Equatable{
     let image : String
 }
 
+
+//모스트 챔피언 저장을 위한 모델
+struct MostChampion : Equatable{
+    let champion : Champion
+    var count : Int
+    var order : Int
+}

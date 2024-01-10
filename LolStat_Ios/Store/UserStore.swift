@@ -18,11 +18,12 @@ struct UserStore : Reducer{
         var summonerId : String = ""
         var summonerInfo : Summoner?
         var searchedSummonerMatches: [SimpleMatch]?
-        var isLoading = true
+        var mostChampion : [MostChampion]?
         @BindingState var enableSheet : Bool = false
         var matchDetail : SimpleMatch?
         var recentlyKDA : [Int32]=[0,0,0]
         var matchPage : Int32 = 2
+        var isLoading = true
         
         var path = StackState<UserStore.State>()
     }
@@ -148,8 +149,7 @@ struct UserStore : Reducer{
             //매치 정보들 검색한 소환사 정보만 모아 놓기
         case .getSummonerMatch:
             if let summoner = state.summonerInfo{
-                var KDA : [Int32] = [0,0,0]
-                let searchedMatches = summoner.matches.compactMap{match in
+                                let searchedMatches = summoner.matches.compactMap{match in
                     SimpleMatch(matchId: match.matchId,
                                 gameMode: match.gameMode,
                                 gameType: match.gameType,
@@ -160,17 +160,46 @@ struct UserStore : Reducer{
                     })
                     
                 }
+                
+                //최근 전적 KDA 산출
+                var KDA : [Int32] = [0,0,0]
+
                 for match in searchedMatches {
                     KDA[0] += match.participants[0].kills
                     KDA[1] += match.participants[0].deaths
                     KDA[2] += match.participants[0].assists
                 }
-                
                 KDA = KDA.map{
                     $0/Int32(searchedMatches.count)
                 }
                 state.searchedSummonerMatches = searchedMatches
                 state.recentlyKDA = KDA
+                
+                
+                //챔피언 사용 횟수
+                
+                var playedChampion : [Champion] = []
+                for match in searchedMatches {
+                    playedChampion.append(match.participants[0].champion)
+                }
+                var championCount = [Champion : Int]()
+                playedChampion.forEach{
+                    championCount[$0, default: 0] += 1
+                }
+                
+                var orderedMostChampion = championCount.sorted{ $0.1 > $1.1}
+                var mostChampion : [MostChampion] = []
+                var order : Int = 1
+                orderedMostChampion.forEach{ championCount in
+                    mostChampion.append(MostChampion(champion: championCount.key,
+                                            count: championCount.value,
+                                            order: order))
+                    order += 1
+                }
+                print("!!!!!!!")
+                state.mostChampion = mostChampion
+                 
+                
             }else{
                 print("participant ERROR")
             }
