@@ -38,16 +38,21 @@ struct SummonerInfoPage: View{
                                     
                             }
                     }
-                    ZStack{
-                        Text("더보기")
+                    if viewStore.moreMatchIsLoading {
+                        ProgressView()
+                    }else{
+                        Rectangle()
+                            .background(.clear)
+                            .onAppear{
+                                viewStore.send(.matchMoreAppear)
+                            }
                     }
-                    .onTapGesture {
-                        viewStore.send(.matchMoreTapeped)
-                    }
-                    .frame(width: Const.Screen.WIDTH)
-                    .background(.blue)
+                    
+                    
+                     
                 }
             }
         }
     }
 }
+

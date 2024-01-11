@@ -24,6 +24,7 @@ struct UserStore : Reducer{
         var recentlyKDA : [Int32]=[0,0,0]
         var matchPage : Int32 = 2
         var isLoading = true
+        var moreMatchIsLoading = false
         
         var path = StackState<UserStore.State>()
     }
@@ -41,7 +42,7 @@ struct UserStore : Reducer{
         case responseMatches([SimpleMatch]?)
         case onAppear
         case matchInfoTapped(matchId: String)
-        case matchMoreTapeped
+        case matchMoreAppear
         case dismissMatchDetail
         
         case path(StackAction<UserStore.State, UserStore.Action>)
@@ -134,8 +135,9 @@ struct UserStore : Reducer{
                 return .none
             }
             return .none
-            //매치 더보기 탭 했을 때
-        case .matchMoreTapeped:
+            //매치 리스트의 가장 아래부분을 보았을 때
+        case .matchMoreAppear:
+            state.moreMatchIsLoading = true
             return .run{send in
                 await send(.requestMatches)
             }
@@ -198,7 +200,7 @@ struct UserStore : Reducer{
                 }
                 print("!!!!!!!")
                 state.mostChampion = mostChampion
-                 
+                state.moreMatchIsLoading = false
                 
             }else{
                 print("participant ERROR")
