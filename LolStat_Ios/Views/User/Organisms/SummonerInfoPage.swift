@@ -51,6 +51,8 @@ struct SummonerInfoPage: View{
                     
                      
                 }
+            }.refreshable {
+                viewStore.send(.userPageOnAppear)
             }
         }
     }

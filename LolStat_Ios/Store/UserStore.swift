@@ -40,7 +40,7 @@ struct UserStore : Reducer{
         case getSummonerMatch
         case requestMatches
         case responseMatches([SimpleMatch]?)
-        case onAppear
+        case userPageOnAppear
         case matchInfoTapped(matchId: String)
         case matchMoreAppear
         case dismissMatchDetail
@@ -70,7 +70,8 @@ struct UserStore : Reducer{
             return .none
             // 유저 정보 검색- 소환사 이름으로 검색
             
-        case .onAppear:
+        case .userPageOnAppear:
+            state.summonerInfo = nil
             state.isLoading = true
             if state.summonerName != ""{
                 return .run{ send in
@@ -189,7 +190,7 @@ struct UserStore : Reducer{
                     championCount[$0, default: 0] += 1
                 }
                 
-                var orderedMostChampion = championCount.sorted{ $0.1 > $1.1}
+                let orderedMostChampion = championCount.sorted{ $0.1 > $1.1}
                 var mostChampion : [MostChampion] = []
                 var order : Int = 1
                 orderedMostChampion.forEach{ championCount in

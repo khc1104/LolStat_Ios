@@ -17,7 +17,7 @@ struct User : View{
             if viewStore.isLoading{
                 ProgressView()
                     .onAppear{
-                        viewStore.send(.onAppear)
+                        viewStore.send(.userPageOnAppear)
                     }
             }
             else{
