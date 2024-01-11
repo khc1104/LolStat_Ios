@@ -9,9 +9,14 @@ import Foundation
 import SwiftUI
 
 struct SummonerName : View{
-    var summonerName : String = "testSummoner"
+    let gameName : String
+    let tagLine : String
     
     var body : some View {
-        Text("\(summonerName)")
+        Text("\(gameName)")
+            .font(.kingSejong(.bold, size: 17))
+        Text("#\(tagLine)")
+            .font(.kingSejong(.regular, size: 12))
+            .foregroundStyle(.secondary)
     }
 }

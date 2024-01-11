@@ -15,7 +15,7 @@ struct SummonerInfo : View{
         VStack{
             HStack{
                 SummonerIcon(profileIcon: profile.profileIcon)
-                SummonerName(summonerName: profile.summonerName)
+                SummonerName(gameName: profile.gameName, tagLine: profile.tagLine)
             }
             ScrollView(.horizontal){
                 HStack{
