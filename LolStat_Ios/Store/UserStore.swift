@@ -8,6 +8,7 @@
 import Foundation
 import ComposableArchitecture
 
+
 struct UserStore : Reducer{
     
     /*
@@ -27,6 +28,8 @@ struct UserStore : Reducer{
         var moreMatchIsLoading = false
         
         var path = StackState<UserStore.State>()
+        
+        @BindingState var isSearchTapped: Bool = false
     }
     
     /*
@@ -46,6 +49,9 @@ struct UserStore : Reducer{
         case dismissMatchDetail
         
         case path(StackAction<UserStore.State, UserStore.Action>)
+        
+        case searchButtonTapped
+        case clearButtonTapped
     }
     
     /*
@@ -68,22 +74,10 @@ struct UserStore : Reducer{
             //바인딩 상태들에 관한 액션
         case .binding:
             return .none
+            //
+            //API Request
+            //
             // 유저 정보 검색- 소환사 이름으로 검색
-            
-        case .userPageOnAppear:
-            state.summonerInfo = nil
-            state.isLoading = true
-            if state.summonerName != ""{
-                return .run{ send in
-                    await send(.requestUserInfoFromSummonerName)
-                }
-            }else if state.summonerId != ""{
-                return .run{ send in
-                    await send(.requestUserInfoFromSummonerId)
-                }
-            }
-            return .none
-            
         case .requestUserInfoFromSummonerName:
             let nameTag : String
             if state.summonerName.contains(/\#/){
@@ -104,7 +98,7 @@ struct UserStore : Reducer{
                 let summonerInfo = try await lolStatAPI.requestSummonerInfoAPI(summonerId: summonerId)
                 await send (.responseUserInfo(summonerInfo))
                 
-            }
+            }//.cancellable(id:, cancelInFlight: true)
             //매치 정보 검색
         case .requestMatches:
             return .run{ [page = state.matchPage, puuid = state.summonerInfo!.profile.puuid] send in
@@ -113,6 +107,9 @@ struct UserStore : Reducer{
                 await send(.responseMatches(matches))
             }
             
+            //
+            //API Response
+            //
             // 유저 정보 리스폰스 받음
         case let .responseUserInfo(summonerInfo):
             state.summonerInfo = summonerInfo
@@ -127,6 +124,24 @@ struct UserStore : Reducer{
             return .run { send in
                 await send(.getSummonerMatch)
             }
+            
+            //
+            //유저페이지 이벤트
+            //
+            //유저페이지 onAppear
+        case .userPageOnAppear:
+            state.summonerInfo = nil
+            state.isLoading = true
+            if state.summonerName != ""{
+                return .run{ send in
+                    await send(.requestUserInfoFromSummonerName)
+                }
+            }else if state.summonerId != ""{
+                return .run{ send in
+                    await send(.requestUserInfoFromSummonerId)
+                }
+            }
+            return .none
             //매치정보 눌렀을 때 - 매치 상세 정보가 올라와야함
         case let .matchInfoTapped( matchId):
             state.enableSheet = !state.enableSheet
@@ -207,7 +222,16 @@ struct UserStore : Reducer{
                 print("participant ERROR")
             }
             return .none
-        case .path:
+            //
+            //서치페이지 이벤트
+            //
+        case .searchButtonTapped: //onSubmit시 이벤트
+            state.isSearchTapped = true
+            return .none
+        case .clearButtonTapped: //textfiled 비우는 버튼 이벤트
+            state.summonerName = ""
+            return .none
+                case .path:
             return .none
         }
     }

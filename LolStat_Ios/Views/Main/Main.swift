@@ -13,7 +13,8 @@ import ComposableArchitecture
 struct Main: View {
     
     var body: some View{
-        Search(store: LolStat_IosApp.mainStore)
-        
+        Search(store: LolStat_IosApp.userStore)
+            .background(.winBlue)
+
     }
 }

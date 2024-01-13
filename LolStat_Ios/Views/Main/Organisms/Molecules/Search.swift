@@ -12,27 +12,43 @@ import SwiftUI
 
 
 struct Search: View{
-    let store : StoreOf<MainStore>
+    let store : StoreOf<UserStore>
+    //@State var isSearchTapped : Bool = false
     
     var body: some View{
         WithViewStore(self.store, observe: {$0}){ viewStore in
-            NavigationStackStore(self.store.scope(state: \.path, action: MainStore.Action.path)){
-                VStack{
-                    Form{
-                        HStack{
-                                TextField("소환사이름 #KR1", text: viewStore.$summonerName)
-                                    .frame(width: viewStore.summonerName == "" ? Const.Screen.WIDTH : Const.Screen.WIDTH * 0.8)
-                                    .submitLabel(.search)
-                            NavigationLink(state: UserStore.State(summonerName: viewStore.summonerName)){
-                                Text("search")
+            //NavigationStackStore(self.store.scope(state: \.path, action: MainStore.Action.path)){
+            NavigationStack{
+                VStack(alignment: .leading){
+                    HStack(spacing: 1){
+                        TextField("소환사이름 #KR1", text: viewStore.$summonerName)
+                            .frame(width: viewStore.summonerName == "" ? Const.Screen.WIDTH*0.9 : Const.Screen.WIDTH * 0.7)
+                            .textFieldStyle(.roundedBorder)
+                            .submitLabel(.search)
+                            .onSubmit {
+                                if viewStore.summonerName != ""{
+                                    viewStore.send(.searchButtonTapped)
+                                }
                             }
-                            .buttonStyle(PlainButtonStyle())
+                        if viewStore.summonerName != ""{
+                            Button("삭제"){
+                                viewStore.send(.clearButtonTapped)
+                            }
+                            .frame(width: Const.Screen.WIDTH * 0.2)
                         }
+                    }.navigationDestination(isPresented: viewStore.$isSearchTapped){
+                        User(store: store)
                     }
                 }
-            } destination: { store in
+                .padding()
+                Spacer()
+            }
+            
+            
+        /*destination: { store in
                 User(store: store)
             }
+         */
         }
     }
 }

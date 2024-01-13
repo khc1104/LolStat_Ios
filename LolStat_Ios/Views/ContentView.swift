@@ -20,7 +20,7 @@ struct ContentView: View {
                     Image(systemName: "1.square.fill")
                     Text("Home")
                 }
-            Ranking()
+                            Ranking()
                 .tabItem {
                     Image(systemName: "2.square.fill")
                     Text("Ranking")

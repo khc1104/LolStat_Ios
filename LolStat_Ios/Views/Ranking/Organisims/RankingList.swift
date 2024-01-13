@@ -18,7 +18,9 @@ struct RankingList: View {
                 if viewStore.isLoading == true{
                     ProgressView()
                         .onAppear{
-                            viewStore.send(.requestLeaderBoard)
+                            if viewStore.soloLeaderBoard == nil || viewStore.flexLeaderBoard == nil{
+                                viewStore.send(.requestLeaderBoard)
+                            }
                         }
                 }
                 else if let leaderBoard = (viewStore.queueType == .RANKED_SOLO ? viewStore.soloLeaderBoard : viewStore.flexLeaderBoard){
