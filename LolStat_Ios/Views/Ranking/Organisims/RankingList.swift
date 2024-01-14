@@ -50,7 +50,7 @@ struct RankingList: View {
                         RankingColumn()
                             .frame(maxWidth: Const.Screen.WIDTH)
                         ForEach(Array(leaderBoard.players.enumerated()), id: \.offset){i, summoner in
-                            NavigationLink(state: UserStore.State(summonerName: summoner.summonerName)){
+                            NavigationLink(state: UserStore.State(summonerId: summoner.summonerId)){
                                 SummonerRank(rank: i, summoner:summoner)
                             }
                         }
