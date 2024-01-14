@@ -17,12 +17,13 @@ struct ContentView: View {
         TabView{
             Main()
                 .tabItem{
-                    Image(systemName: "1.square.fill")
-                    Text("Home")
+                    Image(.search)
+                    Text("Search")
                 }
-                            Ranking()
+            
+            Ranking()
                 .tabItem {
-                    Image(systemName: "2.square.fill")
+                    Image(.ranking)
                     Text("Ranking")
                 }
         }

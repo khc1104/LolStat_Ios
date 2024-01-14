@@ -54,7 +54,7 @@ struct SummonerInfoPage: View{
             }.refreshable {
                 viewStore.send(.userPageOnAppear)
             }
-        }
+            .background(.defalutBackground)        }
     }
 }
 

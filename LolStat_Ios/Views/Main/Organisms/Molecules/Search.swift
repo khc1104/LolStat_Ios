@@ -33,6 +33,10 @@ struct Search: View{
                             Button("삭제"){
                                 viewStore.send(.clearButtonTapped)
                             }
+                            .buttonStyle(.bordered)
+                            .background(.secondary)
+                            .foregroundColor(.red)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
                             .frame(width: Const.Screen.WIDTH * 0.2)
                         }
                     }.navigationDestination(isPresented: viewStore.$isSearchTapped){
@@ -49,6 +53,7 @@ struct Search: View{
                     .padding()
                     Spacer()
                 }
+                .background(.defalutBackground)
             }
         }
     }
