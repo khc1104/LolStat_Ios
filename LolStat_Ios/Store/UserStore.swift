@@ -8,6 +8,10 @@
 import Foundation
 import ComposableArchitecture
 
+enum Cancel{
+    case requestSummonerId
+    case requestSummonerName
+}
 
 struct UserStore : Reducer{
     
@@ -19,6 +23,8 @@ struct UserStore : Reducer{
         var summonerId : String = ""
         var summonerInfo : Summoner?
         var searchedSummonerMatches: [SimpleMatch]?
+        var searchedSummonerMatchesSolo : [SimpleMatch]?
+        var searchedSummonerMatchesFlex : [SimpleMatch]?
         var mostChampion : [MostChampion]?
         @BindingState var enableSheet : Bool = false
         var matchDetail : SimpleMatch?
@@ -44,6 +50,8 @@ struct UserStore : Reducer{
         case requestMatches
         case responseMatches([SimpleMatch]?)
         case userPageOnAppear
+        case userPageOnAppearTimeOut
+        case backButtonTapped
         case matchInfoTapped(matchId: String)
         case matchMoreAppear
         case dismissMatchDetail
@@ -98,7 +106,7 @@ struct UserStore : Reducer{
                 let summonerInfo = try await lolStatAPI.requestSummonerInfoAPI(summonerId: summonerId)
                 await send (.responseUserInfo(summonerInfo))
                 
-            }//.cancellable(id:, cancelInFlight: true)
+            }
             //매치 정보 검색
         case .requestMatches:
             return .run{ [page = state.matchPage, puuid = state.summonerInfo!.profile.puuid] send in
@@ -135,12 +143,28 @@ struct UserStore : Reducer{
             if state.summonerName != ""{
                 return .run{ send in
                     await send(.requestUserInfoFromSummonerName)
-                }
+                }.cancellable(id: Cancel.requestSummonerName)
             }else if state.summonerId != ""{
                 return .run{ send in
                     await send(.requestUserInfoFromSummonerId)
-                }
+                }.cancellable(id: Cancel.requestSummonerId)
             }
+            return .none
+            //유저페이지에서 뒤로가기 버튼으로 메인페이지로 나갈 때
+        case .backButtonTapped:
+            state.summonerName = ""
+            state.summonerId = ""
+            state.summonerInfo = nil
+            state.isSearchTapped = false
+            return .none
+            //유저페이지 타임아웃
+        case .userPageOnAppearTimeOut:
+            if state.summonerName != ""{
+                return .cancel(id: Cancel.requestSummonerName)
+            }else if state.summonerId != ""{
+                return .cancel(id: Cancel.requestSummonerId)
+            }
+            state.isLoading = false
             return .none
             //매치정보 눌렀을 때 - 매치 상세 정보가 올라와야함
         case let .matchInfoTapped( matchId):

@@ -14,25 +14,38 @@ struct User : View{
     
     var body : some View{
         WithViewStore(self.store, observe: {$0}){ viewStore in
-            if viewStore.isLoading{
-                ProgressView()
-                    .onAppear{
-                        viewStore.send(.userPageOnAppear)
+            VStack{
+                if viewStore.isLoading{
+                    ProgressView()
+                    /*.onAppear{
+                     viewStore.send(.userPageOnAppear)
+                     }
+                     */
+                }
+                else{
+                    if let summonerInfo = viewStore.summonerInfo, let matches = viewStore.searchedSummonerMatches
+                    {
+                        SummonerInfoPage(store: store, profile: summonerInfo.profile,
+                                         matches: matches)
+                        .font(.kingSejong(.bold, size: 17))
+                    }else if viewStore.summonerInfo == nil{
+                        Text("존재하지 않는 소환사 입니다.")
+                            
                     }
+                }
             }
-            else{
-                if let summonerInfo = viewStore.summonerInfo, let matches = viewStore.searchedSummonerMatches
-                {
-                    SummonerInfoPage(store: store, profile: summonerInfo.profile,
-                                     matches: matches)
-                    .font(.kingSejong(.bold, size: 17))
-                }else{
-                    Text("존재하지 않는 소환사 입니다.")
+            .task {
+                viewStore.send(.userPageOnAppear)
+                do{
+                    try await Task.sleep(for: .seconds(60))
+                    viewStore.send(.userPageOnAppearTimeOut)
+                }
+                catch{
+                    print("UserPage Error")
                 }
             }
         }
     }
-    
 }
 /*
 struct Preview_User: PreviewProvider{

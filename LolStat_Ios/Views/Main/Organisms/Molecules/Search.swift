@@ -17,7 +17,6 @@ struct Search: View{
     
     var body: some View{
         WithViewStore(self.store, observe: {$0}){ viewStore in
-            //NavigationStackStore(self.store.scope(state: \.path, action: MainStore.Action.path)){
             NavigationStack{
                 VStack(alignment: .leading){
                     HStack(spacing: 1){
@@ -38,32 +37,19 @@ struct Search: View{
                         }
                     }.navigationDestination(isPresented: viewStore.$isSearchTapped){
                         User(store: store)
+                            .navigationBarBackButtonHidden(true)
+                            .toolbar{
+                                ToolbarItem(placement: .navigationBarLeading){
+                                    Button("뒤로"){
+                                        viewStore.send(.backButtonTapped)
+                                    }
+                                }
+                            }
                     }
+                    .padding()
+                    Spacer()
                 }
-                .padding()
-                Spacer()
             }
-            
-            
-        /*destination: { store in
-                User(store: store)
-            }
-         */
         }
     }
 }
-/*HStack{
- Button("search"){
- viewStore.send(.searchButtonTapped)
- }
- .padding()
- .disabled(viewStore.summonerName == "" ? true : false)
- .background(Color(uiColor: .secondarySystemBackground))
- .clipShape(
- RoundedRectangle(
- cornerRadius: 8
- )
- )
- 
- }
- */
