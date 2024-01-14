@@ -27,12 +27,7 @@ struct SummonerTier : View{
             )
             HStack{
                 ZStack{
-                    var imageUrl: String = Const.Server.IMGAGE_ADDRESS + rankInfo.tier.imageUrl()
-
-                    AsyncImage(url: URL(string:imageUrl)){image in
-                        image.image?.resizable()
-                    }
-                    //.padding()
+                    Image(rankInfo.tier.image()).resizable()
                     .frame(width: 50, height: 50)
                 }
                 .background(.quaternary)
