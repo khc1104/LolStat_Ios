@@ -116,7 +116,9 @@ enum QueueId : String, Codable{
     case FLEX_RANK_GAME  = "FLEX_RANK_GAME"
     case SOLO_RANK_GAME = "SOLO_RANK_GAME"
     case NORMAL_GAME = "NORMAL_GAME"
+    case QUICK_PLAY = "QUICK_PLAY"
     case OTHER_GAME = "OTHER_GAME"
+    
     
     func description() -> String{
         switch self{
@@ -132,9 +134,14 @@ enum QueueId : String, Codable{
             return "솔로/듀오 랭크"
         case .NORMAL_GAME:
             return "일반 게임"
+        case .QUICK_PLAY:
+            return "빠른 대전"
         case .OTHER_GAME:
             return "기타"
         }
+    }
+    init(from decoder: Decoder) throws{
+        self = try QueueId(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .OTHER_GAME
     }
 }
 
