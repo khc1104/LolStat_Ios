@@ -9,7 +9,7 @@ import Foundation
 
 struct LeaderBoard : Codable, Equatable{
     let tier: String
-    let queue: String
+    let queue: String?
     let players: [LeaderBoardPlayer]
 }
 

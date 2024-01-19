@@ -17,10 +17,6 @@ struct User : View{
             VStack{
                 if viewStore.isLoading{
                     ProgressView()
-                    /*.onAppear{
-                     viewStore.send(.userPageOnAppear)
-                     }
-                     */
                 }
                 else{
                     if let summonerInfo = viewStore.summonerInfo, let matches = viewStore.searchedSummonerMatches
@@ -36,7 +32,6 @@ struct User : View{
                     }
                     else if viewStore.summonerInfo == nil{
                         Text("존재하지 않는 소환사 입니다.")
-                            
                     }
                 }
             }

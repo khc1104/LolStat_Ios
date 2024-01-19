@@ -24,6 +24,7 @@ struct RankingStore: Reducer{
         case requestLeaderBoard
         case responseLeaderBoard(LeaderBoard?)
         case tappedQueueType
+        case backButtonTapped
         case path(StackAction<UserStore.State, UserStore.Action>)
         
     }
@@ -58,12 +59,18 @@ struct RankingStore: Reducer{
                 case .RANKED_FLEX:
                     state.queueType = .RANKED_SOLO
                 }
+                return .run{send in await send(.requestLeaderBoard)}
+                //뒤로가기 버튼 눌렀을 때 스택으로 쌓인 스토어를 팝해야함
+            case .backButtonTapped:
+                let id = state.path.ids[0]
+                state.path.pop(from: id)
+                return .none
                 
-                return .run{send in await send(.requestLeaderBoard)
-                }
             case .path:
                 return .none
             }
+        }.forEach(\.path, action: /Action.path){
+            UserStore()
         }
     }
 }
