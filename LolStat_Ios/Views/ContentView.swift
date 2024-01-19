@@ -26,6 +26,10 @@ struct ContentView: View {
                     Image(.ranking)
                     Text("Ranking")
                 }
+            Text("듀오찾기")
+                .tabItem{
+                    Text("DUO")
+                }
         }
         .accentColor(.green)
         .font(.headline)

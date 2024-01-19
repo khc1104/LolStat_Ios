@@ -5,6 +5,7 @@
 //  Created by 권희철 on 2023/11/09.
 //
 
+
 import Foundation
 import ComposableArchitecture
 
@@ -26,16 +27,19 @@ struct UserStore : Reducer{
         var searchedSummonerMatchesSolo : [SimpleMatch]?
         var searchedSummonerMatchesFlex : [SimpleMatch]?
         var mostChampion : [MostChampion]?
+        @BindingState var isSearchTapped: Bool = false
         @BindingState var enableSheet : Bool = false
         var matchDetail : SimpleMatch?
         var recentlyKDA : [Int32]=[0,0,0]
         var matchPage : Int32 = 2
         var isLoading = true
+        var isTimeOut = false
         var moreMatchIsLoading = false
+        
+        var savedSummoner = UserDefaults.standard.array(forKey: "savedSummoner") as? [String] ?? []
         
         var path = StackState<UserStore.State>()
         
-        @BindingState var isSearchTapped: Bool = false
     }
     
     /*
@@ -55,11 +59,15 @@ struct UserStore : Reducer{
         case matchInfoTapped(matchId: String)
         case matchMoreAppear
         case dismissMatchDetail
+        case summonerInfoOnAppear
+        
+        case searchButtonTapped
+        case savedSummonerTapped(summonerName : String)
+        case clearButtonTapped
         
         case path(StackAction<UserStore.State, UserStore.Action>)
         
-        case searchButtonTapped
-        case clearButtonTapped
+        
     }
     
     /*
@@ -165,6 +173,7 @@ struct UserStore : Reducer{
                 return .cancel(id: Cancel.requestSummonerId)
             }
             state.isLoading = false
+            state.isTimeOut = true
             return .none
             //매치정보 눌렀을 때 - 매치 상세 정보가 올라와야함
         case let .matchInfoTapped( matchId):
@@ -246,10 +255,31 @@ struct UserStore : Reducer{
                 print("participant ERROR")
             }
             return .none
+            //소환사 정보가 나올 때 최근 검색 기록 등록
+        case .summonerInfoOnAppear:
+            if let summonerInfo = state.summonerInfo{
+                let summonerNameTag = summonerInfo.profile.gameName+"#"+summonerInfo.profile.tagLine
+                var savedSummoner = UserDefaults.standard.array(forKey: "savedSummoner") as? [String] ?? []
+                
+                
+                if !savedSummoner.contains(summonerNameTag){ //저장되지 않은 소환사만
+                    savedSummoner.append(summonerNameTag)
+                }
+                if savedSummoner.count >= 11{ //최대 10개 까지 저장
+                    savedSummoner.removeFirst()
+                }
+                state.savedSummoner = savedSummoner
+                UserDefaults.standard.set(savedSummoner, forKey: "savedSummoner")
+            }
+            return .none
             //
             //서치페이지 이벤트
             //
         case .searchButtonTapped: //onSubmit시 이벤트
+            state.isSearchTapped = true
+            return .none
+        case let .savedSummonerTapped(summonerName): //검색했던 소환사 터치 이벤트
+            state.summonerName = summonerName
             state.isSearchTapped = true
             return .none
         case .clearButtonTapped: //textfiled 비우는 버튼 이벤트

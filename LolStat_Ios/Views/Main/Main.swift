@@ -11,10 +11,29 @@ import ComposableArchitecture
 
 
 struct Main: View {
-    
+    let store : StoreOf<UserStore> = LolStat_IosApp.userStore
     var body: some View{
-        Search(store: LolStat_IosApp.userStore)
-            .background(.winBlue)
-
+        WithViewStore(self.store, observe:{$0}){ viewStore in
+            NavigationStack{
+                VStack{
+                    Search(store: store)
+                        .frame(height: 24)
+                    SavedSummoner(store: store)
+                }
+                .frame(width: Const.Screen.WIDTH)
+                .background(.defalutBackground)
+                .navigationDestination(isPresented: viewStore.$isSearchTapped){
+                    User(store: store)
+                        .navigationBarBackButtonHidden(true)
+                        .toolbar{
+                            ToolbarItem(placement: .navigationBarLeading){
+                                Button("뒤로"){
+                                    viewStore.send(.backButtonTapped)
+                                }
+                            }
+                        }
+                }
+            }
+        }
     }
 }

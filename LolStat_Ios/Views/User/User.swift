@@ -28,14 +28,23 @@ struct User : View{
                         SummonerInfoPage(store: store, profile: summonerInfo.profile,
                                          matches: matches)
                         .font(.kingSejong(.bold, size: 17))
-                    }else if viewStore.summonerInfo == nil{
+                        .onAppear{
+                            viewStore.send(.summonerInfoOnAppear)
+                        }
+                    }else if viewStore.isTimeOut{
+                        Text("TimeOut")
+                    }
+                    else if viewStore.summonerInfo == nil{
                         Text("존재하지 않는 소환사 입니다.")
                             
                     }
                 }
             }
-            .task {
+            .onAppear{
                 viewStore.send(.userPageOnAppear)
+            }
+            .task {
+                
                 do{
                     try await Task.sleep(for: .seconds(60))
                     viewStore.send(.userPageOnAppearTimeOut)
