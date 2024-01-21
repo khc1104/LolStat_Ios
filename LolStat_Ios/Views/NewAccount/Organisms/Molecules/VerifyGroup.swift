@@ -26,32 +26,39 @@ struct VerifyGroup: View {
         WithViewStore(self.store, observe: {$0}){viewStore in
             VStack(alignment: .center){
                 Text("회원 가입")
-                Spacer()
-                EmailInput(email: viewStore.$email, isAnimation: $isEmailAnimation)
+                
+                EmailInput(store:store, isAnimation: $isEmailAnimation)
                     .focused($focusedField, equals: .email)
                     .onChange(of: viewStore.$email){ _ in
                         viewStore.send(.verifyEmail)
                     }
+                    .onTapGesture {
+                        focusedField = .email
+                    }
                 Spacer()
-                PasswordInput(password: viewStore.$password, isAnimation: $isPasswordAnimation)
+                PasswordInput(store: store, isAnimation: $isPasswordAnimation)
                     .focused($focusedField, equals: .password)
                     .onChange(of: viewStore.$password){ _ in
                         viewStore.send(.verifyPassword)
                     }
+                    .onTapGesture {
+                        focusedField = .password
+                    }
                 Spacer()
-                PasswordInput(password: viewStore.$passwordVerify, isAnimation: $isPasswordVerifyAnimation)
+                PasswordVerifyInput(store: store, isAnimation: $isPasswordVerifyAnimation)
                     .focused($focusedField, equals: .passwordVerify)
                     .onChange(of: viewStore.$passwordVerify){ _ in
                         viewStore.send(.verifyPasswordVerify)
                     }
+                    .onTapGesture {
+                        focusedField = .passwordVerify
+                    }
                     Spacer()
-                Button("회원가입"){
+                JoinButton(disable: viewStore.isEmailVerified && viewStore.isPasswordVerified && viewStore.isPasswordVerifyVerified ? false : true)
+                .onTapGesture {
                     viewStore.send(.joinButtonTapped)
                 }
-                .frame(width: Const.Screen.WIDTH)
-                .background(.secondary)
-                .foregroundStyle(.white)
-                .buttonBorderShape(.roundedRectangle(radius: 8))
+                //.disabled(viewStore.isEmailVerified && viewStore.isPasswordVerified && viewStore.isPasswordVerifyVerified ? false : true)
             }
             .textFieldStyle(.roundedBorder)
             .frame(maxHeight: Const.Screen.HEIGHT)

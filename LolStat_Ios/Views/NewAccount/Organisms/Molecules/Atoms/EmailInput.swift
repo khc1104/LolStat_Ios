@@ -7,16 +7,29 @@
 
 import Foundation
 import SwiftUI
+import ComposableArchitecture
 
 struct EmailInput : View {
-    @Binding var email : String
+    let store : StoreOf<AccountStore>
     @Binding var isAnimation: Bool
     var body: some View {
-        ZStack{
-            TextField("", text: $email)
-            Text("이메일")
-                .offset(y:isAnimation ? -40 : 0)
+        WithViewStore(self.store, observe:{$0}){viewStore in
+            VStack{
+                ZStack{
+                    TextField("", text: viewStore.$email)
+                    Text("이메일")
+                        .foregroundStyle(viewStore.email != "" &&
+                                         viewStore.isEmailVerified ? .verifyBlue :
+                                            viewStore.email != "" &&
+                                         !viewStore.isEmailVerified ? .red : .secondary)
+                        .offset(y:isAnimation ? -30 : 0)
+                    
+                }
+                Text(viewStore.emailMessage)
+                    .foregroundStyle(.red)
+                    .font(.kingSejong(.regular, size: 20))
+            }
+            .frame(minHeight:70)
         }
-        
     }
 }

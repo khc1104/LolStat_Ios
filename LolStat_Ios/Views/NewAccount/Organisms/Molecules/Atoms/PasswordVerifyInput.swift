@@ -7,17 +7,27 @@
 
 import Foundation
 import SwiftUI
+import ComposableArchitecture
 
 struct PasswordVerifyInput:View {
-    @Binding var passwordVerify : String
+    let store : StoreOf<AccountStore>
     @Binding var isAnimation: Bool
     var body: some View {
-        
-        ZStack{
-            SecureField("", text: $passwordVerify)
-            Text("비밀번호 확인")
-                .offset(y:isAnimation ? -40 : 0)
+        WithViewStore(self.store, observe:{$0}){viewStore in
+            VStack{
+                ZStack{
+                    SecureField("", text: viewStore.$passwordVerify)
+                    Text("비밀번호 확인")
+                        .foregroundStyle(viewStore.passwordVerify != "" &&
+                                         viewStore.isPasswordVerifyVerified ? .verifyBlue :
+                                            viewStore.passwordVerify != "" &&
+                                         !viewStore.isPasswordVerifyVerified ? .red :.secondary)
+                        .offset(y:isAnimation ? -30 : 0)
+                }
+                Text(viewStore.passwordVerifyMessage)
+                    .foregroundStyle(.red)
+                    .font(.kingSejong(.regular, size: 20))
+            }
         }
-        
     }
 }
