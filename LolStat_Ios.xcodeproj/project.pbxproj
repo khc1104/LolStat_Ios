@@ -37,7 +37,7 @@
 		2583B3152B4E436000A505F5 /* MostChampionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2583B3142B4E436000A505F5 /* MostChampionCard.swift */; };
 		2583B3182B4E835800A505F5 /* MostChampionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2583B3172B4E835800A505F5 /* MostChampionList.swift */; };
 		2587D24B2B593143008D0313 /* SavedSummoner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D24A2B593143008D0313 /* SavedSummoner.swift */; };
-		2587D2512B5AA320008D0313 /* NewAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D2502B5AA320008D0313 /* NewAccount.swift */; };
+		2587D2512B5AA320008D0313 /* Join.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D2502B5AA320008D0313 /* Join.swift */; };
 		2587D2532B5AA34B008D0313 /* AccountStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D2522B5AA34B008D0313 /* AccountStore.swift */; };
 		2587D2552B5ABC3B008D0313 /* EmailInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D2542B5ABC3B008D0313 /* EmailInput.swift */; };
 		2587D2572B5ABE2E008D0313 /* VerifyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D2562B5ABE2E008D0313 /* VerifyGroup.swift */; };
@@ -45,6 +45,13 @@
 		2587D25B2B5C14E2008D0313 /* PasswordVerifyInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D25A2B5C14E2008D0313 /* PasswordVerifyInput.swift */; };
 		2587D25D2B5CD23B008D0313 /* JoinButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D25C2B5CD23B008D0313 /* JoinButton.swift */; };
 		2587D25F2B5D05D2008D0313 /* AccountAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D25E2B5D05D2008D0313 /* AccountAPI.swift */; };
+		2587D2652B5E5209008D0313 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D2642B5E5209008D0313 /* Login.swift */; };
+		2587D2672B5E584C008D0313 /* LoginEmailInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D2662B5E584C008D0313 /* LoginEmailInput.swift */; };
+		2587D2692B5E5863008D0313 /* LoginPasswordInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D2682B5E5863008D0313 /* LoginPasswordInput.swift */; };
+		2587D26B2B5E5877008D0313 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D26A2B5E5877008D0313 /* LoginButton.swift */; };
+		2587D26D2B5E5887008D0313 /* GoJoinButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D26C2B5E5887008D0313 /* GoJoinButton.swift */; };
+		2587D26F2B5E6221008D0313 /* LoginInputGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D26E2B5E6221008D0313 /* LoginInputGroup.swift */; };
+		2587D2712B5FA665008D0313 /* JoinStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D2702B5FA665008D0313 /* JoinStore.swift */; };
 		25A8BF392B25D9D500240D05 /* response1.json in Resources */ = {isa = PBXBuildFile; fileRef = 25A8BF382B25D9D500240D05 /* response1.json */; };
 		25A8BF3B2B26F4EC00240D05 /* MainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A8BF3A2B26F4EC00240D05 /* MainStore.swift */; };
 		25A8BF3D2B26F4FB00240D05 /* RankingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A8BF3C2B26F4FB00240D05 /* RankingStore.swift */; };
@@ -98,7 +105,7 @@
 		2583B3142B4E436000A505F5 /* MostChampionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostChampionCard.swift; sourceTree = "<group>"; };
 		2583B3172B4E835800A505F5 /* MostChampionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostChampionList.swift; sourceTree = "<group>"; };
 		2587D24A2B593143008D0313 /* SavedSummoner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedSummoner.swift; sourceTree = "<group>"; };
-		2587D2502B5AA320008D0313 /* NewAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccount.swift; sourceTree = "<group>"; };
+		2587D2502B5AA320008D0313 /* Join.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Join.swift; sourceTree = "<group>"; };
 		2587D2522B5AA34B008D0313 /* AccountStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStore.swift; sourceTree = "<group>"; };
 		2587D2542B5ABC3B008D0313 /* EmailInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailInput.swift; sourceTree = "<group>"; };
 		2587D2562B5ABE2E008D0313 /* VerifyGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyGroup.swift; sourceTree = "<group>"; };
@@ -106,6 +113,13 @@
 		2587D25A2B5C14E2008D0313 /* PasswordVerifyInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordVerifyInput.swift; sourceTree = "<group>"; };
 		2587D25C2B5CD23B008D0313 /* JoinButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinButton.swift; sourceTree = "<group>"; };
 		2587D25E2B5D05D2008D0313 /* AccountAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountAPI.swift; sourceTree = "<group>"; };
+		2587D2642B5E5209008D0313 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		2587D2662B5E584C008D0313 /* LoginEmailInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEmailInput.swift; sourceTree = "<group>"; };
+		2587D2682B5E5863008D0313 /* LoginPasswordInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPasswordInput.swift; sourceTree = "<group>"; };
+		2587D26A2B5E5877008D0313 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
+		2587D26C2B5E5887008D0313 /* GoJoinButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoJoinButton.swift; sourceTree = "<group>"; };
+		2587D26E2B5E6221008D0313 /* LoginInputGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInputGroup.swift; sourceTree = "<group>"; };
+		2587D2702B5FA665008D0313 /* JoinStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinStore.swift; sourceTree = "<group>"; };
 		25A8BF382B25D9D500240D05 /* response1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response1.json; sourceTree = "<group>"; };
 		25A8BF3A2B26F4EC00240D05 /* MainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStore.swift; sourceTree = "<group>"; };
 		25A8BF3C2B26F4FB00240D05 /* RankingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingStore.swift; sourceTree = "<group>"; };
@@ -212,13 +226,13 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
-		2587D24C2B5AA2D8008D0313 /* NewAccount */ = {
+		2587D24C2B5AA2D8008D0313 /* Join */ = {
 			isa = PBXGroup;
 			children = (
 				2587D24D2B5AA2F7008D0313 /* Organisms */,
-				2587D2502B5AA320008D0313 /* NewAccount.swift */,
+				2587D2502B5AA320008D0313 /* Join.swift */,
 			);
-			path = NewAccount;
+			path = Join;
 			sourceTree = "<group>";
 		};
 		2587D24D2B5AA2F7008D0313 /* Organisms */ = {
@@ -245,6 +259,43 @@
 				2587D2582B5C14D4008D0313 /* PasswordInput.swift */,
 				2587D25A2B5C14E2008D0313 /* PasswordVerifyInput.swift */,
 				2587D25C2B5CD23B008D0313 /* JoinButton.swift */,
+			);
+			path = Atoms;
+			sourceTree = "<group>";
+		};
+		2587D2602B5E519E008D0313 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				2587D2612B5E51DC008D0313 /* Organisms */,
+				2587D2642B5E5209008D0313 /* Login.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		2587D2612B5E51DC008D0313 /* Organisms */ = {
+			isa = PBXGroup;
+			children = (
+				2587D2622B5E51E5008D0313 /* Molecules */,
+			);
+			path = Organisms;
+			sourceTree = "<group>";
+		};
+		2587D2622B5E51E5008D0313 /* Molecules */ = {
+			isa = PBXGroup;
+			children = (
+				2587D2632B5E51EF008D0313 /* Atoms */,
+				2587D26E2B5E6221008D0313 /* LoginInputGroup.swift */,
+			);
+			path = Molecules;
+			sourceTree = "<group>";
+		};
+		2587D2632B5E51EF008D0313 /* Atoms */ = {
+			isa = PBXGroup;
+			children = (
+				2587D2662B5E584C008D0313 /* LoginEmailInput.swift */,
+				2587D2682B5E5863008D0313 /* LoginPasswordInput.swift */,
+				2587D26A2B5E5877008D0313 /* LoginButton.swift */,
+				2587D26C2B5E5887008D0313 /* GoJoinButton.swift */,
 			);
 			path = Atoms;
 			sourceTree = "<group>";
@@ -298,6 +349,7 @@
 				25A8BF3C2B26F4FB00240D05 /* RankingStore.swift */,
 				2570B0932B288982006F6FB6 /* AppStore.swift */,
 				2587D2522B5AA34B008D0313 /* AccountStore.swift */,
+				2587D2702B5FA665008D0313 /* JoinStore.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -317,7 +369,8 @@
 		25B248362AFCF17D00C52952 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				2587D24C2B5AA2D8008D0313 /* NewAccount */,
+				2587D2602B5E519E008D0313 /* Login */,
+				2587D24C2B5AA2D8008D0313 /* Join */,
 				2570283F2B3A8C2500D3A919 /* Ranking */,
 				25B2483B2AFCF17D00C52952 /* User */,
 				25B248452AFCF17D00C52952 /* Main */,
@@ -496,7 +549,7 @@
 				25B248282AFCDD0200C52952 /* UserStore.swift in Sources */,
 				25B2482F2AFCDD5400C52952 /* Profile.swift in Sources */,
 				255759D12B21F10500203F71 /* RuneIcon.swift in Sources */,
-				2587D2512B5AA320008D0313 /* NewAccount.swift in Sources */,
+				2587D2512B5AA320008D0313 /* Join.swift in Sources */,
 				2583B3182B4E835800A505F5 /* MostChampionList.swift in Sources */,
 				2568AC742B31864F00DBAD3E /* MatchChampionInfo.swift in Sources */,
 				2563321F2B2C669C008A7F3D /* Pasing.swift in Sources */,
@@ -515,14 +568,20 @@
 				2570283C2B35782A00D3A919 /* MatchDetail.swift in Sources */,
 				2506AB572B21E82D0029D95A /* SpellIcon.swift in Sources */,
 				257028482B3DA00A00D3A919 /* SummonerRank.swift in Sources */,
+				2587D26F2B5E6221008D0313 /* LoginInputGroup.swift in Sources */,
 				2568AC722B3046BE00DBAD3E /* SummonerInfoPage.swift in Sources */,
+				2587D26B2B5E5877008D0313 /* LoginButton.swift in Sources */,
 				2570284A2B3DA43E00D3A919 /* Winrate.swift in Sources */,
+				2587D2692B5E5863008D0313 /* LoginPasswordInput.swift in Sources */,
+				2587D26D2B5E5887008D0313 /* GoJoinButton.swift in Sources */,
+				2587D2652B5E5209008D0313 /* Login.swift in Sources */,
 				2568AC702B2F4ECD00DBAD3E /* LolStatAPI.swift in Sources */,
 				25B2480C2AFCD88A00C52952 /* LolStat_IosApp.swift in Sources */,
 				25B2482D2AFCDD4E00C52952 /* Match.swift in Sources */,
 				2506AB5D2B21EDE50029D95A /* MatchInfo.swift in Sources */,
 				2587D25F2B5D05D2008D0313 /* AccountAPI.swift in Sources */,
 				2583B3152B4E436000A505F5 /* MostChampionCard.swift in Sources */,
+				2587D2672B5E584C008D0313 /* LoginEmailInput.swift in Sources */,
 				257028462B3A8D6600D3A919 /* LeaderBoard.swift in Sources */,
 				257028522B45835600D3A919 /* RecentlyKdaCard.swift in Sources */,
 				25B2484E2AFCF17D00C52952 /* SummonerTier.swift in Sources */,
@@ -535,6 +594,7 @@
 				2506AB552B21E2E00029D95A /* ItemIcon.swift in Sources */,
 				2506AB4F2B1F0CDC0029D95A /* ContentView.swift in Sources */,
 				2587D25D2B5CD23B008D0313 /* JoinButton.swift in Sources */,
+				2587D2712B5FA665008D0313 /* JoinStore.swift in Sources */,
 				2570B0942B288982006F6FB6 /* AppStore.swift in Sources */,
 				2587D2532B5AA34B008D0313 /* AccountStore.swift in Sources */,
 				2506AB5B2B21ECB70029D95A /* ItemGroup.swift in Sources */,
