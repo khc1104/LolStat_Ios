@@ -26,7 +26,7 @@ struct ContentView: View {
                     Image(.ranking)
                     Text("Ranking")
                 }
-            NewAccount()
+            Login()
                 .tabItem{
                     Text("DUO")
                 }
