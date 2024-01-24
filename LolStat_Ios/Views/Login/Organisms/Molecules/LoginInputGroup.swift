@@ -29,9 +29,12 @@ struct LoginInputGroup: View {
                         .focused($focusedField, equals: .password)
                     LoginButton()
                         .onTapGesture {
-                            viewStore.send(.joinButtonTapped)
+                            viewStore.send(.loginButtonTapped)
                         }
                     GoJoinButton()
+                        .onTapGesture {
+                            viewStore.send(.joinButtonTapped)
+                        }
                 }
                 .onChange(of: focusedField){ _ in
                     switch focusedField {

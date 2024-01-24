@@ -20,6 +20,7 @@ struct AccountStore : Reducer{
         case requestLoginTest
         case responseLogin(LoginResponse)
         
+        case loginButtonTapped
         case joinButtonTapped
     }
     var body : some ReducerOf<Self>{
@@ -49,14 +50,24 @@ struct AccountStore : Reducer{
             //API Response
             //
             case let.responseLogin(loginResponse):
-            state.LoginResponse = loginResponse
+        
+            KeyChain.create(key: "RefreshToken", token: loginResponse.refreshToken)
             return .none
-            //회원가입 버튼 눌렀을 때
-        case .joinButtonTapped:
+            
+            //
+            //로그인 페이지 액션
+            //
+            //로그인 버튼 눌렀을 때
+        case .loginButtonTapped:
             return .run{send in
                 await send(.requestLoginTest)
             }
         
+            //회원가입 버튼 눌렀을 때
+        case .joinButtonTapped:
+            let refreshToken = KeyChain.read(key: "RefreshToken")
+            print(refreshToken)
+            return .none
                 case .binding:
             return .none
         }
