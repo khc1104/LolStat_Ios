@@ -11,8 +11,8 @@ class KeyChain{
     //create
     class func create(key: String, token : String){
         let query : NSDictionary = [
-            kSecClass: kSecClassKey,
-            kSecAttrLabel : key,
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrAccount : key,
             kSecValueData:token.data(using: .utf8, allowLossyConversion: false)as Any
         ]
         SecItemDelete(query) //key 중복방지를 위해 비우고 생성
@@ -24,8 +24,8 @@ class KeyChain{
     //read
     class func read(key: String) -> String?{
         let query: NSDictionary = [
-            kSecClass:kSecClassKey,
-            kSecAttrLabel: key,
+            kSecClass:kSecClassGenericPassword,
+            kSecAttrAccount: key,
             kSecReturnData: kCFBooleanTrue as Any,
             kSecMatchLimit: kSecMatchLimitOne
         ]
@@ -49,8 +49,8 @@ class KeyChain{
     //Delete
     class func delete(key:String){
         let query:NSDictionary = [
-            kSecClass:kSecClassKey,
-            kSecAttrLabel:key
+            kSecClass:kSecClassGenericPassword,
+            kSecAttrAccount:key
         ]
         let status = SecItemDelete(query)
         assert(status == noErr, "failed to delete the value, status code = \(status)")

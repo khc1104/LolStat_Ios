@@ -19,9 +19,11 @@ struct AccountStore : Reducer{
         case binding(BindingAction<State>)
         case requestLoginTest
         case responseLogin(LoginResponse)
+        case requestAuthTest
         
         case loginButtonTapped
         case joinButtonTapped
+        case testButtonTapped
     }
     var body : some ReducerOf<Self>{
         BindingReducer()
@@ -45,6 +47,16 @@ struct AccountStore : Reducer{
                     print("loginResponseError")
                 }
             }
+            //토큰 유효성 - 테스트
+        case .requestAuthTest:
+            return .run{send in
+                    if try await
+                        accountAPI.requestAuthTest(){
+                        print("true")
+                    }else{
+                        print("authTestError")
+                    }
+            }
             
             //
             //API Response
@@ -52,6 +64,7 @@ struct AccountStore : Reducer{
             case let.responseLogin(loginResponse):
         
             KeyChain.create(key: "RefreshToken", token: loginResponse.refreshToken)
+            KeyChain.create(key: "AccessToken", token: loginResponse.accessToken)
             return .none
             
             //
@@ -65,9 +78,17 @@ struct AccountStore : Reducer{
         
             //회원가입 버튼 눌렀을 때
         case .joinButtonTapped:
+            
+            let accessToken = KeyChain.read(key: "AccessToken")
             let refreshToken = KeyChain.read(key: "RefreshToken")
-            print(refreshToken)
+            print("refresh -\(refreshToken as Any)")
+            print("access -\(accessToken as Any)")
             return .none
+        case .testButtonTapped:
+            
+            return .run{ send in
+                await send(.requestAuthTest)
+            }
                 case .binding:
             return .none
         }

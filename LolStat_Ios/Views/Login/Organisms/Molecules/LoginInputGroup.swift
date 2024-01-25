@@ -35,6 +35,9 @@ struct LoginInputGroup: View {
                         .onTapGesture {
                             viewStore.send(.joinButtonTapped)
                         }
+                    Button("test"){
+                        viewStore.send(.testButtonTapped)
+                    }
                 }
                 .onChange(of: focusedField){ _ in
                     switch focusedField {
