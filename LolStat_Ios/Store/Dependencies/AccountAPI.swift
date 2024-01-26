@@ -11,8 +11,8 @@ import Dependencies
 protocol AccountAPI{
     func requestCreateUser(user : CreateUserRequest) async throws -> Bool
     func requestLoginUserTest() async throws -> LoginResponse?
-    func requestAuthTest() async throws -> AuthResponse?
-    func requestRefreshToken() async throws ->RefreshResponse?
+    func requestAuthTest() async throws -> Int?
+    func requestRefreshToken() async throws ->String?
 }
 
 class AccountAPIClient: AccountAPI{
@@ -68,7 +68,7 @@ class AccountAPIClient: AccountAPI{
     }
     
     //액세스토큰 인증 요청-테스트
-    func requestAuthTest() async throws ->  AuthResponse?{
+    func requestAuthTest() async throws ->  Int?{
         let successRange = 200 ..< 300
         let url = URL(string:"\(Const.Server.ADDRESS)/user/auth/test")!
         
@@ -82,14 +82,14 @@ class AccountAPIClient: AccountAPI{
             
             if let httpResponse = response as? HTTPURLResponse{
                 if successRange.contains(httpResponse.statusCode){
-                    print("success to auth-\(httpResponse.statusCode)")
-                     let authResponse = AuthResponse(errorCode: 0, httpStatus: "", message: "인증 성공")
-                    return authResponse
+                    //print("success to auth-\(httpResponse.statusCode)")
+                    
+                    return 200
                 }else{
                     print("failed to auth - \(httpResponse.statusCode)")
                     print("data - \(String(data: data, encoding: .utf8) ?? "nil")")
                     let authResponse = try JSONDecoder().decode(AuthResponse.self, from: data)
-                    return authResponse
+                    return authResponse.errorCode
                 }
             }else{
                 print("data - \(data)")
@@ -100,8 +100,8 @@ class AccountAPIClient: AccountAPI{
             return nil
         }
     }
-    
-    func requestRefreshToken() async throws -> RefreshResponse? {
+    //액세스토큰 리프레쉬
+    func requestRefreshToken() async throws -> String? {
         let successRange = 200..<300
         let url = URL(string: "\(Const.Server.ADDRESS)/user/refresh")!
         var request = URLRequest(url:url)
@@ -113,10 +113,13 @@ class AccountAPIClient: AccountAPI{
             if let httpResponse = response as? HTTPURLResponse{
                 if successRange.contains(httpResponse.statusCode){
                     let accessToken = try JSONDecoder().decode(RefreshResponse.self, from: data)
-                    return accessToken
+                    
+                    return accessToken.accessToken
                 }else{
                     print("data - \(String(data: data, encoding: .utf8) ?? "nil")")
-                    return nil
+                    let authResponse = try JSONDecoder().decode(AuthResponse.self, from: data)
+                    
+                    return "\(authResponse.errorCode)"
                 }
             }else{
                 print("requestRefreshToken is failed")

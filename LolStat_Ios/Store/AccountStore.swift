@@ -21,9 +21,9 @@ struct AccountStore : Reducer{
         case requestLoginTest
         case responseLogin(LoginResponse)
         case requestAuthTest
-        case responseAuthTest(AuthResponse)
+        case responseAuthTest(Int)
         case requestRefreshToken
-        case responseRefreshToken(RefreshResponse)
+        case responseRefreshToken(String)
         
         case loginButtonTapped
         case joinButtonTapped
@@ -83,7 +83,7 @@ struct AccountStore : Reducer{
             //토큰 인증 반환
         case let .responseAuthTest(authResponse):
             //state.testResponse = authResponse
-            if(authResponse.errorCode == 1005){
+            if(authResponse == 1005){
                 return .run{send in
                     await send(.requestRefreshToken)
                 }
@@ -91,8 +91,14 @@ struct AccountStore : Reducer{
                 print("승인")
                 return .none
             }
-        case let .responseRefreshToken(accessToken):
-            KeyChain.create(key: "AccessToken", token: accessToken.accessToken)
+        case let .responseRefreshToken(tokenResponse):
+            if tokenResponse == "1005"{
+                KeyChain.delete(key: "RefreshToken")
+                KeyChain.delete(key: "AccessToken")
+                print("Logout!!")
+            }else{
+                KeyChain.create(key: "AccessToken", token: tokenResponse)
+            }
             
             return .none
             //
@@ -115,6 +121,7 @@ struct AccountStore : Reducer{
         case .testButtonTapped:
             
             return .run{ send in
+                //await send(.requestRefreshToken)
                 await send(.requestAuthTest)
             }
         case .binding:
