@@ -16,19 +16,30 @@ struct CreateUserRequest: Codable{
     var password : String
     var passwordCheck : String
 }
-
+//로그인 요청
 struct LoginRequest: Codable{
     var email : String
     var password : String
 }
-
+//로그인 반환
 struct LoginResponse : Codable, Equatable{
     var accessToken : String
     var refreshToken : String
     var userInfo : UserInfoDto
 }
+//유저 정보
 struct UserInfoDto : Codable, Equatable{
     var userId : Int64
     var email : String
     var verified : Bool
+}
+//인증 반환
+struct AuthResponse : Codable, Equatable{
+    var errorCode : Int
+    var httpStatus: String
+    var message : String
+}
+//토큰 리프레쉬 반환
+struct RefreshResponse: Codable, Equatable{
+    var accessToken : String
 }

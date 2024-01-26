@@ -11,7 +11,8 @@ import Dependencies
 protocol AccountAPI{
     func requestCreateUser(user : CreateUserRequest) async throws -> Bool
     func requestLoginUserTest() async throws -> LoginResponse?
-    func requestAuthTest() async throws -> Bool
+    func requestAuthTest() async throws -> AuthResponse?
+    func requestRefreshToken() async throws ->RefreshResponse?
 }
 
 class AccountAPIClient: AccountAPI{
@@ -67,7 +68,7 @@ class AccountAPIClient: AccountAPI{
     }
     
     //액세스토큰 인증 요청-테스트
-    func requestAuthTest() async throws -> Bool {
+    func requestAuthTest() async throws ->  AuthResponse?{
         let successRange = 200 ..< 300
         let url = URL(string:"\(Const.Server.ADDRESS)/user/auth/test")!
         
@@ -76,26 +77,54 @@ class AccountAPIClient: AccountAPI{
         if let accessToken = KeyChain.read(key: "AccessToken"){
             let authHeader = "Bearer \(accessToken)"
             request.setValue(authHeader, forHTTPHeaderField: "Authorization")
-            print("request header")
-            print(request.value(forHTTPHeaderField: "Authorization") ?? "auth")
+            
             let (data, response) = try await URLSession.shared.data(for: request)
+            
             if let httpResponse = response as? HTTPURLResponse{
                 if successRange.contains(httpResponse.statusCode){
                     print("success to auth-\(httpResponse.statusCode)")
-                    return true
+                     let authResponse = AuthResponse(errorCode: 0, httpStatus: "", message: "인증 성공")
+                    return authResponse
                 }else{
                     print("failed to auth - \(httpResponse.statusCode)")
                     print("data - \(String(data: data, encoding: .utf8) ?? "nil")")
-                    print("response - \(response)")
-                    return false
+                    let authResponse = try JSONDecoder().decode(AuthResponse.self, from: data)
+                    return authResponse
                 }
             }else{
                 print("data - \(data)")
-                return false
+                return nil
             }
         }else{
             print("acessToken is nil")
-            return false
+            return nil
+        }
+    }
+    
+    func requestRefreshToken() async throws -> RefreshResponse? {
+        let successRange = 200..<300
+        let url = URL(string: "\(Const.Server.ADDRESS)/user/refresh")!
+        var request = URLRequest(url:url)
+        request.httpMethod = "POST"
+        if let refreshToken = KeyChain.read(key: "RefreshToken"){
+            let authHeader = "Bearer \(refreshToken)"
+            request.setValue(authHeader, forHTTPHeaderField: "Authorization")
+            let (data, response) = try await URLSession.shared.data(for: request)
+            if let httpResponse = response as? HTTPURLResponse{
+                if successRange.contains(httpResponse.statusCode){
+                    let accessToken = try JSONDecoder().decode(RefreshResponse.self, from: data)
+                    return accessToken
+                }else{
+                    print("data - \(String(data: data, encoding: .utf8) ?? "nil")")
+                    return nil
+                }
+            }else{
+                print("requestRefreshToken is failed")
+                return nil
+            }
+        }else{
+            print("RefreshToken is nil")
+            return nil
         }
     }
     

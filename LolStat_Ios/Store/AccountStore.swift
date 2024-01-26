@@ -13,6 +13,7 @@ struct AccountStore : Reducer{
         @BindingState var email : String = ""
         @BindingState var password : String = ""
         var LoginResponse : LoginResponse?
+        var testResponse : AuthResponse?
         
     }
     enum Action: BindableAction{
@@ -20,6 +21,9 @@ struct AccountStore : Reducer{
         case requestLoginTest
         case responseLogin(LoginResponse)
         case requestAuthTest
+        case responseAuthTest(AuthResponse)
+        case requestRefreshToken
+        case responseRefreshToken(RefreshResponse)
         
         case loginButtonTapped
         case joinButtonTapped
@@ -38,7 +42,7 @@ struct AccountStore : Reducer{
             //API Request
             //
             //로그인 요청 - 테스트
-            case .requestLoginTest:
+        case .requestLoginTest:
             
             return .run{ send in
                 if let response = try await accountAPI.requestLoginUserTest(){
@@ -50,23 +54,47 @@ struct AccountStore : Reducer{
             //토큰 유효성 - 테스트
         case .requestAuthTest:
             return .run{send in
-                    if try await
-                        accountAPI.requestAuthTest(){
-                        print("true")
-                    }else{
-                        print("authTestError")
-                    }
+                if let response = try await
+                    accountAPI.requestAuthTest(){
+                    await send(.responseAuthTest(response))
+                    print("true")
+                }else{
+                    print("authTestError")
+                }
             }
-            
+            //토큰 재발급 요청
+        case .requestRefreshToken:
+            return .run{ send in
+                if let accessToken = try await accountAPI.requestRefreshToken(){
+                    await send(.responseRefreshToken(accessToken))
+                }else{
+                    print("refreshTokenError")
+                }
+            }
             //
             //API Response
             //
-            case let.responseLogin(loginResponse):
-        
+            //로그인 반환
+        case let .responseLogin(loginResponse):
+            
             KeyChain.create(key: "RefreshToken", token: loginResponse.refreshToken)
             KeyChain.create(key: "AccessToken", token: loginResponse.accessToken)
             return .none
+            //토큰 인증 반환
+        case let .responseAuthTest(authResponse):
+            //state.testResponse = authResponse
+            if(authResponse.errorCode == 1005){
+                return .run{send in
+                    await send(.requestRefreshToken)
+                }
+            }else{
+                print("승인")
+                return .none
+            }
+        case let .responseRefreshToken(accessToken):
+            KeyChain.create(key: "AccessToken", token: accessToken.accessToken)
             
+            return .none
             //
             //로그인 페이지 액션
             //
@@ -75,7 +103,7 @@ struct AccountStore : Reducer{
             return .run{send in
                 await send(.requestLoginTest)
             }
-        
+            
             //회원가입 버튼 눌렀을 때
         case .joinButtonTapped:
             
@@ -89,7 +117,7 @@ struct AccountStore : Reducer{
             return .run{ send in
                 await send(.requestAuthTest)
             }
-                case .binding:
+        case .binding:
             return .none
         }
     }

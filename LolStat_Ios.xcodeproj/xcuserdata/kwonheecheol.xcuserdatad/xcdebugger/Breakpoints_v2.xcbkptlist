@@ -3,4 +3,100 @@
    uuid = "E10D5203-E1B2-471D-AE30-F21036223236"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0D6D14C7-13EB-48C0-A139-26E37C987332"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LolStat_Ios/Store/Dependencies/AccountAPI.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "requestRefreshToken()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "74042C0C-68EF-4A3E-AA18-A9EA586689B2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LolStat_Ios/Store/Dependencies/AccountAPI.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "requestRefreshToken()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "74042C0C-68EF-4A3E-AA18-A9EA586689B2 - 5320d5324cb33135"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for LolStat_Ios.AccountAPIClient.requestRefreshToken() async throws -&gt; Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "LolStat_Ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kwonheecheol/Documents/Projects/LolStat_Ios/LolStat_Ios/Store/Dependencies/AccountAPI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "216">
+               </Location>
+               <Location
+                  uuid = "74042C0C-68EF-4A3E-AA18-A9EA586689B2 - f2c6d095a637c99b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LolStat_Ios.AccountAPIClient.requestRefreshToken() async throws -&gt; Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "LolStat_Ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kwonheecheol/Documents/Projects/LolStat_Ios/LolStat_Ios/Store/Dependencies/AccountAPI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "288">
+               </Location>
+               <Location
+                  uuid = "74042C0C-68EF-4A3E-AA18-A9EA586689B2 - 5320d5324cb33135"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for LolStat_Ios.AccountAPIClient.requestRefreshToken() async throws -&gt; Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "LolStat_Ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kwonheecheol/Documents/Projects/LolStat_Ios/LolStat_Ios/Store/Dependencies/AccountAPI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "200">
+               </Location>
+               <Location
+                  uuid = "74042C0C-68EF-4A3E-AA18-A9EA586689B2 - f2c6d095a637c99b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LolStat_Ios.AccountAPIClient.requestRefreshToken() async throws -&gt; Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "LolStat_Ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kwonheecheol/Documents/Projects/LolStat_Ios/LolStat_Ios/Store/Dependencies/AccountAPI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "324">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
