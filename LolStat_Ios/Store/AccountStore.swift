@@ -12,8 +12,8 @@ struct AccountStore : Reducer{
     struct State : Equatable{
         @BindingState var email : String = ""
         @BindingState var password : String = ""
-        var LoginResponse : LoginResponse?
-        var testResponse : AuthResponse?
+
+        @PresentationState var joinStore: JoinStore.State?
         
     }
     enum Action: BindableAction{
@@ -28,11 +28,16 @@ struct AccountStore : Reducer{
         case loginButtonTapped
         case joinButtonTapped
         case testButtonTapped
+        
+        case joinStore(PresentationAction<JoinStore.Action>)
     }
     var body : some ReducerOf<Self>{
         BindingReducer()
         
         Reduce(self.joinAcountReducer)
+            .ifLet(\.$joinStore, action:/Action.joinStore){
+                JoinStore()
+            }
     }
     
     @Dependency(\.accountAPIClient) var accountAPI
@@ -112,11 +117,7 @@ struct AccountStore : Reducer{
             
             //회원가입 버튼 눌렀을 때
         case .joinButtonTapped:
-            
-            let accessToken = KeyChain.read(key: "AccessToken")
-            let refreshToken = KeyChain.read(key: "RefreshToken")
-            print("refresh -\(refreshToken as Any)")
-            print("access -\(accessToken as Any)")
+            state.joinStore = JoinStore.State()
             return .none
         case .testButtonTapped:
             
@@ -126,7 +127,14 @@ struct AccountStore : Reducer{
             }
         case .binding:
             return .none
+            
+        case .joinStore(.presented(.cancleButtonTapped)):
+            state.joinStore = nil
+            return .none
+        case .joinStore:
+                return .none
         }
+            
     }
     
 }

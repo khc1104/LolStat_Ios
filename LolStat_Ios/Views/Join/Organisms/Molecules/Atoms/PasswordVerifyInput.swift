@@ -16,7 +16,7 @@ struct PasswordVerifyInput:View {
         WithViewStore(self.store, observe:{$0}){viewStore in
             VStack{
                 ZStack(alignment: .leading){
-                    TextField("", text: viewStore.$passwordVerify)
+                    SecureField("", text: viewStore.$passwordVerify)
                         .textFieldStyle(.roundedBorder)
                         .textContentType(.oneTimeCode)
                         

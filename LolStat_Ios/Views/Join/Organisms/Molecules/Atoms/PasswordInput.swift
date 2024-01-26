@@ -16,7 +16,7 @@ struct PasswordInput:View {
         WithViewStore(self.store, observe: {$0}){viewStore in
             VStack{
                 ZStack(alignment: .leading){
-                    TextField("", text: viewStore.$password)
+                    SecureField("", text: viewStore.$password)
                         .textFieldStyle(.roundedBorder)
                         .textContentType(.oneTimeCode)
                     Text("비밀번호")

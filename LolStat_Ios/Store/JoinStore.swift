@@ -24,11 +24,11 @@ struct JoinStore : Reducer{
     enum Action: BindableAction{
         case binding(BindingAction<State>)
         case joinButtonTapped
+        case cancleButtonTapped
         case verifyEmail
         case verifyPassword
         case verifyPasswordVerify
         case reqeustCreateUser
-        
         case responseCreateUser(Bool)
     }
     var body : some ReducerOf<Self>{
@@ -72,6 +72,8 @@ struct JoinStore : Reducer{
             }else{
                 print("유효성 검사 통과 x")
             }
+            return .none
+        case .cancleButtonTapped:
             return .none
         case .verifyEmail:
             let emailRegEx = /[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/

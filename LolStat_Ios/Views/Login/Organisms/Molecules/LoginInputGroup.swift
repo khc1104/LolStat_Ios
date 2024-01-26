@@ -69,6 +69,14 @@ struct LoginInputGroup: View {
                 }
             }
         }
+        .sheet(store: self.store.scope(
+            state: \.$joinStore,
+            action: AccountStore.Action.joinStore)
+        ){joinStore in
+            NavigationStack{
+                Join(store:joinStore)
+            }
+        }
     }
 }
 

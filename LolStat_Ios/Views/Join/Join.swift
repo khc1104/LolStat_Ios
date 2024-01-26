@@ -10,10 +10,14 @@ import SwiftUI
 import ComposableArchitecture
 
 struct Join: View {
-    let store : StoreOf<JoinStore> = Store(initialState: JoinStore.State()){
-        JoinStore()
-    }
+    let store : StoreOf<JoinStore>
+    /*= Store(initialState: JoinStore.State()){
+     JoinStore()
+     }
+     */
     var body: some View {
-        VerifyGroup(store : store)
+        WithViewStore(self.store, observe: {$0}){viewStore in
+            VerifyGroup(store : store)
+        }
     }
 }

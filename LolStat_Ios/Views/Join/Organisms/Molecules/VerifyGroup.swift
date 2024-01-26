@@ -61,6 +61,14 @@ struct VerifyGroup: View {
                     //.disabled(viewStore.isEmailVerified && viewStore.isPasswordVerified && viewStore.isPasswordVerifyVerified ? false : true)
                 }
                 .padding()
+                
+            }
+            .toolbar{
+                ToolbarItem{
+                    Button("Cancle"){
+                        viewStore.send(.cancleButtonTapped)
+                    }
+                }
             }
             .frame(height: Const.Screen.HEIGHT)
             .font(.kingSejong(.regular, size: 20))
