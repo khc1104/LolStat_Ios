@@ -14,8 +14,8 @@
             filePath = "LolStat_Ios/Store/Dependencies/AccountAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
             landmarkName = "requestRefreshToken()"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "LolStat_Ios/Store/Dependencies/AccountAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
             landmarkName = "requestRefreshToken()"
             landmarkType = "7">
             <Locations>
@@ -94,6 +94,101 @@
                   startingLineNumber = "102"
                   endingLineNumber = "102"
                   offsetFromSymbolStart = "324">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E7616288-F7BF-4982-B38F-4FF611F4731C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LolStat_Ios/Store/Dependencies/AccountAPI.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "requestCreateUser(user:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1F409DA6-EEB3-463B-B648-A79C4A4AAA56"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LolStat_Ios/Store/Dependencies/AccountAPI.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "requestCreateUser(user:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3DBBF14E-CD04-4265-B601-A26E437D13E2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LolStat_Ios/Store/Dependencies/AccountAPI.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "requestCreateUser(user:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3DBBF14E-CD04-4265-B601-A26E437D13E2 - c48089a184d8d50a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LolStat_Ios.AccountAPIClient.requestCreateUser(user: LolStat_Ios.CreateUserRequest) async throws -&gt; Swift.Bool"
+                  moduleName = "LolStat_Ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kwonheecheol/Documents/Projects/LolStat_Ios/LolStat_Ios/Store/Dependencies/AccountAPI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "304">
+               </Location>
+               <Location
+                  uuid = "3DBBF14E-CD04-4265-B601-A26E437D13E2 - 6156115c1f5dfc46"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for LolStat_Ios.AccountAPIClient.requestCreateUser(user: LolStat_Ios.CreateUserRequest) async throws -&gt; Swift.Bool"
+                  moduleName = "LolStat_Ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kwonheecheol/Documents/Projects/LolStat_Ios/LolStat_Ios/Store/Dependencies/AccountAPI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "176">
+               </Location>
+               <Location
+                  uuid = "3DBBF14E-CD04-4265-B601-A26E437D13E2 - c48089a184d8d50a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LolStat_Ios.AccountAPIClient.requestCreateUser(user: LolStat_Ios.CreateUserRequest) async throws -&gt; Swift.Bool"
+                  moduleName = "LolStat_Ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kwonheecheol/Documents/Projects/LolStat_Ios/LolStat_Ios/Store/Dependencies/AccountAPI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "348">
                </Location>
             </Locations>
          </BreakpointContent>

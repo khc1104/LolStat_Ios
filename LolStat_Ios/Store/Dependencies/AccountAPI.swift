@@ -9,7 +9,7 @@ import Foundation
 import Dependencies
 
 protocol AccountAPI{
-    func requestCreateUser(user : CreateUserRequest) async throws -> Bool
+    func requestCreateUser(user : CreateUserRequest) async throws -> Int
     func requestLoginUserTest() async throws -> LoginResponse?
     func requestAuthTest() async throws -> Int?
     func requestRefreshToken() async throws ->String?
@@ -42,7 +42,7 @@ class AccountAPIClient: AccountAPI{
         }
     }
     //회원가입 요청(스테이터스 코드로 에러 핸들링 필요)
-    func requestCreateUser(user: CreateUserRequest) async throws -> Bool {
+    func requestCreateUser(user: CreateUserRequest) async throws -> Int {
         let successRange = 200 ..< 300
         let url = URL(string:"\(Const.Server.ADDRESS)/user")!
         let encoder = JSONEncoder()
@@ -52,18 +52,21 @@ class AccountAPIClient: AccountAPI{
         request.httpMethod = "POST"
         request.httpBody = jsonData
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let (_, response) = try await URLSession.shared.data(for: request)
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
     
         if let httpResponse = response as? HTTPURLResponse{
             if successRange.contains(httpResponse.statusCode){
-                return true
+                return 200
             }else{
                 print("createUser Error - \(httpResponse.statusCode)")
-                return false
+                //print("data - \(String(data: data, encoding: .utf8))")
+                let authResponse = try JSONDecoder().decode(AuthResponse.self, from: data)
+                return authResponse.errorCode
             }
         }else{
             print("request error - createUser")
-            return false
+            return 400
         }
     }
     
