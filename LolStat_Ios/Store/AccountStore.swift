@@ -12,6 +12,7 @@ struct AccountStore : Reducer{
     struct State : Equatable{
         @BindingState var email : String = ""
         @BindingState var password : String = ""
+        var isLogin : Bool = false
 
         @PresentationState var joinStore: JoinStore.State?
         
@@ -24,6 +25,9 @@ struct AccountStore : Reducer{
         case responseAuthTest(Int)
         case requestRefreshToken
         case responseRefreshToken(String)
+        
+        case duoOnAppear
+        case LogOutButtonTapped
         
         case loginButtonTapped
         case joinButtonTapped
@@ -84,6 +88,7 @@ struct AccountStore : Reducer{
             
             KeyChain.create(key: "RefreshToken", token: loginResponse.refreshToken)
             KeyChain.create(key: "AccessToken", token: loginResponse.accessToken)
+            state.isLogin = true
             return .none
             //토큰 인증 반환
         case let .responseAuthTest(authResponse):
@@ -100,11 +105,27 @@ struct AccountStore : Reducer{
             if tokenResponse == "1005"{
                 KeyChain.delete(key: "RefreshToken")
                 KeyChain.delete(key: "AccessToken")
+                state.isLogin = false
                 print("Logout!!")
             }else{
                 KeyChain.create(key: "AccessToken", token: tokenResponse)
+                state.isLogin = true
             }
             
+            return .none
+            //
+            //듀오페이지 액션
+            //
+            //듀오페이지 onAppear
+        case .duoOnAppear:
+            return .run{send in
+                await send(.requestRefreshToken)
+            }
+            //로그아웃 버튼 눌렀을 때
+        case .LogOutButtonTapped:
+            KeyChain.delete(key: "AccessToken")
+            KeyChain.delete(key: "RefreshToken")
+            state.isLogin = false
             return .none
             //
             //로그인 페이지 액션
