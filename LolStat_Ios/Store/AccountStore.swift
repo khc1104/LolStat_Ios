@@ -12,25 +12,31 @@ struct AccountStore : Reducer{
     struct State : Equatable{
         @BindingState var email : String = ""
         @BindingState var password : String = ""
+        @BindingState var verifyCode : String = ""
         var isLogin : Bool = false
+        var isVerified: Bool = true
 
         @PresentationState var joinStore: JoinStore.State?
         
     }
     enum Action: BindableAction{
         case binding(BindingAction<State>)
+        case requestLogin
         case requestLoginTest
         case responseLogin(LoginResponse)
         case requestAuthTest
         case responseAuthTest(Int)
         case requestRefreshToken
         case responseRefreshToken(String)
+        case requestUserVerify
+        case responseUserVerify(Int)
         
         case duoOnAppear
         case LogOutButtonTapped
         
         case loginButtonTapped
         case joinButtonTapped
+        case UserVerifyButtonTapped
         case testButtonTapped
         
         case joinStore(PresentationAction<JoinStore.Action>)
@@ -50,9 +56,19 @@ struct AccountStore : Reducer{
             //
             //API Request
             //
+            //로그인 요청
+        case .requestLogin:
+            let pwd = "\(state.password)"
+            let loginUser = LoginRequest(email: state.email, password: pwd)
+            return .run{ send in
+                if let response = try await accountAPI.requestLogin(user:loginUser){
+                    await send(.responseLogin(response))
+                }else{
+                    print("loginResponseError")
+                }
+            }
             //로그인 요청 - 테스트
         case .requestLoginTest:
-            
             return .run{ send in
                 if let response = try await accountAPI.requestLoginUserTest(){
                     await send(.responseLogin(response))
@@ -80,6 +96,15 @@ struct AccountStore : Reducer{
                     print("refreshTokenError")
                 }
             }
+        case .requestUserVerify:
+            let code = UserVerifyRequest(verificationCode: state.verifyCode)
+            return .run{ send in
+                if let response = try await accountAPI.requestUserVerify(code: code){
+                    await send(.responseUserVerify(response))
+                }else{
+                    print("userVerifyError")
+                }
+            }
             //
             //API Response
             //
@@ -97,10 +122,14 @@ struct AccountStore : Reducer{
                 return .run{send in
                     await send(.requestRefreshToken)
                 }
+            }else if(authResponse == 1003){
+                state.isVerified = false
+                return .none
             }else{
                 print("승인")
                 return .none
             }
+            //토큰 리프레쉬 반환
         case let .responseRefreshToken(tokenResponse):
             if tokenResponse == "1005"{
                 KeyChain.delete(key: "RefreshToken")
@@ -110,6 +139,15 @@ struct AccountStore : Reducer{
             }else{
                 KeyChain.create(key: "AccessToken", token: tokenResponse)
                 state.isLogin = true
+            }
+            return .none
+            //유저 인증 반환
+        case let .responseUserVerify(response):
+            if response == 200{
+                state.isVerified = true
+            }
+            else{
+                print(response)
             }
             
             return .none
@@ -133,13 +171,21 @@ struct AccountStore : Reducer{
             //로그인 버튼 눌렀을 때
         case .loginButtonTapped:
             return .run{send in
-                await send(.requestLoginTest)
+                await send(.requestLogin)
             }
             
             //회원가입 버튼 눌렀을 때
         case .joinButtonTapped:
             state.joinStore = JoinStore.State()
             return .none
+            //
+            //이메일 인증 페이지
+            //
+            //인증버튼 눌렀을 때
+        case .UserVerifyButtonTapped:
+            return .run{ send in
+                await send(.requestUserVerify)
+            }
         case .testButtonTapped:
             
             return .run{ send in

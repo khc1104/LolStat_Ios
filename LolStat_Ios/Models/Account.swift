@@ -4,7 +4,7 @@
 //
 //  Created by 권희철 on 2023/11/09.
 //
-
+//유저 인증 요청
 struct UserVerifyRequest : Codable{
     var verificationCode : String
 }

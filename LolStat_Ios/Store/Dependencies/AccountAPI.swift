@@ -10,12 +10,44 @@ import Dependencies
 
 protocol AccountAPI{
     func requestCreateUser(user : CreateUserRequest) async throws -> Int
+    func requestLogin(user :LoginRequest) async throws -> LoginResponse?
     func requestLoginUserTest() async throws -> LoginResponse?
     func requestAuthTest() async throws -> Int?
     func requestRefreshToken() async throws ->String?
+    func requestUserVerify(code: UserVerifyRequest) async throws -> Int?
 }
 
 class AccountAPIClient: AccountAPI{
+    //로그인 요청
+    func requestLogin(user : LoginRequest) async throws -> LoginResponse? {
+        let successRange = 200 ..< 300
+        let url = URL(string: "\(Const.Server.ADDRESS)/user/login")!
+        let decoder = JSONDecoder()
+        let encoder = JSONEncoder()
+        let jsonData = try? encoder.encode(user)
+        
+        var request = URLRequest(url:url)
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        if let httpResponse = response as? HTTPURLResponse{
+            if successRange.contains(httpResponse.statusCode){
+                let loginResponse = try decoder.decode(LoginResponse.self, from: data)
+                return loginResponse
+            }else{
+                let response = String(data:data, encoding: .utf8)
+                print("data - \(response)")
+                print("LoginTest Error - \(httpResponse.statusCode)")
+                return nil
+            }
+        }else{
+            print("request Error - Login/Test")
+            return nil
+        }
+    }
     //로그인 테스트용 요청 - 액세스토큰 1분 리프레쉬토큰 2분
     func requestLoginUserTest() async throws -> LoginResponse? {
         let successRange = 200 ..< 300
@@ -133,7 +165,41 @@ class AccountAPIClient: AccountAPI{
             return nil
         }
     }
-    
+    //이메일 인증요청
+    func requestUserVerify(code: UserVerifyRequest) async throws -> Int?{
+        let successRange = 200 ..< 300
+        let url = URL(string: "\(Const.Server.ADDRESS)/user/verify")!
+        let encoder = JSONEncoder()
+        let jsonData = try encoder.encode(code)
+        
+        var request = URLRequest(url:url)
+        request.httpMethod = "PUT"
+        request.httpBody=jsonData
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        if let accessToken = KeyChain.read(key: "AccessToken"){
+            let authHeader = "Bearer \(accessToken)"
+            request.addValue(authHeader, forHTTPHeaderField: "Authorization")
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            if let httpResponse = response as? HTTPURLResponse{
+                if successRange.contains(httpResponse.statusCode){
+                    return 200
+                }else{
+                    let responseData = String(data:data, encoding: .utf8)
+                    print("email verify Error - \(httpResponse.statusCode)")
+                    print("data - \(responseData)")
+                    return 400
+                }
+            }else{
+                print("request error - userVerify")
+                return 400
+            }
+        }else{
+            print("aceessToken is nil")
+            return 400
+        }
+    }
     
 }
 

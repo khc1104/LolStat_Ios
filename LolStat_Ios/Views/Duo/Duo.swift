@@ -15,9 +15,17 @@ struct Duo: View {
         WithViewStore(self.store, observe: {$0}){viewStore in
             VStack{
                 if viewStore.isLogin{
-                    Text("Duo")
-                    Button("로그아웃"){
-                        viewStore.send(.LogOutButtonTapped)
+                    if viewStore.isVerified{
+                        Text("Duo")
+                        Button("로그아웃"){
+                            viewStore.send(.LogOutButtonTapped)
+                        }
+                        .background(.primary)
+                        Button("토큰 인증"){
+                            viewStore.send(.testButtonTapped)
+                        }.background(.secondary)
+                    }else{
+                        UserVerify()
                     }
                 }else{
                     Login()
