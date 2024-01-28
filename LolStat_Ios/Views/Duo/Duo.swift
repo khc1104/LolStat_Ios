@@ -17,6 +17,9 @@ struct Duo: View {
                 if viewStore.isLogin{
                     if viewStore.isVerified{
                         Text("Duo")
+                            .onAppear{
+                                viewStore.send(.duoOnAppear2)
+                            }
                         Button("로그아웃"){
                             viewStore.send(.LogOutButtonTapped)
                         }
