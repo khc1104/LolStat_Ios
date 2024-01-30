@@ -115,10 +115,12 @@ struct AccountStore : Reducer{
             //
             //로그인 반환
         case let .responseLogin(loginResponse):
+            
             if let response = loginResponse{
                 state.userInfo = response
-                state.isVerified = response.verified
+                //state.isVerified = response.verified
                 state.isLogin = true
+                
             }
             return .none
             //토큰 인증 반환
@@ -190,7 +192,7 @@ struct AccountStore : Reducer{
             //듀오페이지 onAppear
         case .duoOnAppear:
             return .run{send in
-                await send(.requestRefreshToken)
+                await send(.requestAuthTest)
             }
             //유저 인증 되어있는지 확인 용 onAppear
         case .duoOnAppear2:
