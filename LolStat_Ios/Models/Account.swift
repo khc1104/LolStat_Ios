@@ -35,7 +35,7 @@ struct UserInfoDto : Codable, Equatable{
 }
 //인증 반환
 struct AuthResponse : Codable, Equatable{
-    var errorCode : Int
+    var errorCode : LolStatError
     var httpStatus: String
     var message : String
 }
@@ -43,3 +43,4 @@ struct AuthResponse : Codable, Equatable{
 struct RefreshResponse: Codable, Equatable{
     var accessToken : String
 }
+

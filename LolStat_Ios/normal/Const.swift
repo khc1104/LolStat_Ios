@@ -25,7 +25,8 @@ enum LeaderBoard_QueueType: String{
     case Solo = "solo_rank"
     case Flex = "felx_rank"
 }
-enum LolStatError: Int{
+
+enum LolStatError: Int, Codable{
     case USER_JOIN_FAIL = 1000
     case USER_LOGIN_FAIL = 1001
     case NEED_LOGIN = 1002
@@ -37,4 +38,5 @@ enum LolStatError: Int{
     case DUO_ALREADY_MATCHED = 2002
     case DUO_OWNER_TRY_TICKET = 2003
     case INPUT_ERROR = 9000
+    case NO_ERROR = 200
 }

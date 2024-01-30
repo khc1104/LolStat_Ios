@@ -29,7 +29,7 @@ struct JoinStore : Reducer{
         case verifyPassword
         case verifyPasswordVerify
         case reqeustCreateUser
-        case responseCreateUser(Int)
+        case responseCreateUser(AuthResponse?)
     }
     var body : some ReducerOf<Self>{
         BindingReducer()
@@ -54,25 +54,27 @@ struct JoinStore : Reducer{
                                                   password: pwd,
                                                   passwordCheck: pwdck)
             return .run{ send in
-                let isCreated = try await accountAPI.requestCreateUser(user: createAccount)
-                await send(.responseCreateUser(isCreated))
+                let response = try await accountAPI.requestCreateUser(user: createAccount)
+                await send(.responseCreateUser(response))
             }
             
             //
             //API Response
             //
-        case let .responseCreateUser(isCreated):
-            switch isCreated{
-            case 200:
-                print("회원가입 성공")
-                return .run{ send in
-                    await send(.cancleButtonTapped)
+        case let .responseCreateUser(response):
+            if let response = response{
+                switch response.errorCode{
+                case .NO_ERROR:
+                    print("회원가입 성공")
+                    return .run{ send in
+                        await send(.cancleButtonTapped)
+                    }
+                case .USER_JOIN_FAIL:
+                    print("회원가입 실패, 이미 존재하는 계정일 수 있음.")
+                    return .none
+                default:
+                    print("anotherError")
                 }
-            case 1000:
-                print("이미 존재하는 계정입니다.")
-                return .none
-            default:
-                print("anotherError")
             }
             return .none
             //회원가입 버튼 눌렀을 때

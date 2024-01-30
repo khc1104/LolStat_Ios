@@ -20,8 +20,11 @@ struct UserVerifyGroup: View {
                 }
                 VerifyButton()
                     .onTapGesture {
-                        viewStore.send(.UserVerifyButtonTapped)
+                        viewStore.send(.userVerifyButtonTapped)
                     }
+            }
+            Button("Logout"){
+                viewStore.send(.LogOutButtonTapped)
             }
         }
     }

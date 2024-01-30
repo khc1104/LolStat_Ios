@@ -9,17 +9,17 @@ import Foundation
 import Dependencies
 
 protocol AccountAPI{
-    func requestCreateUser(user : CreateUserRequest) async throws -> Int
-    func requestLogin(user :LoginRequest) async throws -> LoginResponse?
-    func requestLoginUserTest() async throws -> LoginResponse?
-    func requestAuthTest() async throws -> Int?
-    func requestRefreshToken() async throws ->String?
-    func requestUserVerify(code: UserVerifyRequest) async throws -> Int?
+    func requestCreateUser(user : CreateUserRequest) async throws -> AuthResponse?
+    func requestLogin(user :LoginRequest) async throws -> UserInfoDto?
+    func requestLoginUserTest() async throws -> UserInfoDto?
+    func requestAuthTest() async throws -> AuthResponse?
+    func requestRefreshToken() async throws ->AuthResponse?
+    func requestUserVerify(code: UserVerifyRequest) async throws -> AuthResponse?
 }
 
 class AccountAPIClient: AccountAPI{
     //로그인 요청
-    func requestLogin(user : LoginRequest) async throws -> LoginResponse? {
+    func requestLogin(user : LoginRequest) async throws -> UserInfoDto? {
         let successRange = 200 ..< 300
         let url = URL(string: "\(Const.Server.ADDRESS)/user/login")!
         let decoder = JSONDecoder()
@@ -36,11 +36,13 @@ class AccountAPIClient: AccountAPI{
         if let httpResponse = response as? HTTPURLResponse{
             if successRange.contains(httpResponse.statusCode){
                 let loginResponse = try decoder.decode(LoginResponse.self, from: data)
-                return loginResponse
+                KeyChain.create(key: Token.REFRESH_TOKEN.rawValue, token: loginResponse.refreshToken)
+                KeyChain.create(key: Token.ACCESS_TOKEN.rawValue, token: loginResponse.accessToken)
+                
+                return loginResponse.userInfo
             }else{
-                let response = String(data:data, encoding: .utf8)
-                print("data - \(response)")
-                print("LoginTest Error - \(httpResponse.statusCode)")
+                let test = String(data:data, encoding: .utf8)
+                print(test)
                 return nil
             }
         }else{
@@ -49,7 +51,7 @@ class AccountAPIClient: AccountAPI{
         }
     }
     //로그인 테스트용 요청 - 액세스토큰 1분 리프레쉬토큰 2분
-    func requestLoginUserTest() async throws -> LoginResponse? {
+    func requestLoginUserTest() async throws -> UserInfoDto? {
         let successRange = 200 ..< 300
         let url = URL(string: "\(Const.Server.ADDRESS)/user/login/test")!
         let decoder = JSONDecoder()
@@ -63,9 +65,12 @@ class AccountAPIClient: AccountAPI{
         if let httpResponse = response as? HTTPURLResponse{
             if successRange.contains(httpResponse.statusCode){
                 let loginResponse = try decoder.decode(LoginResponse.self, from: data)
-                return loginResponse
+                KeyChain.create(key: Token.REFRESH_TOKEN.rawValue, token: loginResponse.refreshToken)
+                KeyChain.create(key: Token.ACCESS_TOKEN.rawValue, token: loginResponse.accessToken)
+                
+                return loginResponse.userInfo
             }else{
-                print("LoginTest Error - \(httpResponse.statusCode)")
+                print("계정이나 비번 틀림")
                 return nil
             }
         }else{
@@ -73,8 +78,8 @@ class AccountAPIClient: AccountAPI{
             return nil
         }
     }
-    //회원가입 요청(스테이터스 코드로 에러 핸들링 필요)
-    func requestCreateUser(user: CreateUserRequest) async throws -> Int {
+    //회원가입 요청
+    func requestCreateUser(user: CreateUserRequest) async throws -> AuthResponse? {
         let successRange = 200 ..< 300
         let url = URL(string:"\(Const.Server.ADDRESS)/user")!
         let encoder = JSONEncoder()
@@ -89,21 +94,19 @@ class AccountAPIClient: AccountAPI{
     
         if let httpResponse = response as? HTTPURLResponse{
             if successRange.contains(httpResponse.statusCode){
-                return 200
+                return AuthResponse(errorCode: LolStatError.NO_ERROR, httpStatus: "", message: "")
             }else{
-                print("createUser Error - \(httpResponse.statusCode)")
-                //print("data - \(String(data: data, encoding: .utf8))")
-                let authResponse = try JSONDecoder().decode(AuthResponse.self, from: data)
-                return authResponse.errorCode
+                let responseData = try JSONDecoder().decode(AuthResponse.self, from: data)
+                return responseData
             }
         }else{
             print("request error - createUser")
-            return 400
+            return nil
         }
     }
     
     //액세스토큰 인증 요청-테스트
-    func requestAuthTest() async throws ->  Int?{
+    func requestAuthTest() async throws ->  AuthResponse?{
         let successRange = 200 ..< 300
         let url = URL(string:"\(Const.Server.ADDRESS)/user/auth/test")!
         
@@ -117,17 +120,13 @@ class AccountAPIClient: AccountAPI{
             
             if let httpResponse = response as? HTTPURLResponse{
                 if successRange.contains(httpResponse.statusCode){
-                    //print("success to auth-\(httpResponse.statusCode)")
-                    
-                    return 200
+                    return AuthResponse(errorCode: LolStatError.NO_ERROR, httpStatus: "", message: "")
                 }else{
-                    print("failed to auth - \(httpResponse.statusCode)")
-                    print("data - \(String(data: data, encoding: .utf8) ?? "nil")")
-                    let authResponse = try JSONDecoder().decode(AuthResponse.self, from: data)
-                    return authResponse.errorCode
+                    let responseData = try JSONDecoder().decode(AuthResponse.self, from: data)
+                    return responseData
                 }
             }else{
-                print("data - \(data)")
+                print("requestEror - AuthTest")
                 return nil
             }
         }else{
@@ -136,7 +135,7 @@ class AccountAPIClient: AccountAPI{
         }
     }
     //액세스토큰 리프레쉬
-    func requestRefreshToken() async throws -> String? {
+    func requestRefreshToken() async throws -> AuthResponse? {
         let successRange = 200..<300
         let url = URL(string: "\(Const.Server.ADDRESS)/user/refresh")!
         var request = URLRequest(url:url)
@@ -147,17 +146,17 @@ class AccountAPIClient: AccountAPI{
             let (data, response) = try await URLSession.shared.data(for: request)
             if let httpResponse = response as? HTTPURLResponse{
                 if successRange.contains(httpResponse.statusCode){
-                    let accessToken = try JSONDecoder().decode(RefreshResponse.self, from: data)
+                    let responseData = try JSONDecoder().decode(RefreshResponse.self, from: data)
+                    KeyChain.create(key: Token.ACCESS_TOKEN.rawValue, token: responseData.accessToken)
                     
-                    return accessToken.accessToken
+                    return AuthResponse(errorCode: LolStatError.NO_ERROR, httpStatus: "", message: "")
                 }else{
                     print("data - \(String(data: data, encoding: .utf8) ?? "nil")")
-                    let authResponse = try JSONDecoder().decode(AuthResponse.self, from: data)
-                    
-                    return "\(authResponse.errorCode)"
+                    let responseData = try JSONDecoder().decode(AuthResponse.self, from: data)
+                    return responseData
                 }
             }else{
-                print("requestRefreshToken is failed")
+                print("reqeustError - refreshToken")
                 return nil
             }
         }else{
@@ -166,7 +165,7 @@ class AccountAPIClient: AccountAPI{
         }
     }
     //이메일 인증요청
-    func requestUserVerify(code: UserVerifyRequest) async throws -> Int?{
+    func requestUserVerify(code: UserVerifyRequest) async throws -> AuthResponse?{
         let successRange = 200 ..< 300
         let url = URL(string: "\(Const.Server.ADDRESS)/user/verify")!
         let encoder = JSONEncoder()
@@ -184,20 +183,18 @@ class AccountAPIClient: AccountAPI{
             
             if let httpResponse = response as? HTTPURLResponse{
                 if successRange.contains(httpResponse.statusCode){
-                    return 200
+                    return AuthResponse(errorCode: LolStatError.NO_ERROR, httpStatus: "", message: "")
                 }else{
-                    let responseData = String(data:data, encoding: .utf8)
-                    print("email verify Error - \(httpResponse.statusCode)")
-                    print("data - \(responseData)")
-                    return 400
+                    let responseData = try JSONDecoder().decode(AuthResponse.self, from: data)
+                    return responseData
                 }
             }else{
                 print("request error - userVerify")
-                return 400
+                return nil
             }
         }else{
             print("aceessToken is nil")
-            return 400
+            return nil
         }
     }
     

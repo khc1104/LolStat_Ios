@@ -6,6 +6,10 @@
 //
 
 import Foundation
+enum Token : String{
+    case ACCESS_TOKEN = "AccessToken"
+    case REFRESH_TOKEN = "RefreshToken"
+}
 
 class KeyChain{
     //create

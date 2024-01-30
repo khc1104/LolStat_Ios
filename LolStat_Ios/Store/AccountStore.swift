@@ -13,9 +13,11 @@ struct AccountStore : Reducer{
         @BindingState var email : String = ""
         @BindingState var password : String = ""
         @BindingState var verifyCode : String = ""
+        var userInfo: UserInfoDto?
+        var timer : String = ""
         var isLogin : Bool = false
         var isVerified: Bool = true
-
+        
         @PresentationState var joinStore: JoinStore.State?
         
     }
@@ -23,13 +25,14 @@ struct AccountStore : Reducer{
         case binding(BindingAction<State>)
         case requestLogin
         case requestLoginTest
-        case responseLogin(LoginResponse)
+        case responseLogin(UserInfoDto?)
         case requestAuthTest
-        case responseAuthTest(Int)
+        case responseAuthTest(AuthResponse?)
         case requestRefreshToken
-        case responseRefreshToken(String)
+        case responseRefreshToken(AuthResponse?)
         case requestUserVerify
-        case responseUserVerify(Int)
+        case responseUserVerify(AuthResponse?)
+        case timer
         
         case duoOnAppear
         case duoOnAppear2
@@ -37,7 +40,7 @@ struct AccountStore : Reducer{
         
         case loginButtonTapped
         case joinButtonTapped
-        case UserVerifyButtonTapped
+        case userVerifyButtonTapped
         case testButtonTapped
         
         case joinStore(PresentationAction<JoinStore.Action>)
@@ -65,6 +68,7 @@ struct AccountStore : Reducer{
                 if let response = try await accountAPI.requestLogin(user:loginUser){
                     await send(.responseLogin(response))
                 }else{
+                    print("계정 또는 비밀번호가 틀렸거나 존재하지 않습니다.")
                     print("loginResponseError")
                 }
             }
@@ -111,47 +115,75 @@ struct AccountStore : Reducer{
             //
             //로그인 반환
         case let .responseLogin(loginResponse):
-            
-            KeyChain.create(key: "RefreshToken", token: loginResponse.refreshToken)
-            KeyChain.create(key: "AccessToken", token: loginResponse.accessToken)
-            state.isLogin = true
-            return .none
-            //토큰 인증 반환
-        case let .responseAuthTest(authResponse):
-            //state.testResponse = authResponse
-            if(authResponse == 1005){
-                return .run{send in
-                    await send(.requestRefreshToken)
-                }
-            }else if(authResponse == 1003){
-                state.isVerified = false
-                return .none
-            }else{
-                print("승인")
-                return .none
-            }
-            //토큰 리프레쉬 반환
-        case let .responseRefreshToken(tokenResponse):
-            if tokenResponse == "1005"{
-                KeyChain.delete(key: "RefreshToken")
-                KeyChain.delete(key: "AccessToken")
-                state.isLogin = false
-                print("Logout!!")
-            }else{
-                KeyChain.create(key: "AccessToken", token: tokenResponse)
+            if let response = loginResponse{
+                state.userInfo = response
+                state.isVerified = response.verified
                 state.isLogin = true
             }
             return .none
-            //유저 인증 반환
-        case let .responseUserVerify(response):
-            if response == 200{
-                state.isVerified = true
+            //토큰 인증 반환
+        case let .responseAuthTest(authResponse):
+            if let response = authResponse{
+                switch response.errorCode{
+                case .TOKEN_EXPIRED:
+                    return .run{send in
+                        await send(.requestRefreshToken)
+                    }
+                case .NEED_EMAIL_AUTHENTICATION:
+                    state.isVerified = false
+                    return .none
+                case .NO_ERROR:
+                    print("액세스토큰 유효")
+                    return .none
+                default:
+                    print(response.message)
+                    return .none
+                }
+            }else{
+                return .none
             }
-            else{
-                print(response)
+            //return .none
+            //토큰 리프레쉬 반환
+        case let .responseRefreshToken(tokenResponse):
+            if let response = tokenResponse{
+                switch response.errorCode{
+                case .NO_ERROR:
+                    print("토큰 재발급 완료")
+                    return .none
+                case .TOKEN_EXPIRED:
+                    print("토큰 만료")
+                    KeyChain.delete(key: Token.REFRESH_TOKEN.rawValue)
+                    KeyChain.delete(key: Token.ACCESS_TOKEN.rawValue)
+                    state.isLogin = false
+                default:
+                    print(response.message)
+                    KeyChain.delete(key: Token.REFRESH_TOKEN.rawValue)
+                    KeyChain.delete(key: Token.ACCESS_TOKEN.rawValue)
+                    state.isLogin = false
+                }
+            }else{
+                print("토큰이 비정상적임")
+                KeyChain.delete(key: Token.REFRESH_TOKEN.rawValue)
+                KeyChain.delete(key: Token.ACCESS_TOKEN.rawValue)
+                state.isLogin = false
+                return .none
             }
-            
             return .none
+            //유저 인증 반환
+        case let .responseUserVerify(verifyResponse):
+            if let response = verifyResponse{
+                switch response.errorCode{
+                case .NO_ERROR:
+                    state.isVerified = true
+                    return .none
+                default:
+                    state.isVerified = false
+                    return .none
+                }
+            }else{
+                return .none
+            }
+            //return .none
             //
             //듀오페이지 액션
             //
@@ -170,6 +202,8 @@ struct AccountStore : Reducer{
         case .LogOutButtonTapped:
             KeyChain.delete(key: "AccessToken")
             KeyChain.delete(key: "RefreshToken")
+            state.email = ""
+            state.password = ""
             state.isLogin = false
             return .none
             //
@@ -179,6 +213,7 @@ struct AccountStore : Reducer{
         case .loginButtonTapped:
             return .run{send in
                 await send(.requestLogin)
+                //await send(.requestLoginTest)
             }
             
             //회원가입 버튼 눌렀을 때
@@ -189,10 +224,16 @@ struct AccountStore : Reducer{
             //이메일 인증 페이지
             //
             //인증버튼 눌렀을 때
-        case .UserVerifyButtonTapped:
+        case .userVerifyButtonTapped:
             return .run{ send in
                 await send(.requestUserVerify)
             }
+            //타이머
+        case .timer:
+            return .none
+            //
+            //테스트 및 다른 스토어관련
+            //
         case .testButtonTapped:
             
             return .run{ send in
@@ -201,14 +242,11 @@ struct AccountStore : Reducer{
             }
         case .binding:
             return .none
-            
         case .joinStore(.presented(.cancleButtonTapped)):
             state.joinStore = nil
             return .none
         case .joinStore:
-                return .none
+            return .none
         }
-            
     }
-    
 }
