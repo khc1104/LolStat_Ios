@@ -15,13 +15,23 @@ struct DuoList: View {
         WithViewStore(store, observe: {$0}){viewStore in
             ScrollView{
                 Text("Duo")
-                Button("LogOut"){
+                Button{
                     viewStore.send(.logOutButtonTapped)
+                }label: {
+                    Text("Logout")
+                        .padding()
+                        .frame(width: Const.Screen.WIDTH)
+                        .background(.loseRed)
+                        .cornerRadius(8)
+                    
                 }
                 
                 if let duoList = viewStore.duoList{
                     ForEach(duoList){ duo in
                         DuoColumn(duo: duo)
+                            .onTapGesture {
+                                viewStore.send(.duoInfoTapped(Int(duo.id)))
+                            }
                     }
                 }
             }

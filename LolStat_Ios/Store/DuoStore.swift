@@ -12,6 +12,7 @@ struct DuoStore: Reducer{
     struct State : Equatable{
         var myduo : DuoDto?
         var duoList: [DuoDto]?
+        var duoDetail : DuoDto?
         var page : Int = 1
         var match : String = "ALL"
         var queue : String = "ALL"
@@ -23,11 +24,15 @@ struct DuoStore: Reducer{
     }
     enum Action{
         case requestGetDuoList
+        case requestGetDuoDetail(Int)
         case responseGetDuoList(DuoListResponse)
         case responseCantGetDuoList
+        case responseGetDuoDetail(DuoDetailResponse)
+        
         
         case duoOnAppear
         case logOutButtonTapped
+        case duoInfoTapped(Int)
         
         case accountStore(PresentationAction<AccountStore.Action>)
     }
@@ -55,6 +60,16 @@ struct DuoStore: Reducer{
                     await send(.responseCantGetDuoList)
                 }
             }
+            //듀오 디테일 요청
+        case let .requestGetDuoDetail(id):
+            return .run{[id = id]send in
+                if let response = try await duoAPI.requestGetDuoDetail(duoId: id){
+                    await send(.responseGetDuoDetail(response))
+                }else{
+                    print("requestGetDuoDetailError")
+                    //await send()
+                }
+            }
             //
             //API Response
             //
@@ -69,18 +84,29 @@ struct DuoStore: Reducer{
                 state.accountStore = nil
             case .TOKEN_EXPIRED:
                 state.isAccessToken = false
-                state.accountStore = AccountStore.State()
+                //state.accountStore = AccountStore.State()
             default:
                 print(response.errorCode)
             }
             return .none
-            
+            //듀오리스트 refeshToken만료 혹은 불량일 때 반환
         case .responseCantGetDuoList:
             state.isLogin = false
             state.isAccessToken = false
             state.accountStore = AccountStore.State()
             return .none
-            
+            //듀오 디테일 반환
+        case let .responseGetDuoDetail(response):
+            switch response.errorCode{
+            case .NO_ERROR:
+                state.duoDetail = response.duo
+            case .TOKEN_EXPIRED:
+                state.isAccessToken = false
+                state.accountStore = AccountStore.State()
+            default:
+                print(response.errorCode)
+            }
+            return .none
             //
             //듀오페이지 액션
             //
@@ -96,6 +122,10 @@ struct DuoStore: Reducer{
             state.isAccessToken = false
             return .run{send in
                 await send(.requestGetDuoList)
+            }
+        case let .duoInfoTapped(id):
+            return .run{[id = id]send in
+                await send(.requestGetDuoDetail(id))
             }
             
         case .accountStore(.presented(.responseRefreshToken)):

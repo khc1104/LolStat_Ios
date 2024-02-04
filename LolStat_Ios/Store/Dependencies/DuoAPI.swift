@@ -10,6 +10,7 @@ import Dependencies
 
 protocol DuoAPI{
     func requestGetDuoList(page : Int, match: String, queue: String) async throws -> DuoListResponse?
+    func requestGetDuoDetail(duoId : Int) async throws -> DuoDetailResponse?
 }
 
 class DuoAPIClient: DuoAPI{
@@ -44,12 +45,42 @@ class DuoAPIClient: DuoAPI{
                 return nil
             }
         }else{
-            print("accessToekn is nil")
+            print("accessToken is nil")
             return nil
         }
     }
     //듀오리스트 post
     
+    //듀오디테일 get 요청
+    func requestGetDuoDetail(duoId : Int) async throws -> DuoDetailResponse?{
+        let successRange = 200 ..< 300
+        let url = URL(string: "\(Const.Server.ADDRESS)/duo/\(duoId)")!
+        
+        var request = URLRequest(url:url)
+        request.httpMethod = "GET"
+        if let accessToken = KeyChain.read(key: Token.ACCESS_TOKEN.rawValue){
+            let authHeader = "Bearer \(accessToken)"
+            request.setValue(authHeader, forHTTPHeaderField: "Authorization")
+            let(data, response) = try await URLSession.shared.data(for:request)
+            
+            if let httpResponse = response as? HTTPURLResponse{
+                if successRange.contains(httpResponse.statusCode){
+                    let duoDetail = try JSONDecoder().decode(DuoDetailResponse.self, from:data)
+                    return duoDetail
+                }else{
+                    let errorResponse = try JSONDecoder().decode(AuthResponse.self, from: data)
+                    let returnResponse = DuoDetailResponse(errorCode: errorResponse.errorCode)
+                    return returnResponse
+                }
+            }else{
+                print("requestError - GetDuoDetail")
+                return nil
+            }
+        }else{
+            print("accessToken is nil")
+            return nil
+        }
+    }
 }
 
 private enum DuoAPIClientKey: DependencyKey{

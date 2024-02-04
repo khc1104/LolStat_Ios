@@ -101,7 +101,23 @@ struct DuoTicketDto : Codable, Equatable{
 }
 
 struct DuoDetailResponse: Codable, Equatable{
-    var duo : DuoDto
+    var duo : DuoDto?
+    var errorCode : LolStatError
+    
+    private enum CodingKeys : String, CodingKey{
+        case duo
+        case errorCode
+    }
+    
+    init(errorCode : LolStatError){
+        self.errorCode = errorCode
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.duo = try container.decodeIfPresent(DuoDto.self, forKey: .duo)
+        self.errorCode = try container.decodeIfPresent(LolStatError.self, forKey: .errorCode) ?? LolStatError.NO_ERROR
+    }
 }
 
 struct MyDuoResponse : Codable, Equatable{
