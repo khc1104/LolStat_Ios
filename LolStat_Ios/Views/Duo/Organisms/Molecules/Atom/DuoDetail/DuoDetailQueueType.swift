@@ -6,3 +6,11 @@
 //
 
 import Foundation
+import SwiftUI
+
+struct DuoDetailQueueType: View {
+    var queueId : DuoQueueId = .QUICK_PLAY
+    var body: some View {
+        Text(queueId.description())
+    }
+}

@@ -9,20 +9,31 @@ import Foundation
 import SwiftUI
 
 struct DuoDetailInfo: View {
+    var duo : DuoDto
     var body: some View {
         VStack{
-            DuoSummonerName(gameName: "testSummoner", tagLine: "KR1")
-            DuoTier(tier: Tier.GOLD)
-            DuoTier(tier: Tier.PLATINUM)
-            DuoPosition(positions: [Line.MID])
-            DuoPosition(positions: [Line.JG, Line.TOP])
+            DuoSummonerName(gameName: duo.gameName, tagLine: duo.tagLine)
+            HStack{
+                VStack{
+                    Text("티어")
+                    DuoTier(tier: duo.tier, width: 60, height: 60)
+                }
+                VStack{
+                    Text("찾는 티어")
+                    DuoTier(tier: duo.wishTiers[0], width:60, height: 60)
+                }
+            }
+            Text("주 포지션")
+            DuoDetailPosition(lines: duo.lines)
+            Text("찾는 포지션")
+            DuoDetailPosition(lines: duo.wishLines)
+            Text("큐 타입")
+            DuoDetailQueueType()
+            DuoDetailRecentlyMatches(matches: duo.recentMatches)
+            DuoMemo(memo: duo.memo)
+            
             
         }
     }
 }
 
-struct duoDetailInfoPreview : PreviewProvider{
-    static var previews: some View{
-        DuoDetailInfo()
-    }
-}

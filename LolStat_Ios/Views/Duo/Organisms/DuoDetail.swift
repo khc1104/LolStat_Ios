@@ -7,19 +7,23 @@
 
 import Foundation
 import SwiftUI
+import ComposableArchitecture
 
 struct DuoDetail: View {
+    let store : StoreOf<DuoStore>
     var body: some View {
-        VStack{
-            DuoSummonerName(gameName: "testSummoner", tagLine: "KR1")
-            DuoTier(tier: Tier.GOLD)
-            //DuoTier
+        WithViewStore(store, observe: {$0}){ viewStore in
+            if let duoDetail = viewStore.duoDetail{
+                VStack{
+                    DuoDetailInfo(duo: duoDetail)
+                }.toolbar{
+                    ToolbarItem{
+                        Button("Cancle"){
+                            viewStore.send(.duoDetailCancleTapped)
+                        }
+                    }
+                }
+            }
         }
-    }
-}
-
-struct duoDetailPreview : PreviewProvider{
-    static var previews: some View{
-        DuoDetail()
     }
 }

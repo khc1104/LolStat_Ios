@@ -13,6 +13,7 @@ struct DuoStore: Reducer{
         var myduo : DuoDto?
         var duoList: [DuoDto]?
         var duoDetail : DuoDto?
+        @BindingState var isDetail : Bool = false
         var page : Int = 1
         var match : String = "ALL"
         var queue : String = "ALL"
@@ -22,7 +23,7 @@ struct DuoStore: Reducer{
         @PresentationState var accountStore : AccountStore.State?
         
     }
-    enum Action{
+    enum Action: BindableAction{
         case requestGetDuoList
         case requestGetDuoDetail(Int)
         case responseGetDuoList(DuoListResponse)
@@ -33,10 +34,13 @@ struct DuoStore: Reducer{
         case duoOnAppear
         case logOutButtonTapped
         case duoInfoTapped(Int)
+        case duoDetailCancleTapped
         
         case accountStore(PresentationAction<AccountStore.Action>)
+        case binding(BindingAction<State>)
     }
     var body : some ReducerOf<Self>{
+        BindingReducer()
         
         Reduce(self.core)
             .ifLet(\.$accountStore, action: /Action.accountStore){
@@ -123,7 +127,9 @@ struct DuoStore: Reducer{
             return .run{send in
                 await send(.requestGetDuoList)
             }
+            //듀오카드 눌렀을 때
         case let .duoInfoTapped(id):
+            state.isDetail = true
             return .run{[id = id]send in
                 await send(.requestGetDuoDetail(id))
             }
@@ -144,7 +150,17 @@ struct DuoStore: Reducer{
             state.isLogin = isLogin
             //state.accountStore = nil
             return .none
-            
+            //
+            //듀오디테일 액션
+            //
+            //캔슬버튼 눌렀 을 때
+        case .duoDetailCancleTapped:
+            state.isDetail = false
+            state.duoDetail = nil
+            return .none
+            //
+            //Presected 액션
+            //
         case .accountStore(.presented(.responseLogin)):
             guard let isLogin = state.accountStore?.isLogin else{
                 print("ResponseLogin failed")
@@ -162,6 +178,8 @@ struct DuoStore: Reducer{
             //state.accountStore = nil
             return .none
         case .accountStore:
+            return .none
+        case .binding:
             return .none
         }
         

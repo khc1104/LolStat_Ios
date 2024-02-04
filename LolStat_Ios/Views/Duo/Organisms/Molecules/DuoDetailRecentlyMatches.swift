@@ -6,3 +6,15 @@
 //
 
 import Foundation
+import SwiftUI
+
+struct DuoDetailRecentlyMatches: View {
+    var matches : [DuoRecentMatchDto]
+    var body: some View {
+        HStack{
+            ForEach(0 ..< matches.count){i in
+                    DuoChampion(match: matches[i])
+            }
+        }
+    }
+}

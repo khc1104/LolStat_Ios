@@ -9,19 +9,14 @@ import Foundation
 import SwiftUI
 
 struct DuoDetailPosition: View {
+    let lines : [Line]
     var body: some View {
-        HStack{
-            DuoSelectPosition(position: Line.TOP, isSelect:true)
-            DuoSelectPosition(position: Line.JG, isSelect:true)
-            DuoSelectPosition(position: Line.MID, isSelect:true)
-            DuoSelectPosition(position: Line.AD, isSelect:true)
-            DuoSelectPosition(position: Line.SUP, isSelect:true)
+        HStack(spacing: 0){
+            DuoSelectPosition(position: Line.TOP, isSelect: lines.contains(Line.TOP))
+            DuoSelectPosition(position: Line.JG, isSelect: lines.contains(Line.JG))
+            DuoSelectPosition(position: Line.MID, isSelect:lines.contains(Line.MID))
+            DuoSelectPosition(position: Line.AD, isSelect:lines.contains(Line.AD))
+            DuoSelectPosition(position: Line.SUP, isSelect:lines.contains(Line.SUP))
         }
-    }
-}
-
-struct positionPreview : PreviewProvider{
-    static var previews: some View{
-        DuoDetailPosition()
     }
 }

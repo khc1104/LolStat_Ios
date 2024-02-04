@@ -32,6 +32,13 @@ struct DuoList: View {
                             .onTapGesture {
                                 viewStore.send(.duoInfoTapped(Int(duo.id)))
                             }
+                            .sheet(isPresented: viewStore.$isDetail, onDismiss: {
+                                viewStore.send(.duoDetailCancleTapped)
+                            }){
+                                NavigationStack{
+                                    DuoDetail(store: store)
+                                }
+                            }
                     }
                 }
             }

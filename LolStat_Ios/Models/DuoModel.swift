@@ -69,6 +69,7 @@ struct DuoDto: Codable, Equatable, Identifiable{
     var lines : [Line]
     var tier : Tier
     var wishLines : [Line]
+    var wishTiers : [Tier]
     var createdAt : String
     var expiredAt : String
     var tickets : [DuoTicketDto]
