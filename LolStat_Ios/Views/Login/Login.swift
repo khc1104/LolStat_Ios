@@ -7,9 +7,11 @@
 
 import Foundation
 import SwiftUI
+import ComposableArchitecture
 
 struct Login: View {
+    let store : StoreOf<AccountStore>
     var body: some View {
-        LoginInputGroup(store: LolStat_IosApp.accountStore)
+        LoginInputGroup(store: store)
     }
 }

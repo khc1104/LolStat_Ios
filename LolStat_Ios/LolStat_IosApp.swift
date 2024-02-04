@@ -28,6 +28,10 @@ struct LolStat_IosApp: App {
         AccountStore()
             ._printChanges()
     }
+    static let duoStore = Store(initialState: DuoStore.State()){
+        DuoStore()
+            ._printChanges()
+    }
     
     var body: some Scene {
         WindowGroup {

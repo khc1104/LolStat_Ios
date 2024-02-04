@@ -67,7 +67,6 @@ class AccountAPIClient: AccountAPI{
                 let loginResponse = try decoder.decode(LoginResponse.self, from: data)
                 KeyChain.create(key: Token.REFRESH_TOKEN.rawValue, token: loginResponse.refreshToken)
                 KeyChain.create(key: Token.ACCESS_TOKEN.rawValue, token: loginResponse.accessToken)
-                
                 return loginResponse.userInfo
             }else{
                 print("계정이나 비번 틀림")
@@ -120,6 +119,7 @@ class AccountAPIClient: AccountAPI{
             
             if let httpResponse = response as? HTTPURLResponse{
                 if successRange.contains(httpResponse.statusCode){
+                    print(authHeader)
                     return AuthResponse(errorCode: LolStatError.NO_ERROR, httpStatus: "", message: "")
                 }else{
                     let responseData = try JSONDecoder().decode(AuthResponse.self, from: data)

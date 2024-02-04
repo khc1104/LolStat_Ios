@@ -34,9 +34,8 @@ struct AccountStore : Reducer{
         case responseUserVerify(AuthResponse?)
         case timer
         
-        case duoOnAppear
-        case duoOnAppear2
         case LogOutButtonTapped
+        case LoadingOnAppear
         
         case loginButtonTapped
         case joinButtonTapped
@@ -189,17 +188,6 @@ struct AccountStore : Reducer{
             //
             //듀오페이지 액션
             //
-            //듀오페이지 onAppear
-        case .duoOnAppear:
-            return .run{send in
-                await send(.requestAuthTest)
-            }
-            //유저 인증 되어있는지 확인 용 onAppear
-        case .duoOnAppear2:
-            return .run{ send in
-                //await send(.requestRefreshToken)
-                await send(.requestAuthTest)
-            }
             //로그아웃 버튼 눌렀을 때
         case .LogOutButtonTapped:
             KeyChain.delete(key: "AccessToken")
@@ -208,6 +196,11 @@ struct AccountStore : Reducer{
             state.password = ""
             state.isLogin = false
             return .none
+            
+        case .LoadingOnAppear:
+            return .run{send in
+                await send(.requestRefreshToken)
+            }
             //
             //로그인 페이지 액션
             //
@@ -237,11 +230,11 @@ struct AccountStore : Reducer{
             //테스트 및 다른 스토어관련
             //
         case .testButtonTapped:
-            
             return .run{ send in
                 //await send(.requestRefreshToken)
                 await send(.requestAuthTest)
             }
+             
         case .binding:
             return .none
         case .joinStore(.presented(.cancleButtonTapped)):

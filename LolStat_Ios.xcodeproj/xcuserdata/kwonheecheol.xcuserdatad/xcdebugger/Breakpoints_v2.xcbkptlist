@@ -108,8 +108,8 @@
             filePath = "LolStat_Ios/Store/Dependencies/AccountAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
             landmarkName = "requestCreateUser(user:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -124,8 +124,8 @@
             filePath = "LolStat_Ios/Store/Dependencies/AccountAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "requestCreateUser(user:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -140,8 +140,8 @@
             filePath = "LolStat_Ios/Store/Dependencies/AccountAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "requestCreateUser(user:)"
             landmarkType = "7">
             <Locations>
@@ -189,6 +189,176 @@
                   startingLineNumber = "45"
                   endingLineNumber = "45"
                   offsetFromSymbolStart = "348">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "39EEE75C-7B6D-45EF-85A5-9E0D8FAD2E16"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LolStat_Ios/Store/DuoStore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "141"
+            endingLineNumber = "141">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8984DA77-067A-416D-9DA6-D7BA3349BE04"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LolStat_Ios/Store/Dependencies/DuoAPI.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "requestGetDuoList(page:match:queue:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8984DA77-067A-416D-9DA6-D7BA3349BE04 - 1611bfd7a6ae78c7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for LolStat_Ios.DuoAPIClient.requestGetDuoList(page: Swift.Int, match: Swift.String, queue: Swift.String) async throws -&gt; Swift.Optional&lt;LolStat_Ios.DuoListResponse&gt;"
+                  moduleName = "LolStat_Ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kwonheecheol/Documents/Projects/LolStat_Ios/LolStat_Ios/Store/Dependencies/DuoAPI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "776">
+               </Location>
+               <Location
+                  uuid = "8984DA77-067A-416D-9DA6-D7BA3349BE04 - 1611bfd7a6ae78c7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for LolStat_Ios.DuoAPIClient.requestGetDuoList(page: Swift.Int, match: Swift.String, queue: Swift.String) async throws -&gt; Swift.Optional&lt;LolStat_Ios.DuoListResponse&gt;"
+                  moduleName = "LolStat_Ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kwonheecheol/Documents/Projects/LolStat_Ios/LolStat_Ios/Store/Dependencies/DuoAPI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "768">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B8D840D3-0DF1-44B1-B0BA-281C9842E389"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LolStat_Ios/Store/Dependencies/DuoAPI.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "requestGetDuoList(page:match:queue:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B8D840D3-0DF1-44B1-B0BA-281C9842E389 - 12afa9a07d42bc9c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LolStat_Ios.DuoAPIClient.requestGetDuoList(page: Swift.Int, match: Swift.String, queue: Swift.String) async throws -&gt; Swift.Optional&lt;LolStat_Ios.DuoListResponse&gt;"
+                  moduleName = "LolStat_Ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kwonheecheol/Documents/Projects/LolStat_Ios/LolStat_Ios/Store/Dependencies/DuoAPI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "492">
+               </Location>
+               <Location
+                  uuid = "B8D840D3-0DF1-44B1-B0BA-281C9842E389 - 6cd0c2bfce313af6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for LolStat_Ios.DuoAPIClient.requestGetDuoList(page: Swift.Int, match: Swift.String, queue: Swift.String) async throws -&gt; Swift.Optional&lt;LolStat_Ios.DuoListResponse&gt;"
+                  moduleName = "LolStat_Ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kwonheecheol/Documents/Projects/LolStat_Ios/LolStat_Ios/Store/Dependencies/DuoAPI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "256">
+               </Location>
+               <Location
+                  uuid = "B8D840D3-0DF1-44B1-B0BA-281C9842E389 - 6cd0c2bfce313af6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for LolStat_Ios.DuoAPIClient.requestGetDuoList(page: Swift.Int, match: Swift.String, queue: Swift.String) async throws -&gt; Swift.Optional&lt;LolStat_Ios.DuoListResponse&gt;"
+                  moduleName = "LolStat_Ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kwonheecheol/Documents/Projects/LolStat_Ios/LolStat_Ios/Store/Dependencies/DuoAPI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "2584">
+               </Location>
+               <Location
+                  uuid = "B8D840D3-0DF1-44B1-B0BA-281C9842E389 - 1611bfd7a6ae7af0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for LolStat_Ios.DuoAPIClient.requestGetDuoList(page: Swift.Int, match: Swift.String, queue: Swift.String) async throws -&gt; Swift.Optional&lt;LolStat_Ios.DuoListResponse&gt;"
+                  moduleName = "LolStat_Ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kwonheecheol/Documents/Projects/LolStat_Ios/LolStat_Ios/Store/Dependencies/DuoAPI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "3600">
+               </Location>
+               <Location
+                  uuid = "B8D840D3-0DF1-44B1-B0BA-281C9842E389 - 12afa9a07d42bc9c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LolStat_Ios.DuoAPIClient.requestGetDuoList(page: Swift.Int, match: Swift.String, queue: Swift.String) async throws -&gt; Swift.Optional&lt;LolStat_Ios.DuoListResponse&gt;"
+                  moduleName = "LolStat_Ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kwonheecheol/Documents/Projects/LolStat_Ios/LolStat_Ios/Store/Dependencies/DuoAPI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "472">
+               </Location>
+               <Location
+                  uuid = "B8D840D3-0DF1-44B1-B0BA-281C9842E389 - 1611bfd7a6ae7af0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for LolStat_Ios.DuoAPIClient.requestGetDuoList(page: Swift.Int, match: Swift.String, queue: Swift.String) async throws -&gt; Swift.Optional&lt;LolStat_Ios.DuoListResponse&gt;"
+                  moduleName = "LolStat_Ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kwonheecheol/Documents/Projects/LolStat_Ios/LolStat_Ios/Store/Dependencies/DuoAPI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "2956">
                </Location>
             </Locations>
          </BreakpointContent>
