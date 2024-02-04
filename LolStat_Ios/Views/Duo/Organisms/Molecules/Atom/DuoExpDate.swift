@@ -11,16 +11,21 @@ import SwiftUI
 struct DuoExpDate: View {
     let date : String
     var body: some View {
-        Text(transDate(date : date))
+        VStack{
+            Text(getDate(date: date))
+            Text(getTime(date: date))
+        }
     }
 }
 
-func transDate(date : String) -> String{
-    
-    guard let isoDate = ISO8601DateFormatter().date(from: date) else{return "date"}
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "MM-dd-yyyy HH:mm"
-    let dateString = dateFormatter.string(from: isoDate)
-    return dateString
-    
+func getDate(date : String) -> String{
+    let arr = date.split(separator: "T")
+    return String(arr[0])
+}
+
+func getTime(date : String) -> String{
+    let arr = date.split(separator: "T")
+    let time1 = String(arr[1])
+    let time2 = time1.split(separator: ".")
+    return String(time2[0])
 }

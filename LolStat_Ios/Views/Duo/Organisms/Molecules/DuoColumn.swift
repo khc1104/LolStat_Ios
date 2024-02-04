@@ -13,7 +13,7 @@ struct DuoColumn: View {
     var body: some View {
         VStack(spacing: 2){
             DuoSummonerName(gameName:duo.gameName, tagLine: duo.tagLine)
-            HStack(){
+            HStack(alignment: .top){
                 Text("티어")
                     .frame(width: Const.Screen.WIDTH * 0.2)
                 Text("주 포지션")
@@ -26,7 +26,7 @@ struct DuoColumn: View {
             .background(.gray)
             .frame(width: Const.Screen.WIDTH)
             .font(.kingSejong(.bold, size: 16))
-            HStack(alignment: .center){
+            HStack(alignment: .top){
                 VStack{
                     DuoTier(tier: duo.tier, width: 50, height: 50)
                 }
@@ -44,6 +44,7 @@ struct DuoColumn: View {
                 }
                 .frame(width: Const.Screen.WIDTH * 0.3)
             }
+            Spacer()
             HStack{
                 DuoMemo(memo: duo.memo)
             }
@@ -51,7 +52,7 @@ struct DuoColumn: View {
             .background(.winBlue)
         }
         .background(.secondary)
-        .frame(width: Const.Screen.WIDTH, height: 160)
+        .frame(width: Const.Screen.WIDTH, height: 210)
         .cornerRadius(8)
     }
 }
