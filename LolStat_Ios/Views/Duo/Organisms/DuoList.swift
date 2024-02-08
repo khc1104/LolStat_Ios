@@ -32,16 +32,19 @@ struct DuoList: View {
                             .onTapGesture {
                                 viewStore.send(.duoInfoTapped(Int(duo.id)))
                             }
-                            .sheet(isPresented: viewStore.$isDetail, onDismiss: {
-                                viewStore.send(.duoDetailCancleTapped)
-                            }){
+                            .sheet(store:self.store.scope(
+                                state: \.$duoDetailStore,
+                                action: DuoStore.Action.duoDetailStore)
+                            ){ duoDetail in
                                 NavigationStack{
-                                    DuoDetail(store: store)
+                                    DuoDetail(store: duoDetail)
                                 }
                             }
+                           
                     }
                 }
             }
+           
         }
     }
 }

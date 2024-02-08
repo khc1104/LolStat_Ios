@@ -13,7 +13,9 @@ struct DuoLoadingRefresh: View {
     let store : StoreOf<AccountStore>
     var body: some View {
         WithViewStore(store, observe: {$0}){viewStore in
-            EmptyView()
+            VStack(){
+                
+            }
                 .background(.clear)
                 .onAppear{
                     viewStore.send(.LoadingOnAppear)

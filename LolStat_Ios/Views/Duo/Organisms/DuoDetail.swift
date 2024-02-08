@@ -10,17 +10,21 @@ import SwiftUI
 import ComposableArchitecture
 
 struct DuoDetail: View {
-    let store : StoreOf<DuoStore>
+    let store : StoreOf<DuoDetailStore>
     var body: some View {
         WithViewStore(store, observe: {$0}){ viewStore in
-            if let duoDetail = viewStore.duoDetail{
-                VStack{
+            VStack{
+                if let duoDetail = viewStore.duoDetail{
                     DuoDetailInfo(duo: duoDetail)
-                }.toolbar{
-                    ToolbarItem{
-                        Button("Cancle"){
-                            viewStore.send(.duoDetailCancleTapped)
-                        }
+                }
+            }
+            .onAppear{
+                viewStore.send(.duoDetailOnAppear)
+            }
+            .toolbar{
+                ToolbarItem{
+                    Button("Cancle"){
+                        viewStore.send(.cancleButtonTapped)
                     }
                 }
             }

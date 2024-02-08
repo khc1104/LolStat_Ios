@@ -12,7 +12,7 @@ struct DuoStore: Reducer{
     struct State : Equatable{
         var myduo : DuoDto?
         var duoList: [DuoDto]?
-        var duoDetail : DuoDto?
+        //var duoDetail : DuoDto?
         @BindingState var isDetail : Bool = false
         var page : Int = 1
         var match : String = "ALL"
@@ -20,15 +20,16 @@ struct DuoStore: Reducer{
         
         var isLogin : Bool = true
         var isAccessToken : Bool = true
+        var runningRequest : DuoRequest?
         @PresentationState var accountStore : AccountStore.State?
-        
+        @PresentationState var duoDetailStore : DuoDetailStore.State?
     }
     enum Action: BindableAction{
         case requestGetDuoList
-        case requestGetDuoDetail(Int)
+        //case requestGetDuoDetail(Int)
         case responseGetDuoList(DuoListResponse)
         case responseCantGetDuoList
-        case responseGetDuoDetail(DuoDetailResponse)
+       // case responseGetDuoDetail(DuoDetailResponse)
         
         
         case duoOnAppear
@@ -37,6 +38,7 @@ struct DuoStore: Reducer{
         case duoDetailCancleTapped
         
         case accountStore(PresentationAction<AccountStore.Action>)
+        case duoDetailStore(PresentationAction<DuoDetailStore.Action>)
         case binding(BindingAction<State>)
     }
     var body : some ReducerOf<Self>{
@@ -45,6 +47,9 @@ struct DuoStore: Reducer{
         Reduce(self.core)
             .ifLet(\.$accountStore, action: /Action.accountStore){
                 AccountStore()
+            }
+            .ifLet(\.$duoDetailStore, action: /Action.duoDetailStore){
+                DuoDetailStore()
             }
     }
     @Dependency(\.DuoAPIClient) var duoAPI
@@ -55,7 +60,7 @@ struct DuoStore: Reducer{
             //
             //듀오리스트 요청
         case .requestGetDuoList:
-            
+            state.runningRequest = .GET_DUO
             return .run{ [page = state.page, match = state.match, queue = state.queue]send in
                 if let response = try await duoAPI.requestGetDuoList(page: page, match: match, queue: queue){
                     await send(.responseGetDuoList(response))
@@ -65,6 +70,7 @@ struct DuoStore: Reducer{
                 }
             }
             //듀오 디테일 요청
+            /*
         case let .requestGetDuoDetail(id):
             return .run{[id = id]send in
                 if let response = try await duoAPI.requestGetDuoDetail(duoId: id){
@@ -74,6 +80,7 @@ struct DuoStore: Reducer{
                     //await send()
                 }
             }
+             */
             //
             //API Response
             //
@@ -88,18 +95,21 @@ struct DuoStore: Reducer{
                 state.accountStore = nil
             case .TOKEN_EXPIRED:
                 state.isAccessToken = false
-                //state.accountStore = AccountStore.State()
+                state.accountStore = AccountStore.State()
             default:
                 print(response.errorCode)
             }
+            //state.accountStore = nil
             return .none
             //듀오리스트 refeshToken만료 혹은 불량일 때 반환
         case .responseCantGetDuoList:
             state.isLogin = false
             state.isAccessToken = false
             state.accountStore = AccountStore.State()
+            //state.accountStore = nil
             return .none
             //듀오 디테일 반환
+            /*
         case let .responseGetDuoDetail(response):
             switch response.errorCode{
             case .NO_ERROR:
@@ -111,11 +121,11 @@ struct DuoStore: Reducer{
                 print(response.errorCode)
             }
             return .none
+             */
             //
             //듀오페이지 액션
             //
         case .duoOnAppear:
-            
             return .run{send in
                 await send(.requestGetDuoList)
             }
@@ -128,27 +138,11 @@ struct DuoStore: Reducer{
                 await send(.requestGetDuoList)
             }
             //듀오카드 눌렀을 때
-        case let .duoInfoTapped(id):
-            state.isDetail = true
-            return .run{[id = id]send in
-                await send(.requestGetDuoDetail(id))
-            }
             
-        case .accountStore(.presented(.responseRefreshToken)):
-            guard let isLogin = state.accountStore?.isLogin else{
-                print("ResponseRefreshToken failed")
-                return .none
-            }
-            if isLogin{
-                print("토큰 정상발급")
-                return .run{send in
-                    await send(.requestGetDuoList)
-                }
-            }else{
-                print("만료 or 비정상 토큰")
-            }
-            state.isLogin = isLogin
-            //state.accountStore = nil
+        case let .duoInfoTapped(id):
+            state.duoDetailStore = DuoDetailStore.State(
+                duoId: id
+            )
             return .none
             //
             //듀오디테일 액션
@@ -156,10 +150,10 @@ struct DuoStore: Reducer{
             //캔슬버튼 눌렀 을 때
         case .duoDetailCancleTapped:
             state.isDetail = false
-            state.duoDetail = nil
+            state.duoDetailStore = nil
             return .none
             //
-            //Presected 액션
+            //Presented 액션
             //
         case .accountStore(.presented(.responseLogin)):
             guard let isLogin = state.accountStore?.isLogin else{
@@ -176,12 +170,40 @@ struct DuoStore: Reducer{
             }
             state.isLogin = isLogin
             //state.accountStore = nil
+            
             return .none
+        case .accountStore(.presented(.responseRefreshToken)):
+            print("dd")
+            guard let isLogin = state.accountStore?.isLogin else{
+                print("ResponseRefreshToken failed")
+                return .none
+            }
+            if isLogin{
+                switch state.runningRequest {
+                case .GET_DUO:
+                    return .run{send in
+                        await send(.requestGetDuoList)
+                    }
+                case .POST_DUO:
+                    return .none
+                default:
+                    return .none
+                }
+            }
+            return .none
+        case .duoDetailStore(.presented(.cancleButtonTapped)):
+            state.duoDetailStore = nil
+            return .none
+            
         case .accountStore:
+            return .none
+            
+        case .duoDetailStore:
             return .none
         case .binding:
             return .none
         }
+        
         
     }
     

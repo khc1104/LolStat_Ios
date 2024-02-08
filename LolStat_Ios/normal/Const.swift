@@ -20,6 +20,20 @@ struct Const{
     }
     
 }
+
+enum DuoRequest{
+    case GET_DUO
+    case POST_DUO
+    case GET_DUO_DETAIL
+    case POST_DUO_DETAIL
+    case POST_DUO_TICKET
+    case GET_DUO_MY
+}
+
+
+
+
+//---------------------모델에서 사용---------------------------
 /*
  유저페이지 및 듀오페이지
  */
