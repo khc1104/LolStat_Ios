@@ -203,8 +203,8 @@
             filePath = "LolStat_Ios/Store/DuoStore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189">
+            startingLineNumber = "214"
+            endingLineNumber = "214">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -359,6 +359,69 @@
                   startingLineNumber = "17"
                   endingLineNumber = "17"
                   offsetFromSymbolStart = "2956">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D00BC15E-F56B-4F8D-B574-009F520ACC4B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LolStat_Ios/Store/DuoStore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "core(into:action:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D00BC15E-F56B-4F8D-B574-009F520ACC4B - 694c0c32f97163"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LolStat_Ios.DuoStore.core(into: inout LolStat_Ios.DuoStore.State, action: LolStat_Ios.DuoStore.Action) -&gt; ComposableArchitecture.Effect&lt;LolStat_Ios.DuoStore.Action&gt;"
+                  moduleName = "LolStat_Ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kwonheecheol/Documents/Projects/LolStat_Ios/LolStat_Ios/Store/DuoStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "129"
+                  endingLineNumber = "129"
+                  offsetFromSymbolStart = "5152">
+               </Location>
+               <Location
+                  uuid = "D00BC15E-F56B-4F8D-B574-009F520ACC4B - 10dae787f9b9bee2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 @Sendable (ComposableArchitecture.Send&lt;LolStat_Ios.DuoStore.Action&gt;) async -&gt; () in LolStat_Ios.DuoStore.core(into: inout LolStat_Ios.DuoStore.State, action: LolStat_Ios.DuoStore.Action) -&gt; ComposableArchitecture.Effect&lt;LolStat_Ios.DuoStore.Action&gt;"
+                  moduleName = "LolStat_Ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kwonheecheol/Documents/Projects/LolStat_Ios/LolStat_Ios/Store/DuoStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "129"
+                  endingLineNumber = "129"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "D00BC15E-F56B-4F8D-B574-009F520ACC4B - 8cf9b359e47d4142"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #2 @Sendable (ComposableArchitecture.Send&lt;LolStat_Ios.DuoStore.Action&gt;) async -&gt; () in LolStat_Ios.DuoStore.core(into: inout LolStat_Ios.DuoStore.State, action: LolStat_Ios.DuoStore.Action) -&gt; ComposableArchitecture.Effect&lt;LolStat_Ios.DuoStore.Action&gt;"
+                  moduleName = "LolStat_Ios"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kwonheecheol/Documents/Projects/LolStat_Ios/LolStat_Ios/Store/DuoStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "129"
+                  endingLineNumber = "129"
+                  offsetFromSymbolStart = "20">
                </Location>
             </Locations>
          </BreakpointContent>
