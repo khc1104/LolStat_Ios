@@ -87,7 +87,7 @@ struct DuoRecentMatchDto : Codable, Equatable{
     var win : Bool
 }
 
-struct DuoTicketDto : Codable, Equatable{
+struct DuoTicketDto : Codable, Equatable, Identifiable{
     var id :Int64
     var userId : Int64
     var duoId : Int64

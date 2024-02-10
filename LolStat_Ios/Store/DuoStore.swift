@@ -191,6 +191,9 @@ struct DuoStore: Reducer{
                 }
             }
             return .none
+        case .accountStore(.presented(.cancleButtonTapped)):
+            state.accountStore = nil
+            return .none
         case .duoDetailStore(.presented(.cancleButtonTapped)):
             state.duoDetailStore = nil
             return .none

@@ -16,6 +16,13 @@ struct DuoLoadingRefresh: View {
             VStack(){
                 
             }
+            .toolbar{
+                ToolbarItem{
+                    Button("Cancle"){
+                        viewStore.send(.cancleButtonTapped)
+                    }
+                }
+            }
                 .background(.clear)
                 .onAppear{
                     viewStore.send(.LoadingOnAppear)

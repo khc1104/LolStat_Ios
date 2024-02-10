@@ -23,8 +23,9 @@ struct DuoSummonerName: View {
                 }
             }
             .frame(width: geo.size.width)
-            .background(.mint)
+            //.background(.mint)
         }
+        .frame(height: 20)
     }
 }
 

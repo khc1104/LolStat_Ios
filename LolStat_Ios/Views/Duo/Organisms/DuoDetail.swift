@@ -16,6 +16,9 @@ struct DuoDetail: View {
             VStack{
                 if let duoDetail = viewStore.duoDetail{
                     DuoDetailInfo(duo: duoDetail)
+                    ForEach(duoDetail.tickets){ ticket in
+                        DuoTicket(ticket : ticket)
+                    }
                 }
             }
             .onAppear{

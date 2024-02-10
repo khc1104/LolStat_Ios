@@ -16,11 +16,11 @@ struct DuoDetailInfo: View {
             HStack{
                 VStack{
                     Text("티어")
-                    DuoTier(tier: duo.tier, width: 60, height: 60)
+                    DuoTier(tiers: [duo.tier], width: 60, height: 60)
                 }
                 VStack{
                     Text("찾는 티어")
-                    DuoTier(tier: duo.wishTiers[0], width:60, height: 60)
+                    DuoTier(tiers: duo.wishTiers, width:60, height: 60)
                 }
             }
             Text("주 포지션")

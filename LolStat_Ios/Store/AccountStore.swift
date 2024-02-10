@@ -40,6 +40,7 @@ struct AccountStore : Reducer{
         case loginButtonTapped
         case joinButtonTapped
         case userVerifyButtonTapped
+        case cancleButtonTapped
         case testButtonTapped
         
         case joinStore(PresentationAction<JoinStore.Action>)
@@ -214,6 +215,8 @@ struct AccountStore : Reducer{
             //회원가입 버튼 눌렀을 때
         case .joinButtonTapped:
             state.joinStore = JoinStore.State()
+            return .none
+        case .cancleButtonTapped:
             return .none
             //
             //이메일 인증 페이지

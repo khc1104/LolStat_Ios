@@ -9,10 +9,6 @@ import Foundation
 import SwiftUI
 
 struct DuoChampion: View {
-    
-    
-    
-    
     var match : DuoRecentMatchDto = DuoRecentMatchDto(championDto: Champion(name: "르블랑", description: "", image: "https://image.lolstat.net/champion/Leblanc.png"), kills: 5, deaths: 6, assists: 12, win: false)
     var body: some View {
         ZStack{

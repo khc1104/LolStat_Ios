@@ -6,3 +6,16 @@
 //
 
 import Foundation
+import SwiftUI
+
+struct DuoTicketSummonerName:View {
+    let gameName : String
+    let tagLine : String
+    var body: some View {
+        HStack{
+            Text(gameName)
+            Text("#\(tagLine)")
+                .foregroundStyle(.secondary)
+        }
+    }
+}

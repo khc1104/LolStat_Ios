@@ -13,38 +13,34 @@ struct DuoColumn: View {
     var body: some View {
         VStack(spacing: 2){
             DuoSummonerName(gameName:duo.gameName, tagLine: duo.tagLine)
-            HStack(alignment: .top){
-                Text("티어")
-                    .frame(width: Const.Screen.WIDTH * 0.2)
-                Text("주 포지션")
-                    .frame(width: Const.Screen.WIDTH * 0.2)
-                Text("찾는 포지션")
-                    .frame(width: Const.Screen.WIDTH * 0.2)
-                Text("유효기간")
-                    .frame(width: Const.Screen.WIDTH * 0.3)
-            }
-            .background(.gray)
-            .frame(width: Const.Screen.WIDTH)
-            .font(.kingSejong(.bold, size: 16))
+                .background(duo.matched ? .winBlue : .loseRed)
             HStack(alignment: .top){
                 VStack{
-                    DuoTier(tier: duo.tier, width: 50, height: 50)
+                    Text("티어")
+                    DuoTier(tiers: [duo.tier], width: 50, height: 50)
                 }
                 .frame(width: Const.Screen.WIDTH * 0.2)
                 VStack{
+                    Text("주 포지션")
                     DuoPosition(positions: duo.lines)
                 }
                 .frame(width: Const.Screen.WIDTH * 0.2)
                 VStack{
+                    Text("찾는 포지션")
                     DuoPosition(positions: duo.wishLines)
                 }
                 .frame(width: Const.Screen.WIDTH * 0.2)
                 VStack{
-                    DuoExpDate(date : duo.expiredAt)
+                    Text("등록일")
+                    DuoDate(date: duo.createdAt)
+                    Spacer()
+                    Text("만료일")
+                    DuoDate(date : duo.expiredAt)
+                    
                 }
                 .frame(width: Const.Screen.WIDTH * 0.3)
             }
-            Spacer()
+            //Spacer()
             HStack{
                 DuoMemo(memo: duo.memo)
             }

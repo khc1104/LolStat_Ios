@@ -9,11 +9,15 @@ import Foundation
 import SwiftUI
 
 struct DuoTier : View {
-    let tier : Tier
+    let tiers : [Tier]
     var width : CGFloat = 40
     var height : CGFloat = 40
     var body: some View {
-        Image(tier.image()).resizable()
-            .frame(width: width, height: height)
+        HStack{
+            ForEach(tiers, id:\.self){ tier in
+                Image(tier.image()).resizable()
+                    .frame(width: width, height: height)
+            }
+        }
     }
 }
