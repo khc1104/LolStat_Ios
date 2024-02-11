@@ -25,6 +25,25 @@ struct DuoList: View {
                         .cornerRadius(8)
                     
                 }
+                Button{
+                    viewStore.send(.duoSearchButtonTapped)
+                }label: {
+                    Text("듀오 찾기")
+                        .padding()
+                        .frame(width: Const.Screen.WIDTH)
+                        .background(.loseRed)
+                        .cornerRadius(8)
+                    
+                }
+                .sheet(store: self.store.scope(
+                    state: \.$duoSearchStore,
+                    action: DuoStore.Action.duoSearchStore)
+                ){ duoSearch in
+                    NavigationStack{
+                        DuoSearch(store: duoSearch)
+                    }
+                    
+                }
                 
                 if let duoList = viewStore.duoList{
                     ForEach(duoList){ duo in

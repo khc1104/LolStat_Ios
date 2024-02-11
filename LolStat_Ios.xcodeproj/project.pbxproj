@@ -92,6 +92,8 @@
 		2587D2DD2B7773D6008D0313 /* DuoSearchQueueIdInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D2DC2B7773D6008D0313 /* DuoSearchQueueIdInput.swift */; };
 		2587D2DF2B7773E3008D0313 /* DuoSearchMemoInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D2DE2B7773E3008D0313 /* DuoSearchMemoInput.swift */; };
 		2587D2E12B779629008D0313 /* DuoSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D2E02B779628008D0313 /* DuoSearch.swift */; };
+		2587D2E32B789CAA008D0313 /* DuoSearchStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D2E22B789CAA008D0313 /* DuoSearchStore.swift */; };
+		2587D2E52B78B666008D0313 /* DuoSearchTier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2587D2E42B78B666008D0313 /* DuoSearchTier.swift */; };
 		25A8BF392B25D9D500240D05 /* response1.json in Resources */ = {isa = PBXBuildFile; fileRef = 25A8BF382B25D9D500240D05 /* response1.json */; };
 		25A8BF3B2B26F4EC00240D05 /* MainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A8BF3A2B26F4EC00240D05 /* MainStore.swift */; };
 		25A8BF3D2B26F4FB00240D05 /* RankingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A8BF3C2B26F4FB00240D05 /* RankingStore.swift */; };
@@ -200,6 +202,8 @@
 		2587D2DC2B7773D6008D0313 /* DuoSearchQueueIdInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoSearchQueueIdInput.swift; sourceTree = "<group>"; };
 		2587D2DE2B7773E3008D0313 /* DuoSearchMemoInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoSearchMemoInput.swift; sourceTree = "<group>"; };
 		2587D2E02B779628008D0313 /* DuoSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoSearch.swift; sourceTree = "<group>"; };
+		2587D2E22B789CAA008D0313 /* DuoSearchStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoSearchStore.swift; sourceTree = "<group>"; };
+		2587D2E42B78B666008D0313 /* DuoSearchTier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoSearchTier.swift; sourceTree = "<group>"; };
 		25A8BF382B25D9D500240D05 /* response1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response1.json; sourceTree = "<group>"; };
 		25A8BF3A2B26F4EC00240D05 /* MainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainStore.swift; sourceTree = "<group>"; };
 		25A8BF3C2B26F4FB00240D05 /* RankingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingStore.swift; sourceTree = "<group>"; };
@@ -507,6 +511,7 @@
 				2587D2DA2B7773C2008D0313 /* DuoSearchWishTierInput.swift */,
 				2587D2DC2B7773D6008D0313 /* DuoSearchQueueIdInput.swift */,
 				2587D2DE2B7773E3008D0313 /* DuoSearchMemoInput.swift */,
+				2587D2E42B78B666008D0313 /* DuoSearchTier.swift */,
 			);
 			path = DuoSearch;
 			sourceTree = "<group>";
@@ -563,6 +568,7 @@
 				2587D2702B5FA665008D0313 /* JoinStore.swift */,
 				2587D2A02B6D4948008D0313 /* DuoStore.swift */,
 				2587D2BD2B72160E008D0313 /* DuoDetailStore.swift */,
+				2587D2E22B789CAA008D0313 /* DuoSearchStore.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -770,6 +776,7 @@
 				2587D2AF2B6F8AAD008D0313 /* DuoDetailInfo.swift in Sources */,
 				2587D2CD2B77589B008D0313 /* DuoTicketPosition.swift in Sources */,
 				255759D12B21F10500203F71 /* RuneIcon.swift in Sources */,
+				2587D2E52B78B666008D0313 /* DuoSearchTier.swift in Sources */,
 				2587D2512B5AA320008D0313 /* Join.swift in Sources */,
 				2587D2882B6667CC008D0313 /* VerifyTimer.swift in Sources */,
 				2583B3182B4E835800A505F5 /* MostChampionList.swift in Sources */,
@@ -842,6 +849,7 @@
 				257028592B47A6D200D3A919 /* Font.swift in Sources */,
 				2506AB552B21E2E00029D95A /* ItemIcon.swift in Sources */,
 				2587D2D72B777390008D0313 /* DuoSearchMainPositionInput.swift in Sources */,
+				2587D2E32B789CAA008D0313 /* DuoSearchStore.swift in Sources */,
 				2506AB4F2B1F0CDC0029D95A /* ContentView.swift in Sources */,
 				2587D2B62B6F93F6008D0313 /* DuoDetailPosition.swift in Sources */,
 				2587D25D2B5CD23B008D0313 /* JoinButton.swift in Sources */,

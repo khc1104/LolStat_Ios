@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct DuoSearchQueueIdInput:View {
-    @State var selectedQueue = DuoQueueId.SOLO_RANK_GAME
+    @Binding var selectedQueue : DuoQueueId
     //var options: [String]
     var body: some View {
             Picker("QueueId", selection: $selectedQueue){
@@ -18,12 +18,5 @@ struct DuoSearchQueueIdInput:View {
                 Text(DuoQueueId.QUICK_PLAY.description()).tag(DuoQueueId.QUICK_PLAY)
             }
             .pickerStyle(SegmentedPickerStyle())
-    }
-}
-
-
-struct queueInputPreview:PreviewProvider{
-    static var previews: some View{
-        DuoSearchQueueIdInput()
     }
 }

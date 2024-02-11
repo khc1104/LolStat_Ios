@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct DuoSearchTagLineInput: View {
-    @State var tagLine : String = ""
+    @Binding var tagLine : String
     var body: some View {
         TextField("태그", text: $tagLine)
     }

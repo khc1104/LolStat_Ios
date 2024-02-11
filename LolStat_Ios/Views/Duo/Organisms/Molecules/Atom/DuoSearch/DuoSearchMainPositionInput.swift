@@ -9,7 +9,8 @@ import Foundation
 import SwiftUI
 
 struct DuoSearchMainPositionInput: View{
-    @State var lines : [Line : Bool] = [Line.TOP : false, Line.JG : false, Line.MID : false, Line.AD : false, Line.SUP : false]
+    //@State var lines : [Line : Bool] = [Line.TOP : false, Line.JG : false, Line.MID : false, Line.AD : false, Line.SUP : false]
+    @Binding var lines : [Line : Bool]
     var body: some View {
         HStack(spacing: 0){
             DuoSelectPosition(position: Line.TOP, isSelect: lines[Line.TOP]!)

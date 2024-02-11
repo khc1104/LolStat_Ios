@@ -7,32 +7,45 @@
 
 import Foundation
 import SwiftUI
+import ComposableArchitecture
 
 struct DuoSearch: View {
+    let store : StoreOf<DuoSearchStore>
     var body: some View {
-        Form{
-            Text("소환사 이름")
-            DuoSearchSummonerNameInput()
-            Text("태그")
-            DuoSearchTagLineInput()
-            Text("주 포지션")
-            DuoSearchMainPositionInput()
-            Text("찾는 포지션")
-            DuoSearchWishPositionInput()
-            Text("큐 타입")
-            DuoSearchQueueIdInput()
-            Text("메모")
-            DuoSearchMemoInput()
-            Button("글쓰기"){
-                
+        WithViewStore(store, observe: {$0}){viewStore in
+            Form{
+                Text("소환사 이름")
+                DuoSearchSummonerNameInput(gameName:viewStore.$gameName)
+                Text("태그")
+                DuoSearchTagLineInput(tagLine: viewStore.$tagLine)
+                Text("주 포지션")
+                DuoSearchMainPositionInput(lines: viewStore.$mainPosition)
+                Text("찾는 포지션")
+                DuoSearchWishPositionInput(lines: viewStore.$wishPosition)
+                Text("찾는 티어")
+                DuoSearchWishTierInput(tiers: viewStore.$wishTier)
+                Text("큐 타입")
+                DuoSearchQueueIdInput(selectedQueue: viewStore.$queueId)
+                Text("메모")
+                DuoSearchMemoInput(memo: viewStore.$memo)
+                Button("찾기"){
+                    viewStore.send(.searchButtonTapped)
+                }
+            }
+            .toolbar{
+                ToolbarItem{
+                    Button("Cancle"){
+                        viewStore.send(.cancleButtonTapped)
+                    }
+                }
             }
         }
     }
 }
-
-
+/*
 struct DuoSearchPreview: PreviewProvider{
     static var previews: some View{
         DuoSearch()
     }
 }
+*/

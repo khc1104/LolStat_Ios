@@ -10,9 +10,9 @@ import Foundation
 struct AddDuoRequest : Codable{
     var gameName : String
     var tagLine : String
-    var lines : Line
-    var wishLines : Line
-    var wishTiers : Tier
+    var lines : [Line]
+    var wishLines : [Line]
+    var wishTiers : [Tier]
     var duoQueueId : DuoQueueId
     var memo : String
 }

@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct DuoSearchSummonerNameInput: View {
-    @State var gameName : String = ""
+    @Binding var gameName : String
     var body: some View {
         TextField("소환사이름", text: $gameName)
     }

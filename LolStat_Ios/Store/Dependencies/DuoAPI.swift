@@ -11,6 +11,7 @@ import Dependencies
 protocol DuoAPI{
     func requestGetDuoList(page : Int, match: String, queue: String) async throws -> DuoListResponse?
     func requestGetDuoDetail(duoId : Int) async throws -> DuoDetailResponse?
+    func requestPostDuo(duo : AddDuoRequest) async throws -> AuthResponse?
 }
 
 class DuoAPIClient: DuoAPI{
@@ -49,7 +50,6 @@ class DuoAPIClient: DuoAPI{
             return nil
         }
     }
-    //듀오리스트 post
     
     //듀오디테일 get 요청
     func requestGetDuoDetail(duoId : Int) async throws -> DuoDetailResponse?{
@@ -80,6 +80,45 @@ class DuoAPIClient: DuoAPI{
             print("accessToken is nil")
             return nil
         }
+    }
+    
+    //듀오 post
+    func requestPostDuo(duo: AddDuoRequest) async throws -> AuthResponse? {
+        let successRange = 200 ..< 300
+        let url = URL(string: "\(Const.Server.ADDRESS)/duo")!
+        let decoder = JSONDecoder()
+        let encoder = JSONEncoder()
+        let jsonData = try? encoder.encode(duo)
+        
+        var request = URLRequest(url:url)
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        if let accessToken = KeyChain.read(key: Token.ACCESS_TOKEN.rawValue){
+            let authHeader = "Bearer \(accessToken)"
+            request.setValue(authHeader, forHTTPHeaderField: "Authorization")
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            if let httpsResponse = response as? HTTPURLResponse{
+                if successRange.contains(httpsResponse.statusCode){
+                    print(authHeader)
+                    return AuthResponse(errorCode: LolStatError.NO_ERROR, httpStatus: "", message: "")
+                }else{
+                    let responseData = try JSONDecoder().decode(AuthResponse.self, from: data)
+                    return responseData
+                }
+            }else{
+                print("requestError - postDuo")
+                return nil
+            }
+        }else{
+            print("accessToken is nil")
+            return nil
+        }
+        
+        
     }
 }
 

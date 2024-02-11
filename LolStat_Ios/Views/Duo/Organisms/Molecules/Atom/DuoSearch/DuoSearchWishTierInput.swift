@@ -9,28 +9,52 @@ import Foundation
 import SwiftUI
 
 struct DuoSearchWishTierInput: View {
-    @State var lines : [Line : Bool] = [Line.TOP : false, Line.JG : false, Line.MID : false, Line.AD : false, Line.SUP : false]
+    @Binding var tiers : [Tier : Bool]
     var body: some View {
         HStack(spacing: 0){
-            DuoSelectPosition(position: Line.TOP)
+            DuoSearchTier(tier: Tier.UNRANKED, isSelect: tiers[Tier.UNRANKED]!)
                 .onTapGesture {
-                    lines[Line.TOP]?.toggle()
+                    tiers[Tier.UNRANKED]?.toggle()
                 }
-            DuoSelectPosition(position: Line.JG)
+            DuoSearchTier(tier: Tier.IRON, isSelect: tiers[Tier.IRON]!)
                 .onTapGesture {
-                    lines[Line.JG]?.toggle()
+                    tiers[Tier.IRON]?.toggle()
                 }
-            DuoSelectPosition(position: Line.MID)
+            DuoSearchTier(tier: Tier.BRONZE, isSelect: tiers[Tier.BRONZE]!)
                 .onTapGesture {
-                    lines[Line.MID]?.toggle()
+                    tiers[Tier.BRONZE]?.toggle()
                 }
-            DuoSelectPosition(position: Line.AD)
+            DuoSearchTier(tier: Tier.SILVER, isSelect: tiers[Tier.SILVER]!)
                 .onTapGesture {
-                    lines[Line.AD]?.toggle()
+                    tiers[Tier.SILVER]?.toggle()
                 }
-            DuoSelectPosition(position: Line.SUP)
+            DuoSearchTier(tier: Tier.GOLD, isSelect: tiers[Tier.GOLD]!)
                 .onTapGesture {
-                    lines[Line.SUP]?.toggle()
+                    tiers[Tier.GOLD]?.toggle()
+                }
+            DuoSearchTier(tier: Tier.PLATINUM, isSelect: tiers[Tier.PLATINUM]!)
+                .onTapGesture {
+                    tiers[Tier.PLATINUM]?.toggle()
+                }
+            DuoSearchTier(tier: Tier.EMERALD, isSelect: tiers[Tier.EMERALD]!)
+                .onTapGesture {
+                    tiers[Tier.EMERALD]?.toggle()
+                }
+            DuoSearchTier(tier: Tier.DIAMOND, isSelect: tiers[Tier.DIAMOND]!)
+                .onTapGesture {
+                    tiers[Tier.DIAMOND]?.toggle()
+                }
+            DuoSearchTier(tier: Tier.MASTER, isSelect: tiers[Tier.MASTER]!)
+                .onTapGesture {
+                    tiers[Tier.MASTER]?.toggle()
+                }
+            DuoSearchTier(tier: Tier.GRANDMASTER, isSelect: tiers[Tier.GRANDMASTER]!)
+                .onTapGesture {
+                    tiers[Tier.GRANDMASTER]?.toggle()
+                }
+            DuoSearchTier(tier: Tier.CHALLENGER, isSelect: tiers[Tier.CHALLENGER]!)
+                .onTapGesture {
+                    tiers[Tier.CHALLENGER]?.toggle()
                 }
         }
     }

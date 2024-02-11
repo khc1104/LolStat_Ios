@@ -23,6 +23,7 @@ struct DuoStore: Reducer{
         var runningRequest : DuoRequest?
         @PresentationState var accountStore : AccountStore.State?
         @PresentationState var duoDetailStore : DuoDetailStore.State?
+        @PresentationState var duoSearchStore : DuoSearchStore.State?
     }
     enum Action: BindableAction{
         case requestGetDuoList
@@ -35,10 +36,13 @@ struct DuoStore: Reducer{
         case duoOnAppear
         case logOutButtonTapped
         case duoInfoTapped(Int)
+        case duoSearchButtonTapped
         case duoDetailCancleTapped
+        
         
         case accountStore(PresentationAction<AccountStore.Action>)
         case duoDetailStore(PresentationAction<DuoDetailStore.Action>)
+        case duoSearchStore(PresentationAction<DuoSearchStore.Action>)
         case binding(BindingAction<State>)
     }
     var body : some ReducerOf<Self>{
@@ -50,6 +54,9 @@ struct DuoStore: Reducer{
             }
             .ifLet(\.$duoDetailStore, action: /Action.duoDetailStore){
                 DuoDetailStore()
+            }
+            .ifLet(\.$duoSearchStore, action: /Action.duoSearchStore){
+                DuoSearchStore()
             }
     }
     @Dependency(\.DuoAPIClient) var duoAPI
@@ -144,6 +151,10 @@ struct DuoStore: Reducer{
                 duoId: id
             )
             return .none
+            //듀오 찾기 버튼 탭
+        case .duoSearchButtonTapped:
+            state.duoSearchStore = DuoSearchStore.State()
+            return .none
             //
             //듀오디테일 액션
             //
@@ -152,6 +163,7 @@ struct DuoStore: Reducer{
             state.isDetail = false
             state.duoDetailStore = nil
             return .none
+            
             //
             //Presented 액션
             //
@@ -170,8 +182,8 @@ struct DuoStore: Reducer{
             }
             state.isLogin = isLogin
             //state.accountStore = nil
-            
             return .none
+            //어카운트 - 리프레쉬 토큰
         case .accountStore(.presented(.responseRefreshToken)):
             print("dd")
             guard let isLogin = state.accountStore?.isLogin else{
@@ -191,17 +203,29 @@ struct DuoStore: Reducer{
                 }
             }
             return .none
+            //어카운트  - 캔슬 버튼 탭
         case .accountStore(.presented(.cancleButtonTapped)):
             state.accountStore = nil
             return .none
+            //듀오상세 - 캔슬 버튼 탭
         case .duoDetailStore(.presented(.cancleButtonTapped)):
             state.duoDetailStore = nil
             return .none
-            
+        case .duoSearchStore(.presented(.responsePostDuo)):
+            state.duoSearchStore = nil
+            return .run{send in
+                await send(.requestGetDuoList)
+            }
+        case .duoSearchStore(.presented(.cancleButtonTapped)):
+            state.duoSearchStore = nil
+            return .none
         case .accountStore:
             return .none
             
         case .duoDetailStore:
+            return .none
+            
+        case .duoSearchStore:
             return .none
         case .binding:
             return .none

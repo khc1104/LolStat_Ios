@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct DuoSearchWishPositionInput:View {
-    @State var lines : [Line : Bool] = [Line.TOP : false, Line.JG : false, Line.MID : false, Line.AD : false, Line.SUP : false]
+    @Binding var lines : [Line : Bool]
     var body: some View {
         HStack(spacing: 0){
             DuoSelectPosition(position: Line.TOP, isSelect: lines[Line.TOP]!)
@@ -33,11 +33,5 @@ struct DuoSearchWishPositionInput:View {
                     lines[Line.SUP]?.toggle()
                 }
         }
-    }
-}
-
-struct DuoSearchWishPositionInputPreview:PreviewProvider{
-    static var previews: some View{
-        DuoSearchWishPositionInput()
     }
 }

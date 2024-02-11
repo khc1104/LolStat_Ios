@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct DuoSearchMemoInput: View {
-    @State var memo : String = ""
+    @Binding var memo : String
     var body: some View {
         TextField("", text: $memo)
     }
