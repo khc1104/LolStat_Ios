@@ -190,6 +190,7 @@ struct DuoStore: Reducer{
                 print("ResponseRefreshToken failed")
                 return .none
             }
+            print("dd")
             if isLogin{
                 switch state.runningRequest {
                 case .GET_DUO:

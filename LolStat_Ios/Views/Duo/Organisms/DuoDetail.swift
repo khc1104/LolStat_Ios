@@ -19,6 +19,7 @@ struct DuoDetail: View {
                     ForEach(duoDetail.tickets){ ticket in
                         DuoTicket(ticket : ticket)
                     }
+                    DuoTicketCreate(store : store)
                 }
             }
             .onAppear{

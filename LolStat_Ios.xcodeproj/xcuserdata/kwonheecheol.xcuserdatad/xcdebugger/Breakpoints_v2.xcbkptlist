@@ -203,8 +203,8 @@
             filePath = "LolStat_Ios/Store/DuoStore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238">
+            startingLineNumber = "239"
+            endingLineNumber = "239">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -217,8 +217,8 @@
             filePath = "LolStat_Ios/Store/Dependencies/DuoAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
             landmarkName = "requestGetDuoList(page:match:queue:)"
             landmarkType = "7">
             <Locations>
@@ -265,8 +265,8 @@
             filePath = "LolStat_Ios/Store/Dependencies/DuoAPI.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
             landmarkName = "requestGetDuoList(page:match:queue:)"
             landmarkType = "7">
             <Locations>

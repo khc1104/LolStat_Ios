@@ -17,6 +17,14 @@ struct AddDuoRequest : Codable{
     var memo : String
 }
 
+struct AddDuoTicketRequest : Codable{
+    var gameName : String
+    var tagLine : String
+    var lines : [Line]
+    var memo : String
+    
+}
+
 struct DuoListResponse : Codable{
     /*var id :Int64
     var userId : Int64
