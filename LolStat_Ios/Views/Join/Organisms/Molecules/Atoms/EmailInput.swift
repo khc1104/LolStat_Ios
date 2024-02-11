@@ -18,6 +18,7 @@ struct EmailInput : View {
                 ZStack(alignment: .topLeading){
                     TextField("", text: viewStore.$email)
                         .textFieldStyle(.roundedBorder)
+                        .textInputAutocapitalization(.never)
                     Text("이메일")
                         .font(.kingSejong(.regular, size: isAnimation ? 16 : 20))
                         .foregroundStyle(viewStore.email != "" &&

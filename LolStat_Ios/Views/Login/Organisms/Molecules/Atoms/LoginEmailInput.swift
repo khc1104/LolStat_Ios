@@ -15,6 +15,7 @@ struct LoginEmailInput:View {
         ZStack(alignment: .leading){
             TextField("", text: $email)
                 .textFieldStyle(.roundedBorder)
+                .textInputAutocapitalization(.never)
             Text("이메일")
                 .padding()
                 .offset(

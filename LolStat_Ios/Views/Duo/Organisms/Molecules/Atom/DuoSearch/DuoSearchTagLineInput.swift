@@ -12,5 +12,6 @@ struct DuoSearchTagLineInput: View {
     @Binding var tagLine : String
     var body: some View {
         TextField("태그", text: $tagLine)
+            .textInputAutocapitalization(.never)
     }
 }

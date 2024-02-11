@@ -19,7 +19,7 @@ struct PasswordVerifyInput:View {
                     SecureField("", text: viewStore.$passwordVerify)
                         .textFieldStyle(.roundedBorder)
                         .textContentType(.oneTimeCode)
-                        
+                        .textInputAutocapitalization(.never)
                     Text("비밀번호 확인")
                         .font(.kingSejong(.regular, size: isAnimation ? 16 : 20))
                         .foregroundStyle(viewStore.passwordVerify != "" &&

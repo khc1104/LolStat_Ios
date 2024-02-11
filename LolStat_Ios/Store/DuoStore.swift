@@ -147,8 +147,10 @@ struct DuoStore: Reducer{
             //듀오카드 눌렀을 때
             
         case let .duoInfoTapped(id):
+            let myDuoId = state.myduo?.id ?? 0
             state.duoDetailStore = DuoDetailStore.State(
-                duoId: id
+                duoId: id,
+                myDuoId: Int(myDuoId)
             )
             return .none
             //듀오 찾기 버튼 탭

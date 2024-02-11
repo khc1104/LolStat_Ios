@@ -17,9 +17,19 @@ struct DuoDetail: View {
                 if let duoDetail = viewStore.duoDetail{
                     DuoDetailInfo(duo: duoDetail)
                     ForEach(duoDetail.tickets){ ticket in
-                        DuoTicket(ticket : ticket)
+                        VStack{
+                            DuoTicket(ticket : ticket)
+                            if viewStore.duoId == viewStore.myDuoId && !duoDetail.matched{
+                                Button("신청수락"){
+                                    viewStore.send(.acceptButtonTapped(Int(ticket.id)))
+                                }
+                            }
+                        }
+                        
                     }
-                    DuoTicketCreate(store : store)
+                    if viewStore.duoId != viewStore.myDuoId && !duoDetail.matched{
+                        DuoTicketCreate(store : store)
+                    }
                 }
             }
             .onAppear{

@@ -19,6 +19,7 @@ struct PasswordInput:View {
                     SecureField("", text: viewStore.$password)
                         .textFieldStyle(.roundedBorder)
                         .textContentType(.oneTimeCode)
+                        .textInputAutocapitalization(.never)
                     Text("비밀번호")
                         .font(.kingSejong(.regular, size: isAnimation ? 16 : 20))
                         .foregroundStyle(viewStore.password != "" &&

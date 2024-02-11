@@ -12,5 +12,6 @@ struct DuoSearchSummonerNameInput: View {
     @Binding var gameName : String
     var body: some View {
         TextField("소환사이름", text: $gameName)
+            .textInputAutocapitalization(.never)
     }
 }

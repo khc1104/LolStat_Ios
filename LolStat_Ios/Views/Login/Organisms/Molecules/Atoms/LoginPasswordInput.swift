@@ -15,6 +15,7 @@ struct LoginPasswordInput:View {
         ZStack(alignment: .leading){
             SecureField("", text: $password)
                 .textFieldStyle(.roundedBorder)
+                .textInputAutocapitalization(.never)
             Text("비밀번호")
                 .padding()
                 .offset(y: isAnimation ? -30:0)

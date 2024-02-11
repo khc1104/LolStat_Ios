@@ -11,7 +11,9 @@ import ComposableArchitecture
 struct DuoDetailStore: Reducer{
     struct State : Equatable{
         var duoId : Int = 0
+        var myDuoId : Int = 0
         var duoDetail : DuoDto?
+        
         
         @BindingState var gameName : String = ""
         @BindingState var tagLine : String = ""
@@ -21,12 +23,15 @@ struct DuoDetailStore: Reducer{
     enum Action : BindableAction{
         case requestGetDuoDetail
         case requestPostDuoTicket
+        case requestPostDuoTicketAccept(Int)
         
         case responseGetDuoDetail(DuoDetailResponse)
         case responsePostDuoTicket(AuthResponse)
+        case responsePostDuoTicketAccept(AuthResponse)
         
         case duoDetailOnAppear
         case cancleButtonTapped
+        case acceptButtonTapped(Int)
         case createButtonTapped
         
         case binding(BindingAction<State>)
@@ -52,6 +57,7 @@ struct DuoDetailStore: Reducer{
                     print("requestGetDuoDetailError")
                 }
             }
+            //듀오 티켓 생성 요청
         case .requestPostDuoTicket:
             var position : [Line] = []
             state.position.forEach{ pos in
@@ -64,6 +70,15 @@ struct DuoDetailStore: Reducer{
             return .run{[id = state.duoId, ticket = ticketRequest] send in
                 if let response = try await duoAPI.requestPostDuoTicket(ticket: ticket, duoId: id){
                     await send(.responsePostDuoTicket(response))
+                }else{
+                    print("requestPostDuoTicket Error")
+                }
+            }
+            //듀오 티켓 수락 POST 요청
+        case let .requestPostDuoTicketAccept(ticketId):
+            return .run{[ticketId = ticketId, duoId = state.duoId] send in
+                if let response = try await duoAPI.requestPostDuoTicketAccept(duoId: duoId, ticketId: ticketId){
+                    await send(.responsePostDuoTicketAccept(response))
                 }else{
                     print("requestPostDuoTicket Error")
                 }
@@ -97,6 +112,17 @@ struct DuoDetailStore: Reducer{
                 print(response.message)
                 return .none
             }
+            // 듀오 티켓 수락 POST 반환
+        case let .responsePostDuoTicketAccept(response):
+            switch response.errorCode{
+            case .NO_ERROR:
+                return .run{send in
+                    await send(.requestGetDuoDetail)
+                }
+            default:
+                print(response.message)
+                return .none
+            }
             //
             //듀오 상세페이지 액션
             //
@@ -108,6 +134,11 @@ struct DuoDetailStore: Reducer{
             //캔슬버튼 탭했을 때
         case .cancleButtonTapped:
             return.none
+            //신청 수락 버튼 탭
+        case let .acceptButtonTapped(ticketId):
+            return .run{[ticketId = ticketId] send in
+                await send(.requestPostDuoTicketAccept(ticketId))
+            }
             //티켓 신청 버튼 탭
         case .createButtonTapped:
             return .run{ send in

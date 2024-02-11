@@ -13,7 +13,7 @@ struct DuoColumn: View {
     var body: some View {
         VStack(spacing: 2){
             DuoSummonerName(gameName:duo.gameName, tagLine: duo.tagLine)
-                .background(duo.matched ? .winBlue : .loseRed)
+                .background(duo.matched ? .loseRed : .winBlue)
             HStack(alignment: .top){
                 VStack{
                     Text("티어")
