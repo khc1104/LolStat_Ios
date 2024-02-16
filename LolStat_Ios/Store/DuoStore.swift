@@ -193,6 +193,7 @@ struct DuoStore: Reducer{
                 return .none
             }
             print("dd")
+            print(isLogin)
             if isLogin{
                 switch state.runningRequest {
                 case .GET_DUO:

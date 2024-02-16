@@ -151,6 +151,7 @@ struct AccountStore : Reducer{
                 switch response.errorCode{
                 case .NO_ERROR:
                     print("토큰 재발급 완료")
+                    state.isLogin = true
                     return .none
                 case .TOKEN_EXPIRED:
                     print("토큰 만료")
@@ -208,8 +209,8 @@ struct AccountStore : Reducer{
             //로그인 버튼 눌렀을 때
         case .loginButtonTapped:
             return .run{send in
-                await send(.requestLogin)
-                //await send(.requestLoginTest)
+                //await send(.requestLogin)
+                await send(.requestLoginTest)
             }
             
             //회원가입 버튼 눌렀을 때
