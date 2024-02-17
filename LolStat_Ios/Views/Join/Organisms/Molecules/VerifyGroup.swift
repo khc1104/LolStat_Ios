@@ -58,6 +58,11 @@ struct VerifyGroup: View {
                         .onTapGesture {
                             viewStore.send(.joinButtonTapped)
                         }
+                        .alert("회원가입 실패. \n중복된 계정이 존재하거나 잘못된 정보입니다.", isPresented: viewStore.$isAlert){
+                            Button("확인", role: .cancel){
+                                viewStore.send(.alertConfirmButtonTapped)
+                            }
+                        }
                     //.disabled(viewStore.isEmailVerified && viewStore.isPasswordVerified && viewStore.isPasswordVerifyVerified ? false : true)
                 }
                 .padding()
@@ -121,12 +126,13 @@ struct VerifyGroup: View {
         }
     }
 }
-
-struct joinPreview : PreviewProvider{
-    static var previews: some View{
-        VerifyGroup(store: Store(initialState: JoinStore.State()){
-            JoinStore()
-        }
-        )
-    }
-}
+/*
+ struct joinPreview : PreviewProvider{
+ static var previews: some View{
+ VerifyGroup(store: Store(initialState: JoinStore.State()){
+ JoinStore()
+ }
+ )
+ }
+ }
+ */

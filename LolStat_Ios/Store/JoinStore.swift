@@ -20,6 +20,8 @@ struct JoinStore : Reducer{
         var isPasswordVerified : Bool = false
         var isPasswordVerifyVerified : Bool = false
         
+        @BindingState var isAlert : Bool = false
+        
     }
     enum Action: BindableAction{
         case binding(BindingAction<State>)
@@ -30,6 +32,8 @@ struct JoinStore : Reducer{
         case verifyPasswordVerify
         case reqeustCreateUser
         case responseCreateUser(AuthResponse?)
+        
+        case alertConfirmButtonTapped
     }
     var body : some ReducerOf<Self>{
         BindingReducer()
@@ -47,9 +51,7 @@ struct JoinStore : Reducer{
         case .reqeustCreateUser:
             let pwd = "\(state.password)"
             let pwdck = "\(state.passwordVerify)"
-            //let createAccount = CreateUserRequest(email: state.email,
-              //                                    password: state.password,
-                //                                  passwordCheck: state.passwordVerify)
+            
             let createAccount = CreateUserRequest(email: state.email,
                                                   password: pwd,
                                                   passwordCheck: pwdck)
@@ -70,6 +72,7 @@ struct JoinStore : Reducer{
                         await send(.cancleButtonTapped)
                     }
                 case .USER_JOIN_FAIL:
+                    state.isAlert = true
                     print("회원가입 실패, 이미 존재하는 계정일 수 있음.")
                     return .none
                 default:
@@ -131,6 +134,10 @@ struct JoinStore : Reducer{
                 state.passwordVerifyMessage = ""
                 state.isPasswordVerifyVerified = true
             }
+            return .none
+            //에러 확인버튼 탭
+        case .alertConfirmButtonTapped:
+            state.isAlert = false
             return .none
         case .binding:
             return .none
