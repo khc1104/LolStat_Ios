@@ -17,8 +17,10 @@ struct AccountStore : Reducer{
         var timer : String = ""
         var isLogin : Bool = false
         var isVerified: Bool = true
+        @BindingState var isAlert : Bool = false
         
         @PresentationState var joinStore: JoinStore.State?
+       
         
     }
     enum Action: BindableAction{
@@ -41,9 +43,12 @@ struct AccountStore : Reducer{
         case joinButtonTapped
         case userVerifyButtonTapped
         case cancleButtonTapped
+        
         case testButtonTapped
         
         case joinStore(PresentationAction<JoinStore.Action>)
+        case alertConfirmButtonTapped
+        
     }
     var body : some ReducerOf<Self>{
         BindingReducer()
@@ -117,9 +122,14 @@ struct AccountStore : Reducer{
         case let .responseLogin(loginResponse):
             
             if let response = loginResponse{
-                state.userInfo = response
-                //state.isVerified = response.verified
-                state.isLogin = true
+                switch response.errorCode{
+                case .NO_ERROR:
+                    state.userInfo = response
+                    //state.isVerified = response.verified
+                    state.isLogin = true
+                default:
+                    state.isAlert = true
+                }
                 
             }
             return .none
@@ -209,8 +219,8 @@ struct AccountStore : Reducer{
             //로그인 버튼 눌렀을 때
         case .loginButtonTapped:
             return .run{send in
-                //await send(.requestLogin)
-                await send(.requestLoginTest)
+                await send(.requestLogin)
+                //await send(.requestLoginTest)
             }
             
             //회원가입 버튼 눌렀을 때
@@ -239,6 +249,15 @@ struct AccountStore : Reducer{
                 await send(.requestAuthTest)
             }
              
+            //
+            //Alert
+            //
+            //로그인 에러
+        case .alertConfirmButtonTapped:
+            state.email = ""
+            state .password = ""
+            state.isAlert = false
+            return .none
         case .binding:
             return .none
         case .joinStore(.presented(.cancleButtonTapped)):
@@ -246,6 +265,7 @@ struct AccountStore : Reducer{
             return .none
         case .joinStore:
             return .none
+
         }
     }
 }

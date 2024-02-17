@@ -205,6 +205,9 @@ struct DuoStore: Reducer{
                 default:
                     return .none
                 }
+            }else{
+                state.isLogin = false
+                state.isAccessToken = false
             }
             return .none
             //어카운트  - 캔슬 버튼 탭

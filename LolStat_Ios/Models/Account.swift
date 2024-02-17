@@ -32,6 +32,29 @@ struct UserInfoDto : Codable, Equatable{
     var userId : Int64
     var email : String
     var verified : Bool
+    var errorCode : LolStatError
+    
+    private enum CodingKeys : String, CodingKey{
+        case userId
+        case email
+        case verified
+        case errorCode
+    }
+    
+    init(errorCode : LolStatError){
+        self.userId = 0
+        self.email = ""
+        self.verified = false
+        self.errorCode = errorCode
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.userId = try container.decodeIfPresent(Int64.self, forKey: .userId) ?? 0
+        self.email = try container.decodeIfPresent(String.self, forKey: .email) ?? ""
+        self.verified = try container.decodeIfPresent(Bool.self, forKey: .verified) ?? false
+        self.errorCode = try container.decodeIfPresent(LolStatError.self, forKey: .errorCode) ?? LolStatError.NO_ERROR
+    }
 }
 //인증 반환
 struct AuthResponse : Codable, Equatable{

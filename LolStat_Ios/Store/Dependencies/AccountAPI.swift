@@ -42,8 +42,9 @@ class AccountAPIClient: AccountAPI{
                 return loginResponse.userInfo
             }else{
                 let test = String(data:data, encoding: .utf8)
-                print(test)
-                return nil
+                let loginResponse = UserInfoDto(errorCode: LolStatError.USER_LOGIN_FAIL)
+                //print(test)
+                return loginResponse
             }
         }else{
             print("request Error - Login/Test")

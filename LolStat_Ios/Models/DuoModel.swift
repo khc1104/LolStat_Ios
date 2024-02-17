@@ -63,9 +63,6 @@ struct DuoListResponse : Codable{
         self.duoList = try container.decodeIfPresent([DuoDto].self, forKey: .duoList)
         self.errorCode = try container.decodeIfPresent(LolStatError.self, forKey: .errorCode) ?? LolStatError.NO_ERROR
     }
-    
-     
-    
 }
 
 struct DuoDto: Codable, Equatable, Identifiable{

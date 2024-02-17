@@ -23,9 +23,11 @@ struct LoginButton : View {
     }
 }
 
+/*
 struct privew_Loginbutton : PreviewProvider{
     static var previews: some View{
         LoginButton()
     }
     
 }
+*/

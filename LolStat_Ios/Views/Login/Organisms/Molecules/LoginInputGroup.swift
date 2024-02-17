@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import ComposableArchitecture
 
+
 struct LoginInputGroup: View {
     enum focusField: Hashable{
         case email
@@ -18,7 +19,7 @@ struct LoginInputGroup: View {
     @State private var isEmailAnimation : Bool = false
     @State private var isPasswordAnimation : Bool = false
     
-    let store : StoreOf<AccountStore>
+    var store : StoreOf<AccountStore>
     var body: some View {
         WithViewStore(self.store, observe: {$0}){viewStore in
             Form{
@@ -30,6 +31,11 @@ struct LoginInputGroup: View {
                     LoginButton()
                         .onTapGesture {
                             viewStore.send(.loginButtonTapped)
+                        }
+                        .alert("로그인 실패. \n로그인 정보를 확인해주세요.", isPresented: viewStore.$isAlert){
+                            Button("확인", role: .cancel){
+                                viewStore.send(.alertConfirmButtonTapped)
+                            }
                         }
                     GoJoinButton()
                         .onTapGesture {
@@ -74,6 +80,7 @@ struct LoginInputGroup: View {
                 Join(store:joinStore)
             }
         }
+        
     }
 }
 
