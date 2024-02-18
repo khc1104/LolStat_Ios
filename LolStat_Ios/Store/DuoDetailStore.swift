@@ -13,12 +13,17 @@ struct DuoDetailStore: Reducer{
         var duoId : Int = 0
         var myDuoId : Int = 0
         var duoDetail : DuoDto?
+        var isLogin : Bool = true
         
         
         @BindingState var gameName : String = ""
         @BindingState var tagLine : String = ""
         @BindingState var position : [Line: Bool] = [Line.TOP : false, Line.JG : false, Line.MID : false, Line.AD : false, Line.SUP : false]
         @BindingState var memo : String = ""
+        
+        var runningRequest : DuoRequest?
+        @PresentationState var accountStore : AccountStore.State?
+        
     }
     enum Action : BindableAction{
         case requestGetDuoDetail
@@ -34,12 +39,16 @@ struct DuoDetailStore: Reducer{
         case acceptButtonTapped(Int)
         case createButtonTapped
         
+        case accountStore(PresentationAction<AccountStore.Action>)
         case binding(BindingAction<State>)
     }
     var body: some ReducerOf<Self>{
         BindingReducer()
         
         Reduce(self.core)
+            .ifLet(\.$accountStore, action: /Action.accountStore){
+                AccountStore()
+            }
     }
     
     @Dependency(\.DuoAPIClient) var duoAPI
@@ -50,6 +59,7 @@ struct DuoDetailStore: Reducer{
             //
             //듀오 디테일 GET 요청
         case .requestGetDuoDetail:
+            state.runningRequest = .GET_DUO_DETAIL
             return .run{ [id = state.duoId] send in
                 if let response = try await duoAPI.requestGetDuoDetail(duoId: id){
                     await send(.responseGetDuoDetail(response))
@@ -91,7 +101,9 @@ struct DuoDetailStore: Reducer{
             switch response.errorCode{
             case .NO_ERROR:
                 state.duoDetail = response.duo
+                state.accountStore = nil
             case .TOKEN_EXPIRED:
+                state.accountStore = AccountStore.State()
                 return .none
             default :
                 print(response.errorCode)
@@ -144,9 +156,29 @@ struct DuoDetailStore: Reducer{
             return .run{ send in
                 await send(.requestPostDuoTicket)
             }
+        case .accountStore(.presented(.responseRefreshToken)):
+            guard let isLogin = state.accountStore?.isLogin else{
+                print("ResponseRefreshToken failed")
+                return .none
+            }
+            if isLogin{
+                switch state.runningRequest {
+                case .GET_DUO_DETAIL:
+                    return .run{send in
+                        await send(.requestGetDuoDetail)
+                    }
+                default:
+                    return .none
+                }
+            }else{
+                state.isLogin = false
+                state.accountStore = nil
+            }
+            return .none
+        case .accountStore:
+            return .none
         case .binding:
             return .none
         }
-        
     }
 }

@@ -18,6 +18,10 @@ struct DuoSearchStore: Reducer{
         @BindingState var queueId : DuoQueueId = .SOLO_RANK_GAME
         @BindingState var memo : String = ""
         
+        var isLogin : Bool = true
+        var runningRequest : DuoRequest?
+        @PresentationState var accountStore : AccountStore.State?
+        
     }
     enum Action : BindableAction{
         case requestPostDuo
@@ -26,12 +30,16 @@ struct DuoSearchStore: Reducer{
         case cancleButtonTapped
         case searchButtonTapped
         
+        case accountStore(PresentationAction<AccountStore.Action>)
         case binding(BindingAction<State>)
     }
     var body: some ReducerOf<Self>{
         BindingReducer()
         
         Reduce(self.core)
+            .ifLet(\.$accountStore, action: /Action.accountStore){
+                AccountStore()
+            }
     }
     
     @Dependency(\.DuoAPIClient) var duoAPI
@@ -41,6 +49,7 @@ struct DuoSearchStore: Reducer{
             //API Request
             //
         case .requestPostDuo:
+            state.runningRequest = .POST_DUO
             var mainPosition : [Line] = []
             var wishPosition : [Line] = []
             var wishTier : [Tier] = []
@@ -74,9 +83,12 @@ struct DuoSearchStore: Reducer{
         case let .responsePostDuo(response):
             switch response.errorCode{
             case .NO_ERROR:
-                print("글쓰기 성공")
+                //print("글쓰기 성공")
+                state.isLogin = true
+                state.accountStore = nil
                 return .none
             case .TOKEN_EXPIRED:
+                state.accountStore = AccountStore.State()
                 return .none
             default:
                 print(response.errorCode)
@@ -92,6 +104,30 @@ struct DuoSearchStore: Reducer{
                 await send(.requestPostDuo)
             }
         case .cancleButtonTapped:
+            return .none
+            //
+            //Present 액션
+            //
+        case .accountStore(.presented(.responseRefreshToken)):
+            guard let isLogin = state.accountStore?.isLogin else{
+                print("ResponseRefreshToken failed")
+                return .none
+            }
+            if isLogin{
+                switch state.runningRequest {
+                case .POST_DUO_DETAIL:
+                    return .run{send in
+                        await send(.requestPostDuo)
+                    }
+                default:
+                    return .none
+                }
+            }else{
+                state.isLogin = false
+                state.accountStore = nil
+            }
+            return .none
+        case .accountStore:
             return .none
         case .binding:
             return .none

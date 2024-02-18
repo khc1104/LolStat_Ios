@@ -32,6 +32,12 @@ struct DuoDetail: View {
                     }
                 }
             }
+            .sheet(store: self.store.scope(
+                state: \.$accountStore,
+                action: DuoDetailStore.Action.accountStore)
+            ){accountStore in
+                DuoLoadingRefresh(store: accountStore)
+            }
             .onAppear{
                 viewStore.send(.duoDetailOnAppear)
             }
@@ -42,6 +48,7 @@ struct DuoDetail: View {
                     }
                 }
             }
+            
         }
     }
 }

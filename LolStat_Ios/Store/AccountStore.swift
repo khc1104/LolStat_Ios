@@ -219,8 +219,8 @@ struct AccountStore : Reducer{
             //로그인 버튼 눌렀을 때
         case .loginButtonTapped:
             return .run{send in
-                await send(.requestLogin)
-                //await send(.requestLoginTest)
+                //await send(.requestLogin)
+                await send(.requestLoginTest)
             }
             
             //회원가입 버튼 눌렀을 때

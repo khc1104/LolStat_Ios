@@ -33,7 +33,7 @@ class DuoAPIClient: DuoAPI{
             if let httpResponse = response as? HTTPURLResponse{
                 if successRange.contains(httpResponse.statusCode){
                     let duoList = try JSONDecoder().decode(DuoListResponse.self, from: data)
-                    print(duoList)
+                    //print(duoList)
                     return duoList
                 }else{
                     //print("data - \(String(data: data, encoding: .utf8))")

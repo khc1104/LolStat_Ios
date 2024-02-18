@@ -169,6 +169,7 @@ struct DuoStore: Reducer{
             //
             //Presented 액션
             //
+            //어카운트 로그인 반환
         case .accountStore(.presented(.responseLogin)):
             guard let isLogin = state.accountStore?.isLogin else{
                 print("ResponseLogin failed")
@@ -185,7 +186,7 @@ struct DuoStore: Reducer{
             state.isLogin = isLogin
             //state.accountStore = nil
             return .none
-            //어카운트 - 리프레쉬 토큰
+            //어카운트 - 리프레쉬 토큰 반환
         case .accountStore(.presented(.responseRefreshToken)):
             print("dd")
             guard let isLogin = state.accountStore?.isLogin else{
@@ -214,10 +215,26 @@ struct DuoStore: Reducer{
         case .accountStore(.presented(.cancleButtonTapped)):
             state.accountStore = nil
             return .none
+        case .duoDetailStore(.presented(.accountStore)):
+            guard let isLogin = state.duoDetailStore?.isLogin else{
+                print("DuoDetailRefreshToken failed")
+                return .none
+            }
+            if isLogin{
+                return .none
+            }else{
+                state.isLogin = false
+                state.isAccessToken = false
+                state.duoDetailStore = nil
+                state.accountStore = AccountStore.State()
+                return .none
+            }
             //듀오상세 - 캔슬 버튼 탭
         case .duoDetailStore(.presented(.cancleButtonTapped)):
             state.duoDetailStore = nil
             return .none
+            
+            //듀오 찾기 - 듀오 생성시
         case .duoSearchStore(.presented(.responsePostDuo)):
             state.duoSearchStore = nil
             return .run{send in
@@ -226,6 +243,8 @@ struct DuoStore: Reducer{
         case .duoSearchStore(.presented(.cancleButtonTapped)):
             state.duoSearchStore = nil
             return .none
+            
+            
         case .accountStore:
             return .none
             
