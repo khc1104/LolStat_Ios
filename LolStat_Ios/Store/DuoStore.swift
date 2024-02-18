@@ -24,6 +24,9 @@ struct DuoStore: Reducer{
         @PresentationState var accountStore : AccountStore.State?
         @PresentationState var duoDetailStore : DuoDetailStore.State?
         @PresentationState var duoSearchStore : DuoSearchStore.State?
+        
+        @BindingState var isAlert : Bool  = false
+        var alertMessage : String = ""
     }
     enum Action: BindableAction{
         case requestGetDuoList
@@ -38,12 +41,14 @@ struct DuoStore: Reducer{
         case duoInfoTapped(Int)
         case duoSearchButtonTapped
         case duoDetailCancleTapped
-        
+        case alertConfirmButtonTapped
         
         case accountStore(PresentationAction<AccountStore.Action>)
         case duoDetailStore(PresentationAction<DuoDetailStore.Action>)
         case duoSearchStore(PresentationAction<DuoSearchStore.Action>)
         case binding(BindingAction<State>)
+        
+        case testButtonTapped
     }
     var body : some ReducerOf<Self>{
         BindingReducer()
@@ -157,6 +162,10 @@ struct DuoStore: Reducer{
         case .duoSearchButtonTapped:
             state.duoSearchStore = DuoSearchStore.State()
             return .none
+            //에러메세지 확인버튼 탭
+        case .alertConfirmButtonTapped:
+            state.isAlert = false
+            return .none
             //
             //듀오디테일 액션
             //
@@ -201,8 +210,6 @@ struct DuoStore: Reducer{
                     return .run{send in
                         await send(.requestGetDuoList)
                     }
-                case .POST_DUO:
-                    return .none
                 default:
                     return .none
                 }
@@ -215,6 +222,7 @@ struct DuoStore: Reducer{
         case .accountStore(.presented(.cancleButtonTapped)):
             state.accountStore = nil
             return .none
+            //듀오상세 - 리프레쉬토큰
         case .duoDetailStore(.presented(.accountStore)):
             guard let isLogin = state.duoDetailStore?.isLogin else{
                 print("DuoDetailRefreshToken failed")
@@ -236,9 +244,41 @@ struct DuoStore: Reducer{
             
             //듀오 찾기 - 듀오 생성시
         case .duoSearchStore(.presented(.responsePostDuo)):
-            state.duoSearchStore = nil
-            return .run{send in
-                await send(.requestGetDuoList)
+            guard let errorCode = state.duoSearchStore?.errorCode else{
+                print("DuoDetailRefreshToken failed")
+                return .none
+            }
+            switch errorCode{
+            case .NO_ERROR:
+                state.duoSearchStore = nil
+                return .run{send in
+                    await send(.requestGetDuoList)
+                }
+            case .TOKEN_EXPIRED:
+                return .none
+            case .DUO_ALREADY_EXIST:
+                state.duoSearchStore = nil
+                return .run{send in
+                    await send(.testButtonTapped)
+                }
+            default:
+                print(errorCode)
+                return .none
+            }
+            //듀오서치 - 리프레쉬 토큰
+        case .duoSearchStore(.presented(.accountStore)):
+            guard let isLogin = state.duoSearchStore?.isLogin else{
+                print("DuoDetailRefreshToken failed")
+                return .none
+            }
+            if isLogin{
+                return .none
+            }else{
+                state.isLogin = false
+                state.isAccessToken = false
+                state.duoDetailStore = nil
+                state.accountStore = AccountStore.State()
+                return .none
             }
         case .duoSearchStore(.presented(.cancleButtonTapped)):
             state.duoSearchStore = nil
@@ -254,6 +294,11 @@ struct DuoStore: Reducer{
         case .duoSearchStore:
             return .none
         case .binding:
+            return .none
+            
+        case .testButtonTapped:
+            state.isAlert = true
+            state.alertMessage = "이미 등록한 듀오 찾기가 존재합니다."
             return .none
         }
         

@@ -14,22 +14,28 @@ struct Duo: View {
     @State var test = false
     var body: some View {
         WithViewStore(self.store, observe: {$0}){viewStore in
-                DuoList(store: store)
-                    .onAppear{
-                        viewStore.send(.duoOnAppear)
+            DuoList(store: store)
+                .onAppear{
+                    viewStore.send(.duoOnAppear)
+                }
+                .fullScreenCover(store: self.store.scope(
+                    state: \.$accountStore,
+                    action: DuoStore.Action.accountStore)
+                ){accountStore in
+                    if !viewStore.isAccessToken{
+                        DuoLoadingRefresh(store: accountStore)
                     }
-                    .fullScreenCover(store: self.store.scope(
-                        state: \.$accountStore,
-                        action: DuoStore.Action.accountStore)
-                    ){accountStore in
-                        if !viewStore.isAccessToken{
-                            DuoLoadingRefresh(store: accountStore)
-                        }
-                        if !viewStore.isAccessToken && !viewStore.isLogin{
-                            Login(store:accountStore)
-                        }
-                        
+                    if !viewStore.isAccessToken && !viewStore.isLogin{
+                        Login(store:accountStore)
                     }
+                    
+                }
+            
+                .alert(viewStore.alertMessage ,isPresented: viewStore.$isAlert){
+                    Button("확인", role: .cancel){
+                        viewStore.send(.alertConfirmButtonTapped)
+                    }
+                }
         }
     }
 }

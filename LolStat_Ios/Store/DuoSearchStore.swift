@@ -19,6 +19,7 @@ struct DuoSearchStore: Reducer{
         @BindingState var memo : String = ""
         
         var isLogin : Bool = true
+        var errorCode : LolStatError?
         var runningRequest : DuoRequest?
         @PresentationState var accountStore : AccountStore.State?
         
@@ -83,12 +84,16 @@ struct DuoSearchStore: Reducer{
         case let .responsePostDuo(response):
             switch response.errorCode{
             case .NO_ERROR:
-                //print("글쓰기 성공")
-                state.isLogin = true
+                state.errorCode = .NO_ERROR
                 state.accountStore = nil
                 return .none
             case .TOKEN_EXPIRED:
+                state.errorCode = .TOKEN_EXPIRED
                 state.accountStore = AccountStore.State()
+                return .none
+            case .DUO_ALREADY_EXIST:
+                state.errorCode = .DUO_ALREADY_EXIST
+                state.accountStore = nil
                 return .none
             default:
                 print(response.errorCode)
@@ -115,7 +120,7 @@ struct DuoSearchStore: Reducer{
             }
             if isLogin{
                 switch state.runningRequest {
-                case .POST_DUO_DETAIL:
+                case .POST_DUO:
                     return .run{send in
                         await send(.requestPostDuo)
                     }

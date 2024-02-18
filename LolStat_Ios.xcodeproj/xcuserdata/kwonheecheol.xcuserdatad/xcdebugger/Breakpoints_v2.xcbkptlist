@@ -203,8 +203,8 @@
             filePath = "LolStat_Ios/Store/DuoStore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264">
+            startingLineNumber = "309"
+            endingLineNumber = "309">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -373,8 +373,8 @@
             filePath = "LolStat_Ios/Store/DuoStore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
             landmarkName = "core(into:action:)"
             landmarkType = "7">
             <Locations>
@@ -436,8 +436,8 @@
             filePath = "LolStat_Ios/Store/DuoStore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183"
+            startingLineNumber = "192"
+            endingLineNumber = "192"
             landmarkName = "core(into:action:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -452,8 +452,24 @@
             filePath = "LolStat_Ios/Store/DuoDetailStore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "core(into:action:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BB18D535-5BD8-48DC-84EE-9D360CA5F4F7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LolStat_Ios/Store/DuoStore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "246"
+            endingLineNumber = "246"
             landmarkName = "core(into:action:)"
             landmarkType = "7">
          </BreakpointContent>

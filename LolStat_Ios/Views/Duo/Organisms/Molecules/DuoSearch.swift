@@ -32,6 +32,12 @@ struct DuoSearch: View {
                     viewStore.send(.searchButtonTapped)
                 }
             }
+            .sheet(store: self.store.scope(
+                state: \.$accountStore,
+                action: DuoSearchStore.Action.accountStore)
+            ){accountStore in
+                DuoLoadingRefresh(store: accountStore)
+            }
             .toolbar{
                 ToolbarItem{
                     Button("Cancle"){

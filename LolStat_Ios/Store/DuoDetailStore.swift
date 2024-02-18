@@ -12,6 +12,7 @@ struct DuoDetailStore: Reducer{
     struct State : Equatable{
         var duoId : Int = 0
         var myDuoId : Int = 0
+        var acceptTicketId : Int = 0
         var duoDetail : DuoDto?
         var isLogin : Bool = true
         
@@ -69,6 +70,7 @@ struct DuoDetailStore: Reducer{
             }
             //듀오 티켓 생성 요청
         case .requestPostDuoTicket:
+            state.runningRequest = .POST_DUO_DETAIL
             var position : [Line] = []
             state.position.forEach{ pos in
                 if pos.value{
@@ -86,6 +88,8 @@ struct DuoDetailStore: Reducer{
             }
             //듀오 티켓 수락 POST 요청
         case let .requestPostDuoTicketAccept(ticketId):
+            state.runningRequest = .POST_DUO_TICKET
+            state.acceptTicketId = ticketId
             return .run{[ticketId = ticketId, duoId = state.duoId] send in
                 if let response = try await duoAPI.requestPostDuoTicketAccept(duoId: duoId, ticketId: ticketId){
                     await send(.responsePostDuoTicketAccept(response))
@@ -118,6 +122,7 @@ struct DuoDetailStore: Reducer{
                     await send(.requestGetDuoDetail)
                 }
             case .TOKEN_EXPIRED:
+                state.accountStore = AccountStore.State()
                 print("토큰 만료")
                 return .none
             default:
@@ -131,6 +136,9 @@ struct DuoDetailStore: Reducer{
                 return .run{send in
                     await send(.requestGetDuoDetail)
                 }
+            case .TOKEN_EXPIRED:
+                state.accountStore = AccountStore.State()
+                return .none
             default:
                 print(response.message)
                 return .none
@@ -166,6 +174,14 @@ struct DuoDetailStore: Reducer{
                 case .GET_DUO_DETAIL:
                     return .run{send in
                         await send(.requestGetDuoDetail)
+                    }
+                case .POST_DUO_DETAIL:
+                    return .run{send in
+                        await send(.requestPostDuoTicket)
+                    }
+                case .POST_DUO_TICKET:
+                    return .run{[ticketId = state.acceptTicketId] send in
+                        await send(.requestPostDuoTicketAccept(ticketId))
                     }
                 default:
                     return .none
