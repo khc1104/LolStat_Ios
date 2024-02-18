@@ -452,8 +452,8 @@
             filePath = "LolStat_Ios/Store/DuoDetailStore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
             landmarkName = "core(into:action:)"
             landmarkType = "7">
          </BreakpointContent>

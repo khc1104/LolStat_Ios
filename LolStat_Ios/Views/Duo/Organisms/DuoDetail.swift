@@ -38,6 +38,11 @@ struct DuoDetail: View {
             ){accountStore in
                 DuoLoadingRefresh(store: accountStore)
             }
+            .alert(viewStore.alertMessage ,isPresented: viewStore.$isAlert){
+                Button("확인", role: .cancel){
+                    viewStore.send(.alertConfirmButtonTapped)
+                }
+            }
             .onAppear{
                 viewStore.send(.duoDetailOnAppear)
             }

@@ -25,6 +25,9 @@ struct DuoDetailStore: Reducer{
         var runningRequest : DuoRequest?
         @PresentationState var accountStore : AccountStore.State?
         
+        @BindingState var isAlert : Bool = false
+        var alertMessage : String = ""
+        
     }
     enum Action : BindableAction{
         case requestGetDuoDetail
@@ -39,6 +42,7 @@ struct DuoDetailStore: Reducer{
         case cancleButtonTapped
         case acceptButtonTapped(Int)
         case createButtonTapped
+        case alertConfirmButtonTapped
         
         case accountStore(PresentationAction<AccountStore.Action>)
         case binding(BindingAction<State>)
@@ -125,6 +129,18 @@ struct DuoDetailStore: Reducer{
                 state.accountStore = AccountStore.State()
                 print("토큰 만료")
                 return .none
+            case .DUO_EXPIRED:
+                state.alertMessage = "만료된 듀오 찾기 입니다."
+                state.isAlert = true
+                return .none
+            case .DUO_ALREADY_MATCHED:
+                state.alertMessage = "이미 매칭이 종료된 듀오찾기입니다."
+                state.isAlert = true
+                return .none
+            case .DUO_OWNER_TRY_TICKET:
+                state.alertMessage = "본인의 듀오 찾기에 본인이 신청 할 수 없습니다."
+                state.isAlert = true
+                return .none
             default:
                 print(response.message)
                 return .none
@@ -164,6 +180,14 @@ struct DuoDetailStore: Reducer{
             return .run{ send in
                 await send(.requestPostDuoTicket)
             }
+            //에러 확인 버튼 탭
+        case .alertConfirmButtonTapped:
+            state.isAlert = false
+            return .none
+            
+            //
+            //presented 액션
+            //
         case .accountStore(.presented(.responseRefreshToken)):
             guard let isLogin = state.accountStore?.isLogin else{
                 print("ResponseRefreshToken failed")

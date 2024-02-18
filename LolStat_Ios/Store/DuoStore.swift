@@ -48,7 +48,7 @@ struct DuoStore: Reducer{
         case duoSearchStore(PresentationAction<DuoSearchStore.Action>)
         case binding(BindingAction<State>)
         
-        case testButtonTapped
+        case duoSearchActivateAlert
     }
     var body : some ReducerOf<Self>{
         BindingReducer()
@@ -259,7 +259,7 @@ struct DuoStore: Reducer{
             case .DUO_ALREADY_EXIST:
                 state.duoSearchStore = nil
                 return .run{send in
-                    await send(.testButtonTapped)
+                    await send(.duoSearchActivateAlert)
                 }
             default:
                 print(errorCode)
@@ -296,7 +296,7 @@ struct DuoStore: Reducer{
         case .binding:
             return .none
             
-        case .testButtonTapped:
+        case .duoSearchActivateAlert:
             state.isAlert = true
             state.alertMessage = "이미 등록한 듀오 찾기가 존재합니다."
             return .none
