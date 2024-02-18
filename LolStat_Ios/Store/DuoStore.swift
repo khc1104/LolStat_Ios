@@ -14,6 +14,8 @@ struct DuoStore: Reducer{
         var duoList: [DuoDto]?
         //var duoDetail : DuoDto?
         @BindingState var isDetail : Bool = false
+        @BindingState var selectedMatch : DuoIsMatch = .ALL
+        @BindingState var selectedQueue : DuoQueueId = .ALL
         var page : Int = 1
         var match : String = "ALL"
         var queue : String = "ALL"
@@ -37,6 +39,7 @@ struct DuoStore: Reducer{
         
         
         case duoOnAppear
+        case duoListSearchButtonTapped
         case logOutButtonTapped
         case duoInfoTapped(Int)
         case duoSearchButtonTapped
@@ -73,7 +76,7 @@ struct DuoStore: Reducer{
             //듀오리스트 요청
         case .requestGetDuoList:
             state.runningRequest = .GET_DUO
-            return .run{ [page = state.page, match = state.match, queue = state.queue]send in
+            return .run{ [page = state.page, match = state.selectedMatch.rawValue, queue = state.selectedQueue.rawValue]send in
                 if let response = try await duoAPI.requestGetDuoList(page: page, match: match, queue: queue){
                     await send(.responseGetDuoList(response))
                 }else{
@@ -138,6 +141,11 @@ struct DuoStore: Reducer{
             //듀오페이지 액션
             //
         case .duoOnAppear:
+            return .run{send in
+                await send(.requestGetDuoList)
+            }
+            //카테고리 선택 후 검색 기능
+        case .duoListSearchButtonTapped:
             return .run{send in
                 await send(.requestGetDuoList)
             }

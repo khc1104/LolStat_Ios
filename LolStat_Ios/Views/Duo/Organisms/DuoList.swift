@@ -15,23 +15,37 @@ struct DuoList: View {
         WithViewStore(store, observe: {$0}){viewStore in
             ScrollView{
                 Text("Duo")
-                Button{
-                    viewStore.send(.logOutButtonTapped)
-                }label: {
-                    Text("Logout")
-                        .padding()
-                        .frame(width: Const.Screen.WIDTH)
-                        .background(.loseRed)
-                        .cornerRadius(8)
-                    
+                HStack{
+                    Button{
+                        viewStore.send(.logOutButtonTapped)
+                    }label: {
+                        Text("Logout")
+                            .padding()
+                            .frame(width: Const.Screen.WIDTH * 0.48)
+                            .background(.loseRed)
+                            .cornerRadius(8)
+                        
+                    }
+                    Button{
+                        viewStore.send(.duoSearchButtonTapped)
+                    }label: {
+                        Text("듀오 찾기")
+                            .padding()
+                            .frame(width: Const.Screen.WIDTH * 0.48)
+                            .background(.gray)
+                            .cornerRadius(8)
+                        
+                    }
                 }
+                DuoMatchPicker(selectedMatch: viewStore.$selectedMatch)
+                DuoQueueTypePicker(selectedQueue: viewStore.$selectedQueue)
                 Button{
-                    viewStore.send(.duoSearchButtonTapped)
+                    viewStore.send(.duoListSearchButtonTapped)
                 }label: {
-                    Text("듀오 찾기")
+                    Text("검색")
                         .padding()
                         .frame(width: Const.Screen.WIDTH)
-                        .background(.loseRed)
+                        .background(.verifyBlue)
                         .cornerRadius(8)
                     
                 }

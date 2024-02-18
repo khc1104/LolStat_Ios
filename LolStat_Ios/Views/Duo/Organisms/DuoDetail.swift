@@ -13,7 +13,7 @@ struct DuoDetail: View {
     let store : StoreOf<DuoDetailStore>
     var body: some View {
         WithViewStore(store, observe: {$0}){ viewStore in
-            VStack{
+            ScrollView{
                 if let duoDetail = viewStore.duoDetail{
                     DuoDetailInfo(duo: duoDetail)
                     ForEach(duoDetail.tickets){ ticket in

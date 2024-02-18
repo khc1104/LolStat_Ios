@@ -36,6 +36,7 @@ struct Duo: View {
                         viewStore.send(.alertConfirmButtonTapped)
                     }
                 }
+                .background(.defaultBackground)
         }
     }
 }

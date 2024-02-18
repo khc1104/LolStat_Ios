@@ -23,6 +23,7 @@ struct DuoTicketCreate : View {
                         Text("소환사 이름")
                         DuoSearchSummonerNameInput(gameName: viewStore.$gameName)
                             .textFieldStyle(.roundedBorder)
+                            
                     }
                     VStack{
                         Text("태그")
@@ -30,6 +31,7 @@ struct DuoTicketCreate : View {
                             .textFieldStyle(.roundedBorder)
                     }
                 }
+                .padding(.horizontal)
                 HStack{
                     Text("주 포지션")
                     DuoSearchMainPositionInput(lines: viewStore.$position)
@@ -39,20 +41,29 @@ struct DuoTicketCreate : View {
                     DuoSearchMemoInput(memo: viewStore.$memo)
                         .textFieldStyle(.roundedBorder)
                 }
-                Button("신청"){
+                .padding(.horizontal, 10)
+                Button{
                     viewStore.send(.createButtonTapped)
+                } label: {
+                    Text("신청")
+                        .padding()
+                        .frame(width: Const.Screen.WIDTH * 0.8)
+                        .background(.verifyBlue)
+                        .cornerRadius(8)
                 }
             }
             .frame(width: Const.Screen.WIDTH)
-            .background(Color.gray)
+            .background(.createTicket)
             .foregroundColor(.white)
         }
     }
 }
-/*
+
 struct DuoTicketCreatePreview : PreviewProvider{
     static var previews: some View{
-        DuoTicketCreate()
+        DuoTicketCreate(store: Store(initialState: DuoDetailStore.State()){
+            DuoDetailStore()
+        })
     }
 }
-*/
+

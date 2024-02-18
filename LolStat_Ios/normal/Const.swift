@@ -349,6 +349,7 @@ enum DuoQueueId : String, Codable{
     case SOLO_RANK_GAME = "SOLO_RANK_GAME"
     case FLEX_RANK_GAME = "FLEX_RANK_GAME"
     case QUICK_PLAY = "QUICK_PLAY"
+    case ALL = "ALL"
     
     func description() -> String{
         switch self{
@@ -358,11 +359,29 @@ enum DuoQueueId : String, Codable{
             return "자유 랭크"
         case .QUICK_PLAY:
             return "빠른 대전"
+        case .ALL:
+            return "모두"
         }
     }
     
 }
 
+enum DuoIsMatch : String{
+    case MATCHING = "MATCHING"
+    case MATCHED = "MATCHED"
+    case ALL = "ALL"
+    
+    func description() -> String{
+        switch self{
+        case .MATCHED:
+            return "매치완료"
+        case .MATCHING:
+            return "매칭중"
+        case .ALL:
+            return "모두"
+        }
+    }
+}
 /*
  API에러코드
  */

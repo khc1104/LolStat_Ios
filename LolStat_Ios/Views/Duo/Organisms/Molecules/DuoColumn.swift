@@ -40,6 +40,7 @@ struct DuoColumn: View {
                 }
                 .frame(width: Const.Screen.WIDTH * 0.3)
             }
+            .font(.kingSejong(.bold, size: 14))
             //Spacer()
             HStack{
                 DuoMemo(memo: duo.memo)

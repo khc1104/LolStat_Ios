@@ -11,12 +11,13 @@ import SwiftUI
 struct DuoSummonerName: View {
     let gameName : String
     let tagLine : String
+    var size : CGFloat = 16
     var body: some View {
         GeometryReader{geo in
             ZStack(alignment: .center){
                 HStack(alignment: .bottom){
                     Text(gameName)
-                        .font(.kingSejong(.regular, size: 16))
+                        .font(.kingSejong(.regular, size: size))
                     Text("#\(tagLine)")
                         .font(.kingSejong(.regular, size: 12))
                         .foregroundStyle(.secondary)

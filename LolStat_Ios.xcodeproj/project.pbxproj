@@ -115,6 +115,8 @@
 		25B248512AFCF17D00C52952 /* SummonerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B248432AFCF17D00C52952 /* SummonerInfo.swift */; };
 		25B248532AFCF17D00C52952 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B248462AFCF17D00C52952 /* Main.swift */; };
 		25B248562AFCF17D00C52952 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B2484C2AFCF17D00C52952 /* Search.swift */; };
+		25E98FB12B820DE7003E17AC /* DuoMatchPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E98FB02B820DE7003E17AC /* DuoMatchPicker.swift */; };
+		25E98FB32B820DFD003E17AC /* DuoQueueTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E98FB22B820DFD003E17AC /* DuoQueueTypePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -226,6 +228,8 @@
 		25B248432AFCF17D00C52952 /* SummonerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummonerInfo.swift; sourceTree = "<group>"; };
 		25B248462AFCF17D00C52952 /* Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		25B2484C2AFCF17D00C52952 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
+		25E98FB02B820DE7003E17AC /* DuoMatchPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoMatchPicker.swift; sourceTree = "<group>"; };
+		25E98FB22B820DFD003E17AC /* DuoQueueTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoQueueTypePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -446,6 +450,8 @@
 				2587D2B72B6F9570008D0313 /* DuoSelectPosition.swift */,
 				2587D2B92B6F9833008D0313 /* DuoChampion.swift */,
 				2587D2C12B74BD6C008D0313 /* DuoTicketSummonerName.swift */,
+				25E98FB02B820DE7003E17AC /* DuoMatchPicker.swift */,
+				25E98FB22B820DFD003E17AC /* DuoQueueTypePicker.swift */,
 			);
 			path = Atom;
 			sourceTree = "<group>";
@@ -793,6 +799,8 @@
 				2570283E2B37E86300D3A919 /* MatchDetailInfo.swift in Sources */,
 				25B248562AFCF17D00C52952 /* Search.swift in Sources */,
 				2587D2592B5C14D4008D0313 /* PasswordInput.swift in Sources */,
+				25E98FB32B820DFD003E17AC /* DuoQueueTypePicker.swift in Sources */,
+				25E98FB12B820DE7003E17AC /* DuoMatchPicker.swift in Sources */,
 				2587D2C92B77518D008D0313 /* DuoTicketChampion.swift in Sources */,
 				255759D32B21F19300203F71 /* RuneGroup.swift in Sources */,
 				2587D2E12B779629008D0313 /* DuoSearch.swift in Sources */,

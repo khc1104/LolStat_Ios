@@ -21,7 +21,7 @@ struct Main: View {
                     SavedSummoner(store: store)
                 }
                 .frame(width: Const.Screen.WIDTH)
-                .background(.defalutBackground)
+                .background(.defaultBackground)
                 .navigationDestination(isPresented: viewStore.$isSearchTapped){
                     User(store: store)
                         .navigationBarBackButtonHidden(true)

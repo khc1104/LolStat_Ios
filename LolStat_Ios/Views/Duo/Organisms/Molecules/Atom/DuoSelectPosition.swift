@@ -11,11 +11,12 @@ import SwiftUI
 struct DuoSelectPosition: View {
     var position : Line
     var isSelect : Bool = false
+    var size : CGFloat = 40
     var body: some View {
         ZStack{
             Image(position.image()).resizable()
         }
-        .frame(width: 40, height: 40)
+        .frame(width: size, height: size)
         .background(isSelect ? .mint : .secondary)
     }
 }
