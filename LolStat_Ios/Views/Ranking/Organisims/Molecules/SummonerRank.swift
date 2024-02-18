@@ -23,8 +23,10 @@ struct SummonerRank:View {
                     .frame(width: Const.Screen.WIDTH*0.3)
 
             }
+            .padding(.vertical, 8)
             Winrate(wins: summoner.wins, loses: summoner.loses)
         }
-        .background(.white)
+        .background(.defaultBackground)
+        .font(.kingSejong(.bold, size: 16))
     }
 }

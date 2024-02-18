@@ -28,9 +28,10 @@ struct RankingList: View {
                         HStack(spacing: 0){
                             ZStack(alignment: .center){
                                 Text("솔로랭크")
+                                    .padding(.vertical)
                             }
                             .frame(width: Const.Screen.WIDTH/2)
-                            .background(viewStore.queueType == .RANKED_SOLO ? .mint : .white)
+                            .background(viewStore.queueType == .RANKED_SOLO ? .verifyBlue : .defaultBackground)
                             .onTapGesture {
                                 if viewStore.queueType == .RANKED_FLEX{
                                     viewStore.send(.tappedQueueType)
@@ -38,15 +39,17 @@ struct RankingList: View {
                             }
                             ZStack(alignment: .center){
                                 Text("자유랭크")
+                                    .padding(.vertical)
                             }
                             .frame(width: Const.Screen.WIDTH/2)
-                            .background(viewStore.queueType == .RANKED_FLEX ? .mint : .white)
+                            .background(viewStore.queueType == .RANKED_FLEX ? .verifyBlue : .defaultBackground)
                             .onTapGesture {
                                 if viewStore.queueType == .RANKED_SOLO{
                                     viewStore.send(.tappedQueueType)
                                 }
                             }
                         }
+                        
                         RankingColumn()
                             .frame(maxWidth: Const.Screen.WIDTH)
                         ForEach(Array(leaderBoard.players.enumerated()), id: \.offset){i, summoner in
@@ -69,6 +72,8 @@ struct RankingList: View {
                         }
                     }
             }
+            .foregroundStyle(.white)
+            .background(.defaultBackground)
         }
     }
 }

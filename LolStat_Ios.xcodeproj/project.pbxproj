@@ -284,6 +284,7 @@
 		257028412B3A8C4000D3A919 /* Molecules */ = {
 			isa = PBXGroup;
 			children = (
+				257028472B3DA00A00D3A919 /* SummonerRank.swift */,
 				257028422B3A8C4B00D3A919 /* Atoms */,
 			);
 			path = Molecules;
@@ -292,7 +293,6 @@
 		257028422B3A8C4B00D3A919 /* Atoms */ = {
 			isa = PBXGroup;
 			children = (
-				257028472B3DA00A00D3A919 /* SummonerRank.swift */,
 				257028492B3DA43E00D3A919 /* Winrate.swift */,
 				2570284B2B3DB95800D3A919 /* RankingColumn.swift */,
 			);

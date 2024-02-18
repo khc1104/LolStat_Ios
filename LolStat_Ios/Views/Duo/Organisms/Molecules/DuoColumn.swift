@@ -12,7 +12,7 @@ struct DuoColumn: View {
     let duo : DuoDto
     var body: some View {
         VStack(spacing: 2){
-            DuoSummonerName(gameName:duo.gameName, tagLine: duo.tagLine)
+            DuoSummonerName(gameName:duo.gameName, tagLine: duo.tagLine, size: 14)
                 .background(duo.matched ? .loseRed : .winBlue)
             HStack(alignment: .top){
                 VStack{
@@ -46,7 +46,7 @@ struct DuoColumn: View {
                 DuoMemo(memo: duo.memo)
             }
             .frame(width: Const.Screen.WIDTH)
-            .background(.winBlue)
+            .background(.gray)
         }
         .background(.secondary)
         .frame(width: Const.Screen.WIDTH, height: 210)
