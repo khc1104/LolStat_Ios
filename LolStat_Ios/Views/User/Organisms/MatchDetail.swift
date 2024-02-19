@@ -16,6 +16,7 @@ struct MatchDetail : View {
         NavigationStackStore(self.store.scope(state: \.path, action: UserStore.Action.path)){
             WithViewStore(self.store, observe: {$0}){ viewStore in
                 VStack{
+                    Spacer()
                     if let matchDetail = viewStore.matchDetail{
                         ForEach(0..<10){ i in
                             NavigationLink(state: UserStore.State(summonerId:
@@ -28,7 +29,9 @@ struct MatchDetail : View {
                     else{
                         Text("matchDetail error")
                     }
+                    Spacer()
                 }
+                .background(.defaultBackground)
                 .gesture(
                     DragGesture().onEnded({value in
                         if value.location.y - value.startLocation.y > 150{

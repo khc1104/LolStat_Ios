@@ -34,8 +34,17 @@ struct SummonerInfoPage: View{
                                 viewStore.send(.matchInfoTapped(matchId: match.matchId))
                             }
                             .fullScreenCover(isPresented: viewStore.$enableSheet) {
-                                MatchDetail(store: store)
-                                    
+                                NavigationStack{
+                                    MatchDetail(store: store)
+                                        .toolbar{
+                                            ToolbarItem{
+                                                Button("Cancel"){
+                                                    viewStore.send(.dismissMatchDetail)
+                                                }
+                                            }
+                                        }
+                                        
+                                }
                             }
                     }
                     if viewStore.moreMatchIsLoading {

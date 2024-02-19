@@ -15,6 +15,7 @@ struct MatchDetailInfo : View {
         
         HStack{
             ChampionIcon(champion: participant.champion, championLevel: participant.championLevel)
+                .padding(.vertical, 5)
             SpellGroup(spells: participant.spells)
             RuneGroup(runes: [participant.mainRune, participant.subRune])
             VStack{
