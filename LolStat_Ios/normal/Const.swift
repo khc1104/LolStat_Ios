@@ -271,6 +271,7 @@ enum QueueId : String, Codable{ //큐타입
     case NORMAL_GAME = "NORMAL_GAME"
     case QUICK_PLAY = "QUICK_PLAY"
     case OTHER_GAME = "OTHER_GAME"
+    case ALL = "ALL"
     
     
     func description() -> String{
@@ -291,6 +292,8 @@ enum QueueId : String, Codable{ //큐타입
             return "빠른 대전"
         case .OTHER_GAME:
             return "기타"
+        case .ALL:
+            return "모두"
         }
     }
     init(from decoder: Decoder) throws{

@@ -117,6 +117,7 @@
 		25B248562AFCF17D00C52952 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B2484C2AFCF17D00C52952 /* Search.swift */; };
 		25E98FB12B820DE7003E17AC /* DuoMatchPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E98FB02B820DE7003E17AC /* DuoMatchPicker.swift */; };
 		25E98FB32B820DFD003E17AC /* DuoQueueTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E98FB22B820DFD003E17AC /* DuoQueueTypePicker.swift */; };
+		25E98FB72B83EC61003E17AC /* MatchQueueIdPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E98FB62B83EC61003E17AC /* MatchQueueIdPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -230,6 +231,7 @@
 		25B2484C2AFCF17D00C52952 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		25E98FB02B820DE7003E17AC /* DuoMatchPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoMatchPicker.swift; sourceTree = "<group>"; };
 		25E98FB22B820DFD003E17AC /* DuoQueueTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoQueueTypePicker.swift; sourceTree = "<group>"; };
+		25E98FB62B83EC61003E17AC /* MatchQueueIdPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchQueueIdPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -658,6 +660,7 @@
 				255759D42B21F28300203F71 /* KDA.swift */,
 				257028512B45835600D3A919 /* RecentlyKdaCard.swift */,
 				2583B3142B4E436000A505F5 /* MostChampionCard.swift */,
+				25E98FB62B83EC61003E17AC /* MatchQueueIdPicker.swift */,
 			);
 			path = Atoms;
 			sourceTree = "<group>";
@@ -819,6 +822,7 @@
 				2587D2812B666527008D0313 /* UserVerify.swift in Sources */,
 				2570283C2B35782A00D3A919 /* MatchDetail.swift in Sources */,
 				2506AB572B21E82D0029D95A /* SpellIcon.swift in Sources */,
+				25E98FB72B83EC61003E17AC /* MatchQueueIdPicker.swift in Sources */,
 				257028482B3DA00A00D3A919 /* SummonerRank.swift in Sources */,
 				2587D26F2B5E6221008D0313 /* LoginInputGroup.swift in Sources */,
 				2568AC722B3046BE00DBAD3E /* SummonerInfoPage.swift in Sources */,

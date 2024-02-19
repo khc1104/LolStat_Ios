@@ -28,6 +28,10 @@ struct SummonerInfoPage: View{
                     }
                 }
                 LazyVStack(){
+                    MatchQueueIdPicker(selectedMatch: viewStore.$selectedMatch)
+                        .onChange(of: viewStore.selectedMatch){ _ in
+                            viewStore.send(.selectQueueIdOnChange)
+                        }
                     ForEach(matches){match in
                         MatchInfo(match: match)
                             .onTapGesture {

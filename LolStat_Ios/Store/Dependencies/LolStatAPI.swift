@@ -12,7 +12,7 @@ protocol LolStatAPI{
     func requestSummonerInfoAPI(summonerName : String) async throws -> Summoner?
     func requestSummonerInfoAPI(summonerId : String) async throws -> Summoner?
     func requestSummonerInfoAPI(puuid: String) async throws -> Summoner?
-    func requestMatchsAPI(puuid: String, page: Int32) async throws -> [SimpleMatch]?
+    func requestMatchsAPI(puuid: String, page: Int32, queueId: String) async throws -> [SimpleMatch]?
     func requestLeaderBoardAPI(page: Int32, queue: LolStatAPIClient.QueueType) async throws -> LeaderBoard?
 }
 
@@ -77,10 +77,10 @@ class LolStatAPIClient: LolStatAPI{
     }
 
     //매치 정보 요청
-    func requestMatchsAPI(puuid: String, page: Int32) async throws -> [SimpleMatch]? {
+    func requestMatchsAPI(puuid: String, page: Int32, queueId: String) async throws -> [SimpleMatch]? {
         let successRange = 200..<300
         let (data, response) = try await URLSession.shared
-            .data(from:URL(string: "\(Const.Server.ADDRESS)/matches/\(puuid)?page=\(page)")!)
+            .data(from:URL(string: "\(Const.Server.ADDRESS)/matches/\(puuid)?page=\(page)&queue=\(queueId)")!)
         
         if let httpResponse = response as? HTTPURLResponse{
             guard successRange.contains(httpResponse.statusCode)else{

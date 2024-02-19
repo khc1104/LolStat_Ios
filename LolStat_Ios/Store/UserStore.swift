@@ -36,6 +36,8 @@ struct UserStore : Reducer{
         var isTimeOut = false
         var moreMatchIsLoading = false
         
+        @BindingState var selectedMatch : QueueId = .ALL
+        
         var savedSummoner = UserDefaults.standard.array(forKey: "savedSummoner") as? [String] ?? []
         
         var path = StackState<UserStore.State>()
@@ -60,6 +62,7 @@ struct UserStore : Reducer{
         case matchMoreAppear
         case dismissMatchDetail
         case summonerInfoOnAppear
+        case selectQueueIdOnChange
         
         case searchButtonTapped
         case savedSummonerTapped(summonerName : String)
@@ -117,8 +120,9 @@ struct UserStore : Reducer{
             }
             //매치 정보 검색
         case .requestMatches:
-            return .run{ [page = state.matchPage, puuid = state.summonerInfo!.profile.puuid] send in
-                let matches = try await lolStatAPI.requestMatchsAPI(puuid: puuid, page: page)
+            let queueId = state.selectedMatch.rawValue
+            return .run{ [page = state.matchPage, puuid = state.summonerInfo!.profile.puuid, queueId = queueId] send in
+                let matches = try await lolStatAPI.requestMatchsAPI(puuid: puuid, page: page, queueId: queueId)
                 
                 await send(.responseMatches(matches))
             }
@@ -135,7 +139,11 @@ struct UserStore : Reducer{
             }
             //매치 정보 리스폰스 받음
         case let .responseMatches(matches):
-            state.summonerInfo?.matches += matches!
+            if state.matchPage == 1{ //페이지가 1이면 큐타입 필터링 한것이므로 더하면 안되고 바꿔야함
+                state.summonerInfo?.matches = matches!
+            }else{
+                state.summonerInfo?.matches += matches!
+            }
             state.matchPage = state.matchPage+1
             return .run { send in
                 await send(.getSummonerMatch)
@@ -190,12 +198,21 @@ struct UserStore : Reducer{
             return .run{send in
                 await send(.requestMatches)
             }
-            
+            //매치 상세페이지 뒤로가기
         case .dismissMatchDetail:
             state.enableSheet = !state.enableSheet
             
             return .none
-            //return .run{_ in await self.dismiss()}
+            //매치 큐타입필터링
+        case .selectQueueIdOnChange:
+            state.matchPage = 1
+            state.searchedSummonerMatches = []
+            return .none
+            /*
+            return .run{ send in
+                await send(.requestMatches)
+            }
+             */
             
             //매치 정보들 검색한 소환사 정보만 모아 놓기
         case .getSummonerMatch:
@@ -273,10 +290,6 @@ struct UserStore : Reducer{
                     )
                 }
                 let orderedMostChampion = playedChampions.sorted{$0.count > $1.count}
-                
-                print(championKDAs)
-                print("ddd - \(orderedMostChampion)")
-                
                 state.mostChampion = orderedMostChampion
                 state.moreMatchIsLoading = false
                 

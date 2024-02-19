@@ -484,8 +484,8 @@
             filePath = "LolStat_Ios/Store/UserStore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "240"
-            endingLineNumber = "240"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
             landmarkName = "core(into:action:)"
             landmarkType = "7">
          </BreakpointContent>
