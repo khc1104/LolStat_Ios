@@ -11,8 +11,14 @@ import SwiftUI
 struct MostChampionList: View {
     let mostChampions : [MostChampion]
     var body: some View {
-        ForEach(0..<3){ i in
-            MostChampionCard(mostChampion: mostChampions[i])
+        HStack{
+            ForEach(0..<3){ i in
+                MostChampionCard(mostChampion: mostChampions[i])
+                    .padding(3)
+            }
         }
+        .background(.secondMost)
+        .cornerRadius(8)
+        .frame(height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/)
     }
 }

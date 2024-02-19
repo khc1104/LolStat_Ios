@@ -12,6 +12,7 @@ struct MostChampionCard : View {
     let mostChampion : MostChampion
     
     var body: some View {
+        /*
         ZStack{
             VStack{
                 Text("모스트\(mostChampion.order)")
@@ -33,6 +34,21 @@ struct MostChampionCard : View {
                 RoundedRectangle(cornerRadius: 8)
             )
             //.font(.kingSejong(.regular))
+         */
+        ZStack{
+            HStack{
+                VStack{
+                    AsyncImage(url:URL(string: mostChampion.champion.image)){ image in
+                        image.image?.resizable()
+                    }
+                    .frame(width:36, height: 36)
+                    Text("승률 : \(String(format: "%.0f", mostChampion.winrate))%")
+                    Text("KDA : \(String(format: "%.2f", mostChampion.kda))")
+                    Text("\(mostChampion.count)회")
+                    
+                }
+                .font(.kingSejong(.regular, size: 12))
+            }
         }
     }
 }

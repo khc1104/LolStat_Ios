@@ -228,7 +228,59 @@ struct UserStore : Reducer{
                 
                 
                 //챔피언 사용 횟수
+                struct championKDA {
+                    var champion : Champion
+                    var kills : Int = 0
+                    var deaths : Int = 0
+                    var assists : Int = 0
+                    var wins : Int = 0
+                    var count : Int = 1
+                }
+                var championKDAs : [championKDA] = []
+                for match in searchedMatches{
+                    if let i = championKDAs.firstIndex(where: {
+                        $0.champion == match.participants[0].champion
+                    }){
+                        championKDAs[i].kills += Int(match.participants[0].kills)
+                        championKDAs[i].deaths += Int(match.participants[0].deaths)
+                        championKDAs[i].assists += Int(match.participants[0].assists)
+                        championKDAs[i].count += 1
+                        championKDAs[i].wins += match.participants[0].win ? 1 : 0
+                    }else{
+                        championKDAs.append(championKDA(
+                            champion: match.participants[0].champion,
+                            kills: Int(match.participants[0].kills),
+                            deaths: Int(match.participants[0].deaths),
+                            assists: Int(match.participants[0].assists),
+                            wins : match.participants[0].win ? 1 : 0
+                        ))
+                    }
+                }
+                let digit : Float = pow(10, 2)
+                var playedChampions : [MostChampion] = []
+                for KDA in championKDAs{
+                    let kills = Float(KDA.kills)
+                    let assists = Float(KDA.assists)
+                    let deaths = Float(KDA.deaths)
+                    let wins = Float(KDA.wins)
+                    let count = Float(KDA.count)
+                    playedChampions.append(MostChampion(
+                        champion: KDA.champion,
+                        count: KDA.count,
+                        kda:  round(((kills+assists)/deaths) * digit)/digit,
+                        winrate: round((wins/count) * digit)
+                    )
+                    )
+                }
+                let orderedMostChampion = playedChampions.sorted{$0.count > $1.count}
                 
+                print(championKDAs)
+                print("ddd - \(orderedMostChampion)")
+                
+                state.mostChampion = orderedMostChampion
+                state.moreMatchIsLoading = false
+                
+                /*
                 var playedChampion : [Champion] = []
                 for match in searchedMatches {
                     playedChampion.append(match.participants[0].champion)
@@ -247,10 +299,10 @@ struct UserStore : Reducer{
                                             order: order))
                     order += 1
                 }
-                print("!!!!!!!")
+                //print("!!!!!!!")
                 state.mostChampion = mostChampion
                 state.moreMatchIsLoading = false
-                
+                */
             }else{
                 print("participant ERROR")
             }

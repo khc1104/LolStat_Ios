@@ -23,7 +23,7 @@ struct RecentlyKdaCard: View {
                 }
             }
         }
-        .frame(width: 80, height: 80)
+        .frame(width: 100, height: 100)
         .background(.secondary)
         .clipShape(
             RoundedRectangle(cornerRadius: 8)

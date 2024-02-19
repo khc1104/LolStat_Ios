@@ -72,5 +72,7 @@ struct Spell : Codable, Equatable{
 struct MostChampion : Equatable{
     let champion : Champion
     var count : Int
-    var order : Int
+    //var order : Int
+    var kda : Float
+    var winrate : Float
 }
