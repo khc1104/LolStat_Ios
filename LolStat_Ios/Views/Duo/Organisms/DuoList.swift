@@ -16,6 +16,7 @@ struct DuoList: View {
             ScrollView{
                 Text("Duo")
                 HStack{
+                    /*
                     Button{
                         viewStore.send(.logOutButtonTapped)
                     }label: {
@@ -26,12 +27,13 @@ struct DuoList: View {
                             .cornerRadius(8)
                         
                     }
+                     */
                     Button{
                         viewStore.send(.duoSearchButtonTapped)
                     }label: {
                         Text("듀오 찾기")
                             .padding()
-                            .frame(width: Const.Screen.WIDTH * 0.48)
+                            .frame(width: Const.Screen.WIDTH)
                             .background(.gray)
                             .cornerRadius(8)
                         

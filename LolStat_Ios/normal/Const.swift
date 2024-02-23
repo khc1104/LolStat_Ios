@@ -20,7 +20,7 @@ struct Const{
     }
     
 }
-
+//리퀘스트 종류
 enum DuoRequest{
     case GET_DUO
     case POST_DUO
@@ -30,7 +30,12 @@ enum DuoRequest{
     case GET_DUO_MY
 }
 
-
+enum TabViewState{
+    case MAIN
+    case RANKING
+    case DUO
+    case MYPAGE
+}
 
 
 //---------------------모델에서 사용---------------------------

@@ -10,6 +10,8 @@ import ComposableArchitecture
 
 struct DuoStore: Reducer{
     struct State : Equatable{
+        @BindingState var selectedView : TabViewState = .MAIN
+        
         var myduo : DuoDto?
         var duoList: [DuoDto]?
         //var duoDetail : DuoDto?
@@ -20,7 +22,7 @@ struct DuoStore: Reducer{
         var match : String = "ALL"
         var queue : String = "ALL"
         
-        var isLogin : Bool = true
+        var isLogin : Bool = false
         var isAccessToken : Bool = true
         var runningRequest : DuoRequest?
         @PresentationState var accountStore : AccountStore.State?
@@ -229,6 +231,7 @@ struct DuoStore: Reducer{
             //어카운트  - 캔슬 버튼 탭
         case .accountStore(.presented(.cancleButtonTapped)):
             state.accountStore = nil
+            state.selectedView = .MAIN
             return .none
             //듀오상세 - 리프레쉬토큰
         case .duoDetailStore(.presented(.accountStore)):

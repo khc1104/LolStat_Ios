@@ -10,15 +10,12 @@ import SwiftUI
 
 struct LoginPasswordInput:View {
     @Binding var password : String
-    @Binding var isAnimation : Bool
+    //@Binding var isAnimation : Bool
     var body: some View {
         ZStack(alignment: .leading){
-            SecureField("", text: $password)
+            SecureField("비밀번호", text: $password)
                 .textFieldStyle(.roundedBorder)
                 .textInputAutocapitalization(.never)
-            Text("비밀번호")
-                .padding()
-                .offset(y: isAnimation ? -30:0)
         }
         .frame(width: Const.Screen.WIDTH * 0.8)
     }

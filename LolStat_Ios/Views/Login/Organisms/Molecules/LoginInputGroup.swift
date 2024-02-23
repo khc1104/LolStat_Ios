@@ -16,18 +16,22 @@ struct LoginInputGroup: View {
         case password
     }
     @FocusState private var focusedField: focusField?
-    @State private var isEmailAnimation : Bool = false
-    @State private var isPasswordAnimation : Bool = false
     
     var store : StoreOf<AccountStore>
     var body: some View {
         WithViewStore(self.store, observe: {$0}){viewStore in
             Form{
                 VStack(alignment: .center){
-                    LoginEmailInput(email : viewStore.$email, isAnimation: $isEmailAnimation)
+                    LoginEmailInput(email : viewStore.$email)
                         .focused($focusedField, equals: .email)
-                    LoginPasswordInput(password : viewStore.$password, isAnimation: $isPasswordAnimation)
+                        .onSubmit {
+                            focusedField = .password
+                        }
+                    LoginPasswordInput(password : viewStore.$password)
                         .focused($focusedField, equals: .password)
+                        .onSubmit {
+                            viewStore.send(.loginButtonTapped)
+                        }
                     LoginButton()
                         .onTapGesture {
                             viewStore.send(.loginButtonTapped)
@@ -42,32 +46,11 @@ struct LoginInputGroup: View {
                             viewStore.send(.joinButtonTapped)
                         }
                 }
-                .onChange(of: focusedField){ _ in
-                    switch focusedField {
-                    case .email:
-                        withAnimation(.default){
-                            isEmailAnimation = true
-                            if viewStore.password == ""{
-                                isPasswordAnimation = false
-                            }
-                            
-                        }
-                    case .password:
-                        withAnimation(.default){
-                            isPasswordAnimation = true
-                            if viewStore.email == ""{
-                                isEmailAnimation = false
-                            }
-                        }
-                    case .none:
-                        withAnimation(.default){
-                            if viewStore.email == ""{
-                                isEmailAnimation = false
-                            }
-                            if viewStore.password == ""{
-                                isPasswordAnimation = false
-                            }
-                        }
+            }
+            .toolbar{
+                ToolbarItem{
+                    Button("Cancle"){
+                        viewStore.send(.cancleButtonTapped)
                     }
                 }
             }

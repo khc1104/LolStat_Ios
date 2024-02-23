@@ -13,5 +13,6 @@ struct Login: View {
     let store : StoreOf<AccountStore>
     var body: some View {
         LoginInputGroup(store: store)
+        
     }
 }

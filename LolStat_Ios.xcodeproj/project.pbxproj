@@ -118,6 +118,7 @@
 		25E98FB12B820DE7003E17AC /* DuoMatchPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E98FB02B820DE7003E17AC /* DuoMatchPicker.swift */; };
 		25E98FB32B820DFD003E17AC /* DuoQueueTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E98FB22B820DFD003E17AC /* DuoQueueTypePicker.swift */; };
 		25E98FB72B83EC61003E17AC /* MatchQueueIdPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E98FB62B83EC61003E17AC /* MatchQueueIdPicker.swift */; };
+		25E98FBA2B875ACD003E17AC /* MyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E98FB92B875ACD003E17AC /* MyPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -232,6 +233,7 @@
 		25E98FB02B820DE7003E17AC /* DuoMatchPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoMatchPicker.swift; sourceTree = "<group>"; };
 		25E98FB22B820DFD003E17AC /* DuoQueueTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoQueueTypePicker.swift; sourceTree = "<group>"; };
 		25E98FB62B83EC61003E17AC /* MatchQueueIdPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchQueueIdPicker.swift; sourceTree = "<group>"; };
+		25E98FB92B875ACD003E17AC /* MyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -600,6 +602,7 @@
 		25B248362AFCF17D00C52952 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				25E98FB82B875AAD003E17AC /* MyPage */,
 				2587D27C2B6664FB008D0313 /* UserVerify */,
 				2587D2762B650DC5008D0313 /* Duo */,
 				2587D2602B5E519E008D0313 /* Login */,
@@ -697,6 +700,14 @@
 				2587D24A2B593143008D0313 /* SavedSummoner.swift */,
 			);
 			path = Atoms;
+			sourceTree = "<group>";
+		};
+		25E98FB82B875AAD003E17AC /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				25E98FB92B875ACD003E17AC /* MyPage.swift */,
+			);
+			path = MyPage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -850,6 +861,7 @@
 				2587D2752B6125FD008D0313 /* Token.swift in Sources */,
 				2587D2672B5E584C008D0313 /* LoginEmailInput.swift in Sources */,
 				2587D2A52B6E7335008D0313 /* DuoLoadingRefresh.swift in Sources */,
+				25E98FBA2B875ACD003E17AC /* MyPage.swift in Sources */,
 				257028462B3A8D6600D3A919 /* LeaderBoard.swift in Sources */,
 				257028522B45835600D3A919 /* RecentlyKdaCard.swift in Sources */,
 				25B2484E2AFCF17D00C52952 /* SummonerTier.swift in Sources */,

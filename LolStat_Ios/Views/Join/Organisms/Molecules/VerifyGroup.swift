@@ -68,13 +68,6 @@ struct VerifyGroup: View {
                 .padding()
                 
             }
-            .toolbar{
-                ToolbarItem{
-                    Button("Cancle"){
-                        viewStore.send(.cancleButtonTapped)
-                    }
-                }
-            }
             .frame(height: Const.Screen.HEIGHT)
             .font(.kingSejong(.regular, size: 20))
             .onChange(of: focusedField){ _ in

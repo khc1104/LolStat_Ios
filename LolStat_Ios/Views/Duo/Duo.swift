@@ -22,11 +22,13 @@ struct Duo: View {
                     state: \.$accountStore,
                     action: DuoStore.Action.accountStore)
                 ){accountStore in
-                    if !viewStore.isAccessToken{
-                        DuoLoadingRefresh(store: accountStore)
-                    }
-                    if !viewStore.isAccessToken && !viewStore.isLogin{
-                        Login(store:accountStore)
+                    NavigationStack{
+                        if !viewStore.isAccessToken{
+                            DuoLoadingRefresh(store: accountStore)
+                        }
+                        if !viewStore.isAccessToken && !viewStore.isLogin{
+                            Login(store:accountStore)
+                        }
                     }
                     
                 }
