@@ -14,13 +14,16 @@ struct AccountStore : Reducer{
         @BindingState var password : String = ""
         @BindingState var verifyCode : String = ""
         var userInfo: UserInfoDto?
-        var timer : String = ""
         var isLogin : Bool = false
         var isVerified: Bool = true
+        
         @BindingState var isAlert : Bool = false
         
+        
         @PresentationState var joinStore: JoinStore.State?
-       
+        
+        var endTime : Date? = UserDefaults.standard.object(forKey: "endTime") as? Date ?? nil
+        var timer : Int = 0
         
     }
     enum Action: BindableAction{
@@ -34,7 +37,6 @@ struct AccountStore : Reducer{
         case responseRefreshToken(AuthResponse?)
         case requestUserVerify
         case responseUserVerify(AuthResponse?)
-        case timer
         
         case LogOutButtonTapped
         case LoadingOnAppear
@@ -42,9 +44,15 @@ struct AccountStore : Reducer{
         case loginButtonTapped
         case joinButtonTapped
         case userVerifyButtonTapped
+        case userVerifyAgainButtonTapped
         case cancleButtonTapped
         
         case testButtonTapped
+        
+        case startTimer
+        case onAppearTimer
+        case timerTick
+        case runTimer
         
         case joinStore(PresentationAction<JoinStore.Action>)
         case alertConfirmButtonTapped
@@ -59,7 +67,10 @@ struct AccountStore : Reducer{
             }
     }
     
+    enum CancelId {case timer}
+    
     @Dependency(\.accountAPIClient) var accountAPI
+    @Dependency(\.continuousClock) var clock
     func joinAcountReducer(into state : inout State, action: Action) -> Effect<Action>{
         switch action{
             //
@@ -143,7 +154,9 @@ struct AccountStore : Reducer{
                     }
                 case .NEED_EMAIL_AUTHENTICATION:
                     state.isVerified = false
-                    return .none
+                    return .run{send in
+                        await send(.startTimer)
+                    }
                 case .NO_ERROR:
                     print("액세스토큰 유효")
                     return .none
@@ -188,6 +201,10 @@ struct AccountStore : Reducer{
                 switch response.errorCode{
                 case .NO_ERROR:
                     state.isVerified = true
+                    state.isLogin = true
+                    state.timer = 0
+                    state.endTime = nil
+                    UserDefaults.standard.removeObject(forKey: "endTime")
                     return .none
                 default:
                     state.isVerified = false
@@ -232,14 +249,75 @@ struct AccountStore : Reducer{
             //
             //이메일 인증 페이지
             //
+            //재요청 버튼 눌렀을 때
+        case .userVerifyAgainButtonTapped:
+            return .run{ send in
+                await send(.requestAuthTest)
+            }
             //인증버튼 눌렀을 때
         case .userVerifyButtonTapped:
             return .run{ send in
                 await send(.requestUserVerify)
             }
+            //
             //타이머
-        case .timer:
+            //
+        case .onAppearTimer:
+            if let endTime = state.endTime{
+                let nowDate = Date()
+                state.timer = Calendar.current.dateComponents([.second], from: nowDate, to:endTime).second ?? 0
+                if state.timer > 0{
+                    return .run{ send in
+                        await send(.runTimer)
+                    }
+                }else{
+                    
+                    return .run {send in
+                        await send(.startTimer)
+                    }
+                }
+            }else{
+                return .run{send in
+                   await send(.startTimer)
+                }
+            }
+        case .timerTick:
+            let nowDate = Date()
+            state.timer = Calendar.current.dateComponents([.second], from: nowDate, to: state.endTime!).second ?? 0
+            if state.timer < 0{
+                return .cancel(id: CancelId.timer)
+            }
             return .none
+            
+        case .startTimer:
+            let nowDate = Date()
+            let endDate = Date(timeInterval: 600, since: nowDate)
+            
+            state.endTime = nil
+            UserDefaults.standard.removeObject(forKey: "endTIme")
+            UserDefaults.standard.set(endDate, forKey: "endTime")
+            state.endTime = endDate
+            
+            state.timer = Calendar.current.dateComponents([.second], from: nowDate, to:endDate).second ?? 0
+            
+            return .run{send in
+                await send(.runTimer)
+            }
+        case .runTimer:
+            if state.timer > 0{
+                return .run{ send in
+                    for await _ in self.clock.timer(interval: .seconds(1)){
+                        await send(.timerTick)
+                    }
+                }
+                .cancellable(id: CancelId.timer)
+            }else{
+                UserDefaults.standard.removeObject(forKey: "endTime")
+                state.endTime = nil
+                state.timer = 0
+                return .cancel(id: CancelId.timer)
+            }
+            
             //
             //테스트 및 다른 스토어관련
             //

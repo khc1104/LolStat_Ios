@@ -34,6 +34,7 @@ struct JoinStore : Reducer{
         case responseCreateUser(AuthResponse?)
         
         case alertConfirmButtonTapped
+
     }
     var body : some ReducerOf<Self>{
         BindingReducer()

@@ -13,18 +13,35 @@ struct UserVerifyGroup: View {
     let store : StoreOf<AccountStore>
     var body: some View {
         WithViewStore(store.self, observe: {$0}){viewStore in
-            Form{
-                HStack{
-                    VerifyCodeInput(verifycode: viewStore.$verifyCode)
-                    VerifyTimer()
-                }
-                VerifyButton()
-                    .onTapGesture {
-                        viewStore.send(.userVerifyButtonTapped)
+            VStack{
+                Form{
+                    HStack{
+                        VerifyCodeInput(verifycode: viewStore.$verifyCode)
+                        if viewStore.timer > 0{
+                            VerifyTimer(timer: viewStore.timer)
+                        }else{
+                            VerifyRequestButton(store : store)
+                        }
                     }
+                    VerifyButton()
+                        .onTapGesture {
+                            viewStore.send(.userVerifyButtonTapped)
+                        }
+                }
+                Button("Logout"){
+                    viewStore.send(.LogOutButtonTapped)
+                }
+                
             }
-            Button("Logout"){
-                viewStore.send(.LogOutButtonTapped)
+            .onAppear{
+                viewStore.send(.onAppearTimer)
+            }
+            .toolbar{
+                ToolbarItem{
+                    Button("cancel"){
+                        viewStore.send(.cancleButtonTapped)
+                    }
+                }
             }
         }
     }

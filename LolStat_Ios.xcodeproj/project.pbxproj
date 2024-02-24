@@ -119,6 +119,7 @@
 		25E98FB32B820DFD003E17AC /* DuoQueueTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E98FB22B820DFD003E17AC /* DuoQueueTypePicker.swift */; };
 		25E98FB72B83EC61003E17AC /* MatchQueueIdPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E98FB62B83EC61003E17AC /* MatchQueueIdPicker.swift */; };
 		25E98FBA2B875ACD003E17AC /* MyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E98FB92B875ACD003E17AC /* MyPage.swift */; };
+		25E98FBC2B8A2A43003E17AC /* VerifyRequestButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E98FBB2B8A2A43003E17AC /* VerifyRequestButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -234,6 +235,7 @@
 		25E98FB22B820DFD003E17AC /* DuoQueueTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuoQueueTypePicker.swift; sourceTree = "<group>"; };
 		25E98FB62B83EC61003E17AC /* MatchQueueIdPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchQueueIdPicker.swift; sourceTree = "<group>"; };
 		25E98FB92B875ACD003E17AC /* MyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPage.swift; sourceTree = "<group>"; };
+		25E98FBB2B8A2A43003E17AC /* VerifyRequestButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyRequestButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -492,6 +494,7 @@
 				2587D2822B6665CE008D0313 /* VerifyCodeInput.swift */,
 				2587D2842B6666CE008D0313 /* VerifyButton.swift */,
 				2587D2872B6667CC008D0313 /* VerifyTimer.swift */,
+				25E98FBB2B8A2A43003E17AC /* VerifyRequestButton.swift */,
 			);
 			path = Atoms;
 			sourceTree = "<group>";
@@ -868,6 +871,7 @@
 				25B248222AFCD99700C52952 /* Const.swift in Sources */,
 				2506AB512B21D8920029D95A /* ChampionIcon.swift in Sources */,
 				25B248532AFCF17D00C52952 /* Main.swift in Sources */,
+				25E98FBC2B8A2A43003E17AC /* VerifyRequestButton.swift in Sources */,
 				25B248512AFCF17D00C52952 /* SummonerInfo.swift in Sources */,
 				2587D2C22B74BD6C008D0313 /* DuoTicketSummonerName.swift in Sources */,
 				2587D2982B6B7E90008D0313 /* DuoColumn.swift in Sources */,

@@ -29,9 +29,13 @@ struct Duo: View {
                         if !viewStore.isAccessToken && !viewStore.isLogin{
                             Login(store:accountStore)
                         }
+                        if !viewStore.emailAuth && viewStore.isLogin{
+                            UserVerify(store: accountStore)
+                        }
                     }
                     
                 }
+
             
                 .alert(viewStore.alertMessage ,isPresented: viewStore.$isAlert){
                     Button("확인", role: .cancel){

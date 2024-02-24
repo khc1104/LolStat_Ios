@@ -17,7 +17,7 @@ struct GoJoinButton: View {
                 .padding(.vertical, 8)
                 .frame(width: Const.Screen.WIDTH * 0.8)
                 .background(.secondary)
-                .foregroundColor(.black)
+                .foregroundColor(.white)
                 .cornerRadius(8)
         }
     }

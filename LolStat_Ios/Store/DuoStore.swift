@@ -23,9 +23,11 @@ struct DuoStore: Reducer{
         var queue : String = "ALL"
         
         var isLogin : Bool = false
+        var emailAuth  : Bool = true
         var isAccessToken : Bool = true
         var runningRequest : DuoRequest?
         @PresentationState var accountStore : AccountStore.State?
+        
         @PresentationState var duoDetailStore : DuoDetailStore.State?
         @PresentationState var duoSearchStore : DuoSearchStore.State?
         
@@ -112,6 +114,10 @@ struct DuoStore: Reducer{
                 state.accountStore = nil
             case .TOKEN_EXPIRED:
                 state.isAccessToken = false
+                state.accountStore = AccountStore.State()
+            case .NEED_EMAIL_AUTHENTICATION:
+                state.isLogin = true
+                state.emailAuth = false
                 state.accountStore = AccountStore.State()
             default:
                 print(response.errorCode)
@@ -298,7 +304,6 @@ struct DuoStore: Reducer{
             
         case .accountStore:
             return .none
-            
         case .duoDetailStore:
             return .none
             

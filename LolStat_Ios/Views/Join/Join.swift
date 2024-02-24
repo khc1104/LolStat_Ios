@@ -18,6 +18,13 @@ struct Join: View {
     var body: some View {
         WithViewStore(self.store, observe: {$0}){viewStore in
             VerifyGroup(store : store)
+                .toolbar{
+                    ToolbarItem{
+                        Button("Cancle"){
+                            viewStore.send(.cancleButtonTapped)
+                        }
+                    }
+                }
         }
     }
 }

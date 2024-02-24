@@ -10,8 +10,9 @@ import SwiftUI
 import ComposableArchitecture
 
 struct UserVerify: View {
-    let store : StoreOf<AccountStore> = LolStat_IosApp.accountStore
+    let store : StoreOf<AccountStore>
     var body: some View {
         UserVerifyGroup(store: store)
+            
     }
 }
