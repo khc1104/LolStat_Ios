@@ -33,6 +33,11 @@ struct UserVerifyGroup: View {
                 }
                 
             }
+            .alert("로그인 실패 \n\(viewStore.alertMessage)", isPresented: viewStore.$isAlert){
+                Button("확인", role: .cancel){
+                    viewStore.send(.alertConfirmButtonTapped)
+                }
+            }
             .onAppear{
                 viewStore.send(.onAppearTimer)
             }
@@ -43,6 +48,7 @@ struct UserVerifyGroup: View {
                     }
                 }
             }
+            
         }
     }
 }

@@ -201,6 +201,7 @@ struct DuoStore: Reducer{
                 return .none
             }
             if isLogin{
+                state.selectedView = .DUO
                 print("로그인")
                 return .run{send in
                     await send(.requestGetDuoList)
@@ -239,6 +240,19 @@ struct DuoStore: Reducer{
             state.accountStore = nil
             state.selectedView = .MAIN
             return .none
+        case.accountStore(.presented(.responseUserVerify)):
+            guard let isVerify = state.accountStore?.isVerified else{
+                print("emailVerify failed")
+                return .none
+            }
+            if isVerify{
+                state.accountStore = nil
+                return .run{send in
+                    await send(.requestGetDuoList)
+                }
+            }else{
+                return .none
+            }
             //듀오상세 - 리프레쉬토큰
         case .duoDetailStore(.presented(.accountStore)):
             guard let isLogin = state.duoDetailStore?.isLogin else{

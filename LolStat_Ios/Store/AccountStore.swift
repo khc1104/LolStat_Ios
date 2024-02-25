@@ -18,12 +18,14 @@ struct AccountStore : Reducer{
         var isVerified: Bool = true
         
         @BindingState var isAlert : Bool = false
-        
+        var alertMessage : String = ""
         
         @PresentationState var joinStore: JoinStore.State?
         
         var endTime : Date? = UserDefaults.standard.object(forKey: "endTime") as? Date ?? nil
         var timer : Int = 0
+        
+        
         
     }
     enum Action: BindableAction{
@@ -140,6 +142,7 @@ struct AccountStore : Reducer{
                     state.isLogin = true
                 default:
                     state.isAlert = true
+                    state.alertMessage = "로그인 실패"
                 }
                 
             }
@@ -205,6 +208,11 @@ struct AccountStore : Reducer{
                     state.timer = 0
                     state.endTime = nil
                     UserDefaults.standard.removeObject(forKey: "endTime")
+                    return .none
+                case .WRONG_EMAIL_AUTHENTICATION:
+                    state.isVerified = false
+                    state.isAlert = true
+                    state.alertMessage = "이메일 인증 오류"
                     return .none
                 default:
                     state.isVerified = false
@@ -283,7 +291,11 @@ struct AccountStore : Reducer{
             }
         case .timerTick:
             let nowDate = Date()
-            state.timer = Calendar.current.dateComponents([.second], from: nowDate, to: state.endTime!).second ?? 0
+            if let endTime = state.endTime{
+                state.timer = Calendar.current.dateComponents([.second], from: nowDate, to: endTime).second ?? 0
+            }else{
+                return .cancel(id: CancelId.timer)
+            }
             if state.timer < 0{
                 return .cancel(id: CancelId.timer)
             }
@@ -334,6 +346,7 @@ struct AccountStore : Reducer{
         case .alertConfirmButtonTapped:
             state.email = ""
             state .password = ""
+            state.verifyCode = ""
             state.isAlert = false
             return .none
         case .binding:

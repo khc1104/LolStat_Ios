@@ -404,6 +404,7 @@ enum LolStatError: Int, Codable{ //에러코드
     case DUO_EXPIRED = 2001
     case DUO_ALREADY_MATCHED = 2002
     case DUO_OWNER_TRY_TICKET = 2003
+    case BAD_REQUEST = 2004
     case INPUT_ERROR = 9000
     case NO_ERROR = 200
 }

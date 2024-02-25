@@ -145,6 +145,10 @@ struct DuoDetailStore: Reducer{
                 state.alertMessage = "입력값이 올바르지 않습니다."
                 state.isAlert = true
                 return .none
+            case .BAD_REQUEST:
+                state.alertMessage = "이미 신청한 듀오찾기 입니다."
+                state.isAlert = true
+                return .none
             default:
                 print(response.message)
                 return .none
